@@ -1,0 +1,28 @@
+.login-form {
+	width: 100%;
+	padding: 25px;
+	color: var(--color-primary);
+}
+
+.form-section {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+}
+
+.form-section input {
+	margin-top: 0.3em;
+}
+
+/* .controls::before {
+	content: '';
+	background-color: black;
+	height: 2px;
+} */
+.controls {
+	margin-top: 0.5em;
+	/* width: 100%; */
+	display: flex;
+	flex-direction: column;
+	float: right;
+}
