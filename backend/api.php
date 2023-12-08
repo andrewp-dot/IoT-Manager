@@ -1,10 +1,16 @@
 <?php
 
-require_once('./config.php');
+include 'config.php';
+include CONTROLLERS_PATH . 'Authenticator.php';
 header('Allow-access-origin:' . ACCESS_ORIGIN);
 
 
 // call router 
 
-echo "Under construct...";
-echo ACCESS_ORIGIN;
+
+$auth = new Authenticator();
+$auth->authenticate('Bro', 'aaaa');
+
+
+// echo "Under construct...";
+// echo ACCESS_ORIGIN;

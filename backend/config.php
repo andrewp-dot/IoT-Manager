@@ -1,15 +1,11 @@
 <?php
 
-// database settings
-define('DB', 'iotdatabase');
-define('DB_USER', 'iot-manager');
-define('DB_PWD', 'pwd');
-define('DB_OPTIONS', null);
-
 // paths
-define("DS", DIRECTORY_SEPARATOR);
-define("ROOT", __DIR__);
+defined('DS') ? null : define("DS", DIRECTORY_SEPARATOR);
+defined('ROOT_PATH') ? null : define("ROOT_PATH", __DIR__);
+defined('MODEL_PATH') ? null : define("MODEL_PATH", __DIR__ . DS . 'model' . DS);
+defined('CONTROLLERS_PATH') ? null : define("CONTROLLERS_PATH", __DIR__ . DS . 'controller' . DS);
 
-define("ACCESS_ORIGIN", 'http://localhost/');
+defined('ACCESS_ORIGIN') ? null : define("ACCESS_ORIGIN", 'http://localhost/');
 
 // echo ROOT;
