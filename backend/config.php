@@ -7,8 +7,9 @@ define('DB_PWD', 'pwd');
 define('DB_OPTIONS', null);
 
 // paths
-define("DS",DIRECTORY_SEPARATOR);
+define("DS", DIRECTORY_SEPARATOR);
 define("ROOT", __DIR__);
 
-echo ROOT;
+define("ACCESS_ORIGIN", 'http://localhost/');
 
+// echo ROOT;
