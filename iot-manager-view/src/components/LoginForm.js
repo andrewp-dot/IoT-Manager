@@ -39,11 +39,14 @@ const LoginForm = () => {
 			withCredentials: true,
 			body: JSON.stringify(loginFormData),
 		});
-		if (response.status === 200) {
+		if (response.ok) {
 			const jsonData = await response.json();
 			console.log(jsonData);
 			setUser({ ...user, login: jsonData.login, role: jsonData.role });
 			console.log(response.headers['set-cookie']);
+		} else {
+			const errorMessage = await response.json();
+			console.log(errorMessage.message);
 		}
 	};
 

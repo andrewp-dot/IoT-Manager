@@ -1,6 +1,7 @@
 <?php
 
-require(__DIR__ . DS . '..' . DS . 'model' . DS . 'IotDatabase.php');
+require_once(__DIR__ . DS . '..' . DS . 'error.php');
+require_once(__DIR__ . DS . '..' . DS . 'model' . DS . 'IotDatabase.php');
 
 class Authenticator extends IotDatabase
 {
@@ -30,13 +31,11 @@ class Authenticator extends IotDatabase
                 setcookie('user_token', $user['login'], time() + 60, '/');
                 exit;
             } else {
-                http_response_code(401);
-                echo json_encode(["fail" => 401]);
+                ApiError::reportError(401, "Password is invalid.");
                 exit;
             }
         }
-        http_response_code(401);
-        echo json_encode(["fail" => 401]);
+        ApiError::reportError(401, "User unknown.");
         exit;
     }
 
