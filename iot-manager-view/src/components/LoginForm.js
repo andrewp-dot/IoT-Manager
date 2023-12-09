@@ -18,6 +18,25 @@ const LoginForm = () => {
 		setLoginFormData({ ...loginFormData, password: e.target.value });
 	};
 
+	const sendFormData = async () => {
+		const response = await fetch('http://localhost:8000', {
+			method: 'POST',
+			mode: 'cors',
+			cache: 'no-cache',
+			credentials: 'same-origin', // include, *same-origin, omit
+			headers: {
+				'Content-Type': 'application/json',
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			redirect: 'follow', // manual, *follow, error
+			referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
+			withCredentials: true,
+			body: JSON.stringify(loginFormData),
+		});
+		// const jsonData = response.text();
+		console.log(response);
+	};
+
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
 		// check data if they are not empty
@@ -25,7 +44,8 @@ const LoginForm = () => {
 		// recieve data
 		// display data if ok or not
 		// if ok continue as logged user
-		console.log(loginFormData);
+		sendFormData();
+		// console.log(loginFormData);
 		// reset valuse
 		setLoginFormData(LOGIN_DEFAULT);
 	};

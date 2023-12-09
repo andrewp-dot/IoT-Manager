@@ -1,16 +1,20 @@
 <?php
 
+session_start();
+
 include 'config.php';
 include CONTROLLERS_PATH . 'Authenticator.php';
-header('Allow-access-origin:' . ACCESS_ORIGIN);
 
-
-// call router 
-
+/* headers in here */
+header('Access-Control-Allow-Origin: ' . ACCESS_ORIGIN);
+header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Request-Method: POST');
+header('Content-Type: application/json');
 
 $auth = new Authenticator();
-$auth->authenticate('Bro', 'aaaa');
 
+$requestData = json_decode(file_get_contents('php://input'), true);
+echo "$requestData\n";
 
-// echo "Under construct...";
-// echo ACCESS_ORIGIN;
+$auth->login('Bro', 'aaaa');
