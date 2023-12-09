@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import cls from './styles/loginFormStyles.module.css';
 import Card from '../UI/Card';
+import config from '../config.json';
 
 const LOGIN_DEFAULT = {
 	login: '',
@@ -19,7 +20,7 @@ const LoginForm = () => {
 	};
 
 	const sendFormData = async () => {
-		const response = await fetch('http://localhost:8000', {
+		const response = await fetch(config.backend.url, {
 			method: 'POST',
 			mode: 'cors',
 			cache: 'no-cache',
@@ -33,8 +34,9 @@ const LoginForm = () => {
 			withCredentials: true,
 			body: JSON.stringify(loginFormData),
 		});
-		// const jsonData = response.text();
+		const jsonData = await response.json();
 		console.log(response);
+		console.log(jsonData);
 	};
 
 	const onSubmitHandler = (e) => {

@@ -19,7 +19,7 @@ class Authenticator extends IotDatabase
         $stmt->execute([$login]);
         $user = $stmt->fetch();
 
-        if ($user['password'] == $pwd) {
+        if ($user['password'] === $pwd) {
             echo 'Success: ' . 'User: ' . $login . ' Password: ' . $pwd;
             exit;
         } else {

@@ -14,7 +14,11 @@ header('Content-Type: application/json');
 
 $auth = new Authenticator();
 
-$requestData = json_decode(file_get_contents('php://input'), true);
-echo "$requestData\n";
+// $requestData = json_decode(file_get_contents('php://input'), true);
+// echo "Got data: ";
+// echo file_get_contents('php://input');
 
-$auth->login('Bro', 'aaaa');
+echo json_encode(["success" => 200]);
+// var_dump($requestData);
+// $auth->login($requestData['login'], $requestData['password']);
+// $auth->logout();
