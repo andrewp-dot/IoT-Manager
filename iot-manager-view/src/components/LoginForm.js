@@ -42,7 +42,8 @@ const LoginForm = () => {
 		if (response.status === 200) {
 			const jsonData = await response.json();
 			console.log(jsonData);
-			setUser({ ...user, login: 'logged user', role: 'custom role' });
+			setUser({ ...user, login: jsonData.login, role: jsonData.role });
+			console.log(response.headers['set-cookie']);
 		}
 	};
 

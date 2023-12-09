@@ -25,14 +25,18 @@ class Authenticator extends IotDatabase
         if ($user) {
             $userPwd = $user['password'];
             if ($userPwd === $pwd) {
-                echo json_encode(["success" => 200]);
+                echo json_encode(["login" => $user['login'], "role" => $user['status']]);
+                // set cookie
+                setcookie('user_token', $user['login'], time() + 60, '/');
                 exit;
             } else {
-                echo json_encode(["fail" => 403]);
+                http_response_code(401);
+                echo json_encode(["fail" => 401]);
                 exit;
             }
         }
-        echo json_encode(["fail" => 403]);
+        http_response_code(401);
+        echo json_encode(["fail" => 401]);
         exit;
     }
 
