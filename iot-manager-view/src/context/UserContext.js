@@ -1,8 +1,9 @@
 import React, { createContext, useState } from 'react';
 
 export const DEFAULT_USER = {
-	login: '',
-	role: 'guest',
+	login: localStorage.getItem('user') || '',
+	role: localStorage.getItem('role') || 'guest',
+	// premissions: [],
 };
 
 const DEFAULT_USER_CONTEXT = {

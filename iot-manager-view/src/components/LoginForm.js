@@ -2,10 +2,7 @@ import React, { useState, useContext } from 'react';
 import cls from './styles/loginFormStyles.module.css';
 import Card from '../UI/Card';
 import config from '../config.json';
-import UserContext, {
-	UserContextConsumer,
-	UserContextProvider,
-} from '../context/UserContext';
+import UserContext, { UserContextConsumer } from '../context/UserContext';
 
 const LOGIN_DEFAULT = {
 	login: '',
@@ -15,6 +12,7 @@ const LOGIN_DEFAULT = {
 const LoginForm = () => {
 	const { user, setUser } = useContext(UserContext);
 	const [loginFormData, setLoginFormData] = useState(LOGIN_DEFAULT);
+	const [error, setError] = useState(false);
 
 	const loginHandler = (e) => {
 		setLoginFormData({ ...loginFormData, login: e.target.value });
@@ -39,29 +37,42 @@ const LoginForm = () => {
 			withCredentials: true,
 			body: JSON.stringify(loginFormData),
 		});
+		// get response and set data
 		if (response.ok) {
 			const jsonData = await response.json();
-			console.log(jsonData);
+			// get token here
+			// save token to local storage or cookie
+			localStorage.setItem('user', jsonData.login);
+			localStorage.setItem('role', jsonData.role);
+			// localStorage.setItem('token','TOKEN IN HERRE');
 			setUser({ ...user, login: jsonData.login, role: jsonData.role });
-			console.log(response.headers['set-cookie']);
+
+			// display cookie
+			console.log(response.headers);
+			setError(false);
 		} else {
 			const errorMessage = await response.json();
 			console.log(errorMessage.message);
 		}
 	};
 
+	const logout = () => {
+		// send data for logout
+		localStorage.removeItem('user');
+		localStorage.removeItem('role');
+		setUser({ ...user, login: '', role: 'guest' });
+	};
+
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
-		// check data if they are not empty
-		// send data
-		// recieve data
-		// display data if ok or not
-		// if ok continue as logged user
+
+		// validate if all required data are in here
+		if (loginFormData.login === '' || loginFormData.password === '') {
+			setError(true);
+			return;
+		}
 		sendFormData();
-		// console.log(loginFormData);
-		// reset valuse
 		setLoginFormData(LOGIN_DEFAULT);
-		// set context value
 	};
 
 	return (
@@ -92,6 +103,9 @@ const LoginForm = () => {
 					</div>
 					<div className={cls['controls']}>
 						<input type='submit' value='Send' />
+						<button type='button' onClick={logout}>
+							Logout
+						</button>
 					</div>
 				</form>
 			</Card>
