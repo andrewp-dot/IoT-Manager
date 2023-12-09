@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import cls from './styles/loginFormStyles.module.css';
 import Card from '../UI/Card';
 import config from '../config.json';
+import UserContext, {
+	UserContextConsumer,
+	UserContextProvider,
+} from '../context/UserContext';
 
 const LOGIN_DEFAULT = {
 	login: '',
@@ -9,6 +13,7 @@ const LOGIN_DEFAULT = {
 };
 
 const LoginForm = () => {
+	const { user, setUser } = useContext(UserContext);
 	const [loginFormData, setLoginFormData] = useState(LOGIN_DEFAULT);
 
 	const loginHandler = (e) => {
@@ -34,9 +39,11 @@ const LoginForm = () => {
 			withCredentials: true,
 			body: JSON.stringify(loginFormData),
 		});
-		const jsonData = await response.json();
-		console.log(response);
-		console.log(jsonData);
+		if (response.status === 200) {
+			const jsonData = await response.json();
+			console.log(jsonData);
+			setUser({ ...user, login: 'logged user', role: 'custom role' });
+		}
 	};
 
 	const onSubmitHandler = (e) => {
@@ -50,38 +57,48 @@ const LoginForm = () => {
 		// console.log(loginFormData);
 		// reset valuse
 		setLoginFormData(LOGIN_DEFAULT);
+		// set context value
 	};
 
 	return (
-		<Card width='400px'>
-			<form className={cls['login-form']} onSubmit={onSubmitHandler}>
-				<div className={cls['form-section']}>
-					<label htmlFor='login'>Login</label>
-					<input
-						type='text'
-						name='login'
-						id='login'
-						placeholder='Login'
-						value={loginFormData.login}
-						onChange={loginHandler}
-					/>
-				</div>
-				<div className={cls['form-section']}>
-					<label htmlFor='password'>Password</label>
-					<input
-						type='password'
-						name='password'
-						id='password'
-						placeholder='Password'
-						value={loginFormData.password}
-						onChange={passwordHandler}
-					/>
-				</div>
-				<div className={cls['controls']}>
-					<input type='submit' value='Send' />
-				</div>
-			</form>
-		</Card>
+		<>
+			<Card width='400px'>
+				<form className={cls['login-form']} onSubmit={onSubmitHandler}>
+					<div className={cls['form-section']}>
+						<label htmlFor='login'>Login</label>
+						<input
+							type='text'
+							name='login'
+							id='login'
+							placeholder='Login'
+							value={loginFormData.login}
+							onChange={loginHandler}
+						/>
+					</div>
+					<div className={cls['form-section']}>
+						<label htmlFor='password'>Password</label>
+						<input
+							type='password'
+							name='password'
+							id='password'
+							placeholder='Password'
+							value={loginFormData.password}
+							onChange={passwordHandler}
+						/>
+					</div>
+					<div className={cls['controls']}>
+						<input type='submit' value='Send' />
+					</div>
+				</form>
+			</Card>
+			<UserContextConsumer>
+				{(ctx) => (
+					<p>
+						User: {ctx.user.login}, Role {ctx.user.role}
+					</p>
+				)}
+			</UserContextConsumer>
+		</>
 	);
 };
 
