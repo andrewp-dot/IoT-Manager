@@ -14,11 +14,10 @@ header('Content-Type: application/json');
 
 $auth = new Authenticator();
 
-// $requestData = json_decode(file_get_contents('php://input'), true);
-// echo "Got data: ";
-// echo file_get_contents('php://input');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $requestData = json_decode(file_get_contents('php://input'), true);
+    $auth->login($requestData['login'], $requestData['password']);
+}
 
-echo json_encode(["success" => 200]);
-// var_dump($requestData);
-// $auth->login($requestData['login'], $requestData['password']);
+// $auth->login('Bro', 'aassaa');
 // $auth->logout();

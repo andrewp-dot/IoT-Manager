@@ -14,19 +14,26 @@ class Authenticator extends IotDatabase
 
     public function login($login, $pwd)
     {
+        if (!isset($login) || !isset($pwd)) {
+            echo json_encode(["notSet" => 403]);
+        }
         $loginQuery = "SELECT * FROM users WHERE login = ?";
         $stmt = $this->db->prepare($loginQuery);
         $stmt->execute([$login]);
         $user = $stmt->fetch();
 
-        if ($user['password'] === $pwd) {
-            echo 'Success: ' . 'User: ' . $login . ' Password: ' . $pwd;
-            exit;
-        } else {
-            echo "Nothing happend";
-            // send message about unsuccesful login
-            exit;
+        if ($user) {
+            $userPwd = $user['password'];
+            if ($userPwd === $pwd) {
+                echo json_encode(["success" => 200]);
+                exit;
+            } else {
+                echo json_encode(["fail" => 403]);
+                exit;
+            }
         }
+        echo json_encode(["fail" => 403]);
+        exit;
     }
 
     public function logout($login)
