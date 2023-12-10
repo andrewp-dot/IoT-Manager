@@ -11,8 +11,16 @@
 }
 
 .form-section input {
+	box-sizing: border-box;
 	margin-top: 0.3em;
+	border-radius: 0.3rem;
+	border: 2px solid transparent;
+	line-height: 20px;
 }
+/* 
+.form-section input:focus {
+	border-color: transparent;
+} */
 
 /* .controls::before {
 	content: '';
@@ -25,4 +33,8 @@
 	display: flex;
 	flex-direction: column;
 	float: right;
+}
+
+.invalid {
+	border-color: red !important ;
 }

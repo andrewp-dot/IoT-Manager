@@ -40,8 +40,6 @@ const LoginForm = () => {
 		// get response and set data
 		if (response.ok) {
 			const userData = await response.json();
-			// user.login(userData.login, userData.role);
-			console.log(user);
 			user.login(userData.login, userData.role);
 			setError(false);
 		} else {
@@ -73,6 +71,9 @@ const LoginForm = () => {
 							name='login'
 							id='login'
 							placeholder='Login'
+							className={
+								error && loginFormData.login.trim() === '' && cls['invalid']
+							}
 							value={loginFormData.login}
 							onChange={loginHandler}
 						/>
@@ -84,6 +85,9 @@ const LoginForm = () => {
 							name='password'
 							id='password'
 							placeholder='Password'
+							className={
+								error && loginFormData.password.trim() === '' && cls['invalid']
+							}
 							value={loginFormData.password}
 							onChange={passwordHandler}
 						/>
