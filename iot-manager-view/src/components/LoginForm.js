@@ -10,7 +10,7 @@ const LOGIN_DEFAULT = {
 };
 
 const LoginForm = () => {
-	const { user, setUser } = useContext(UserContext);
+	const user = useContext(UserContext);
 	const [loginFormData, setLoginFormData] = useState(LOGIN_DEFAULT);
 	const [error, setError] = useState(false);
 
@@ -38,23 +38,16 @@ const LoginForm = () => {
 			body: JSON.stringify(loginFormData),
 		});
 		// get response and set data
-
 		if (response.ok) {
-			const jsonData = await response.json();
-			// function for this
-			localStorage.setItem('iotManagerUser', jsonData.login);
-			localStorage.setItem('iotManagerUserRole', jsonData.role);
-			setUser({ ...user, login: jsonData.login, role: jsonData.role });
+			const userData = await response.json();
+			// user.login(userData.login, userData.role);
+			console.log(user);
+			user.login(userData.login, userData.role);
 			setError(false);
 		} else {
 			const errorMessage = await response.json();
 			console.log(errorMessage.message);
 		}
-	};
-
-	const logout = () => {
-		// send data for logout
-		setUser({ ...user, login: '', role: 'guest' });
 	};
 
 	const onSubmitHandler = (e) => {
@@ -97,7 +90,13 @@ const LoginForm = () => {
 					</div>
 					<div className={cls['controls']}>
 						<input type='submit' value='Send' />
-						<button type='button' onClick={logout}>
+						<button
+							type='button'
+							onClick={() => {
+								console.log(user);
+								user.logout();
+							}}
+						>
 							Logout
 						</button>
 					</div>
