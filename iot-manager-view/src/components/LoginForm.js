@@ -27,7 +27,7 @@ const LoginForm = () => {
 			method: 'POST',
 			mode: 'cors',
 			cache: 'no-cache',
-			credentials: 'same-origin', // include, *same-origin, omit
+			credentials: 'include', // include, *same-origin, omit
 			headers: {
 				'Content-Type': 'application/json',
 				// 'Content-Type': 'application/x-www-form-urlencoded',
@@ -38,17 +38,10 @@ const LoginForm = () => {
 			body: JSON.stringify(loginFormData),
 		});
 		// get response and set data
+
 		if (response.ok) {
 			const jsonData = await response.json();
-			// get token here
-			// save token to local storage or cookie
-			localStorage.setItem('user', jsonData.login);
-			localStorage.setItem('role', jsonData.role);
-			// localStorage.setItem('token','TOKEN IN HERRE');
 			setUser({ ...user, login: jsonData.login, role: jsonData.role });
-
-			// display cookie
-			console.log(response.headers);
 			setError(false);
 		} else {
 			const errorMessage = await response.json();

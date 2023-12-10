@@ -26,9 +26,9 @@ class Authenticator extends IotDatabase
         if ($user) {
             $userPwd = $user['password'];
             if ($userPwd === $pwd) {
-                echo json_encode(["login" => $user['login'], "role" => $user['status']]);
                 // set cookie
                 setcookie('user_token', $user['login'], time() + 60, '/');
+                echo json_encode(["login" => $user['login'], "role" => $user['status']]);
                 exit;
             } else {
                 ApiError::reportError(401, "Password is invalid.");
