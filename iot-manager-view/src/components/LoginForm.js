@@ -23,7 +23,7 @@ const LoginForm = () => {
 	};
 
 	const sendFormData = async () => {
-		const response = await fetch(config.backend.url, {
+		const response = await fetch(config.backend.url + '/login', {
 			method: 'POST',
 			mode: 'cors',
 			cache: 'no-cache',

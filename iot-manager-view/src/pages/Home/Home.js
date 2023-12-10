@@ -1,9 +1,9 @@
 import React from 'react';
-import { UserContextConsumer } from '../context/UserContext';
+import { UserContextConsumer } from '../../context/UserContext';
 
 const Home = () => {
 	return (
-		<p>
+		<div>
 			Home <br />
 			<UserContextConsumer>
 				{(ctx) => (
@@ -14,7 +14,7 @@ const Home = () => {
 					</p>
 				)}
 			</UserContextConsumer>
-		</p>
+		</div>
 	);
 };
 
