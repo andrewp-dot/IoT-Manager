@@ -1,24 +1,25 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
-import {
-	UserContextConsumer,
-	UserContextProvider,
-} from './context/UserContext';
+import { UserContextProvider } from './context/UserContext';
 import './App.css';
+import Home from './pages/Home';
+
+// const routes = {};
+
+// const router = createBrowserRouter();
 
 function App() {
 	return (
 		<UserContextProvider>
-			<div className='App'>
-				<LoginForm />
-				{/* <UserContextConsumer>
-					{(ctx) => (
-						<button type='button' onClick={() => console.log(ctx.token)}>
-							{ctx.token ? 'Display token' : 'Any token to display'}
-						</button>
-					)}
-				</UserContextConsumer> */}
-			</div>
+			<BrowserRouter>
+				<div className='App'>
+					<Routes>
+						<Route path='/' element={<Home />} />
+						<Route path='/login' element={<LoginForm />} />
+					</Routes>
+				</div>
+			</BrowserRouter>
 		</UserContextProvider>
 	);
 }

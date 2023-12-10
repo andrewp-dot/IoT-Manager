@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import cls from './styles/loginFormStyles.module.css';
 import Card from '../UI/Card';
 import config from '../config.json';
-import UserContext, { UserContextConsumer } from '../context/UserContext';
+import UserContext from '../context/UserContext';
 
 const LOGIN_DEFAULT = {
 	login: '',
@@ -27,7 +27,7 @@ const LoginForm = () => {
 			method: 'POST',
 			mode: 'cors',
 			cache: 'no-cache',
-			credentials: 'include', // include, *same-origin, omit
+			credentials: 'include',
 			headers: {
 				'Content-Type': 'application/json',
 				// 'Content-Type': 'application/x-www-form-urlencoded',
@@ -72,7 +72,7 @@ const LoginForm = () => {
 							id='login'
 							placeholder='Login'
 							className={
-								error && loginFormData.login.trim() === '' && cls['invalid']
+								error && loginFormData.login.trim() === '' ? cls['invalid'] : ''
 							}
 							value={loginFormData.login}
 							onChange={loginHandler}
@@ -86,7 +86,9 @@ const LoginForm = () => {
 							id='password'
 							placeholder='Password'
 							className={
-								error && loginFormData.password.trim() === '' && cls['invalid']
+								error && loginFormData.password.trim() === ''
+									? cls['invalid']
+									: ''
 							}
 							value={loginFormData.password}
 							onChange={passwordHandler}
