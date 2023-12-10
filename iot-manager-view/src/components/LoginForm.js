@@ -97,22 +97,14 @@ const LoginForm = () => {
 						<button
 							type='button'
 							onClick={() => {
-								console.log(user);
-								user.logout();
+								console.log('Register in here');
 							}}
 						>
-							Logout
+							Register
 						</button>
 					</div>
 				</form>
 			</Card>
-			<UserContextConsumer>
-				{(ctx) => (
-					<p>
-						User: {ctx.user.login}, Role {ctx.user.role}
-					</p>
-				)}
-			</UserContextConsumer>
 		</>
 	);
 };

@@ -11,13 +11,13 @@ function App() {
 		<UserContextProvider>
 			<div className='App'>
 				<LoginForm />
-				<UserContextConsumer>
+				{/* <UserContextConsumer>
 					{(ctx) => (
 						<button type='button' onClick={() => console.log(ctx.token)}>
 							{ctx.token ? 'Display token' : 'Any token to display'}
 						</button>
 					)}
-				</UserContextConsumer>
+				</UserContextConsumer> */}
 			</div>
 		</UserContextProvider>
 	);
