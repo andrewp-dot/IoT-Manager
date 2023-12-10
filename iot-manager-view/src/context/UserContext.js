@@ -1,9 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 
 export const DEFAULT_USER = {
-	login: localStorage.getItem('user') || '',
-	role: localStorage.getItem('role') || 'guest',
+	login: localStorage.getItem('iotManagerUser') || '',
+	role: localStorage.getItem('iotManagerUserRole') || 'guest',
 	// premissions: [],
 };
 
@@ -19,6 +19,16 @@ export const UserContextProvider = ({ children }) => {
 	const [cookies, setCookie, removeCookie] = useCookies(['user_token']);
 
 	const [user, setUser] = useState(DEFAULT_USER);
+
+	useEffect(() => {
+		if (!cookies.user_token) {
+			setUser(DEFAULT_USER);
+			localStorage.removeItem('iotManagerUser');
+			localStorage.removeItem('iotManagerUserRole');
+		} else {
+			setUser({ ...user });
+		}
+	}, [cookies.user_token]);
 	return (
 		<UserContext.Provider value={{ user, token: cookies.user_token, setUser }}>
 			{children}

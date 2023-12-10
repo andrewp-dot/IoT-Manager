@@ -41,6 +41,9 @@ const LoginForm = () => {
 
 		if (response.ok) {
 			const jsonData = await response.json();
+			// function for this
+			localStorage.setItem('iotManagerUser', jsonData.login);
+			localStorage.setItem('iotManagerUserRole', jsonData.role);
 			setUser({ ...user, login: jsonData.login, role: jsonData.role });
 			setError(false);
 		} else {
@@ -51,8 +54,6 @@ const LoginForm = () => {
 
 	const logout = () => {
 		// send data for logout
-		localStorage.removeItem('user');
-		localStorage.removeItem('role');
 		setUser({ ...user, login: '', role: 'guest' });
 	};
 
