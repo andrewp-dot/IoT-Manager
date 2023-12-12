@@ -1,0 +1,17 @@
+.button {
+	padding: 0.5rem;
+	border: 2px solid transparent;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.classic {
+	color: var(--color-primary);
+	background-color: var(--color-secondary);
+}
+
+.inverse {
+	color: var(--color-secondary);
+	background-color: var(--color-primary);
+	border-color: var(--color-secondary);
+}

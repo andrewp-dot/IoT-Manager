@@ -3,6 +3,7 @@ import cls from './styles/loginFormStyles.module.css';
 import Card from '../UI/Card';
 import config from '../config.json';
 import UserContext from '../context/UserContext';
+import Button from '../UI/Button';
 
 const LOGIN_DEFAULT = {
 	login: '',
@@ -100,15 +101,16 @@ const LoginForm = () => {
 						/>
 					</div>
 					<div className={cls['controls']}>
-						<input type='submit' value='Send' />
-						<button
+						<Button
 							type='button'
 							onClick={() => {
 								console.log('Register in here');
 							}}
+							inverseStyle={true}
 						>
 							Register
-						</button>
+						</Button>
+						<Button type='submit'>Send</Button>
 					</div>
 				</form>
 			</Card>

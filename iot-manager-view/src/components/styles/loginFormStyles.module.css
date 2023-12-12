@@ -5,6 +5,7 @@
 }
 
 .form-section {
+	margin-top: 0.5em;
 	display: flex;
 	flex-direction: column;
 	text-align: left;
@@ -12,16 +13,20 @@
 
 .form-section input {
 	box-sizing: border-box;
-	margin-top: 0.3em;
-	border-radius: 0.3rem;
+	border-radius: 5px;
 	border: 2px solid var(--color-secondary);
 	line-height: 20px;
 }
 
 .controls {
-	margin-top: 0.5em;
+	/* border-top: 2px solid black;
+	padding-top: 0.5rem; */
+	margin-top: 1rem;
+	width: 100%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 	float: right;
 }
 
