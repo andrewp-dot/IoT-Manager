@@ -4,6 +4,7 @@ import Card from '../UI/Card';
 import config from '../config.json';
 import UserContext from '../context/UserContext';
 import Button from '../UI/Button';
+import { useNavigate } from 'react-router-dom';
 
 const LOGIN_DEFAULT = {
 	login: '',
@@ -14,6 +15,7 @@ const LoginForm = () => {
 	const user = useContext(UserContext);
 	const [loginFormData, setLoginFormData] = useState(LOGIN_DEFAULT);
 	const [error, setError] = useState(false);
+	const navigate = useNavigate();
 
 	const loginHandler = (e) => {
 		setLoginFormData({ ...loginFormData, login: e.target.value });
@@ -43,6 +45,7 @@ const LoginForm = () => {
 			if (response.ok) {
 				const userData = await response.json();
 				user.login(userData.login, userData.role);
+				navigate('/systems');
 				setError(false);
 			} else {
 				const errorMessage = await response.json();
@@ -68,7 +71,7 @@ const LoginForm = () => {
 
 	return (
 		<>
-			<Card width='400px'>
+			<Card width='20%'>
 				<form className={cls['login-form']} onSubmit={onSubmitHandler}>
 					<div className={cls['form-section']}>
 						<label htmlFor='login'>Login</label>
@@ -104,6 +107,7 @@ const LoginForm = () => {
 						<Button
 							type='button'
 							onClick={() => {
+								navigate('/register');
 								console.log('Register in here');
 							}}
 							inverseStyle={true}
