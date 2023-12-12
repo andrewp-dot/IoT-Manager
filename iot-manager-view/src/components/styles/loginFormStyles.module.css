@@ -1,7 +1,7 @@
 .login-form {
 	width: 100%;
 	padding: 25px;
-	color: var(--color-primary);
+	color: var(--color-secondary);
 }
 
 .form-section {
@@ -14,7 +14,7 @@
 	box-sizing: border-box;
 	margin-top: 0.3em;
 	border-radius: 0.3rem;
-	border: 2px solid transparent;
+	border: 2px solid var(--color-secondary);
 	line-height: 20px;
 }
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LoginForm from './components/LoginForm';
 import { UserContextProvider } from './context/UserContext';
-import './App.css';
 import Home from './pages/Home/Home';
+import LoginPage from './pages/Login/Login';
+import './App.css';
 
 function App() {
 	return (
@@ -12,7 +12,7 @@ function App() {
 				<div className='App'>
 					<Routes>
 						<Route path='/' element={<Home />} />
-						<Route path='/login' element={<LoginForm />} />
+						<Route path='/login' element={<LoginPage />} />
 					</Routes>
 				</div>
 			</BrowserRouter>

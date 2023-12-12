@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 
 export const DEFAULT_USER = {
-	login: localStorage.getItem('iotManagerUser') || '',
+	login: localStorage.getItem('iotManagerUser') || 'Guest',
 	role: localStorage.getItem('iotManagerUserRole') || 'guest',
 };
 

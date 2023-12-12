@@ -23,28 +23,33 @@ const LoginForm = () => {
 	};
 
 	const sendFormData = async () => {
-		const response = await fetch(config.backend.url + '/login', {
-			method: 'POST',
-			mode: 'cors',
-			cache: 'no-cache',
-			credentials: 'include',
-			headers: {
-				'Content-Type': 'application/json',
-				// 'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			redirect: 'follow', // manual, *follow, error
-			referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
-			withCredentials: true,
-			body: JSON.stringify(loginFormData),
-		});
-		// get response and set data
-		if (response.ok) {
-			const userData = await response.json();
-			user.login(userData.login, userData.role);
-			setError(false);
-		} else {
-			const errorMessage = await response.json();
-			console.log(errorMessage.message);
+		try {
+			const response = await fetch(config.backend.url + '/login', {
+				method: 'POST',
+				mode: 'cors',
+				cache: 'no-cache',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json',
+					// 'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				redirect: 'follow', // manual, *follow, error
+				referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
+				withCredentials: true,
+				body: JSON.stringify(loginFormData),
+			});
+			// get response and set data
+			if (response.ok) {
+				const userData = await response.json();
+				user.login(userData.login, userData.role);
+				setError(false);
+			} else {
+				const errorMessage = await response.json();
+				console.log(errorMessage.message);
+			}
+		} catch (e) {
+			// handle error
+			console.log(e);
 		}
 	};
 

@@ -1,0 +1,20 @@
+.guest-navbar {
+	height: 70px;
+	width: 100%;
+	background-color: rgba(255, 255, 255, 0.1);
+	display: flex;
+	justify-content: flex-end;
+}
+
+.guest-nav {
+	width: 20%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.active {
+	cursor: pointer;
+	background-color: black;
+}
