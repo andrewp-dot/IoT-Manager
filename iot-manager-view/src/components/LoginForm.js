@@ -27,7 +27,7 @@ const LoginForm = () => {
 
 	const sendFormData = async () => {
 		try {
-			const response = await fetch(config.backend.url + '/login', {
+			const response = await fetch(config.backend.api.login.url + '/login', {
 				method: 'POST',
 				mode: 'cors',
 				cache: 'no-cache',
@@ -108,13 +108,12 @@ const LoginForm = () => {
 							type='button'
 							onClick={() => {
 								navigate('/register');
-								console.log('Register in here');
 							}}
 							inverseStyle={true}
 						>
-							Register
+							Create Account
 						</Button>
-						<Button type='submit'>Send</Button>
+						<Button type='submit'>Login</Button>
 					</div>
 				</form>
 			</Card>

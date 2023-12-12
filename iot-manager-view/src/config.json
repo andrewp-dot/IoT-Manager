@@ -1,5 +1,13 @@
 {
 	"backend": {
 		"url": "http://localhost:8000"
+	},
+	"api": {
+		"login": {
+			"url": "http://localhost:8000/login"
+		},
+		"register": {
+			"url": "http://localhost:8000/register"
+		}
 	}
 }

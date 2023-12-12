@@ -4,6 +4,7 @@ import { UserContextProvider } from './context/UserContext';
 import Home from './pages/Home/Home';
 import LoginPage from './pages/Login/Login';
 import './App.css';
+import RegisterPage from './pages/Register/Register';
 
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 					<Routes>
 						<Route path='/' element={<Home />} />
 						<Route path='/login' element={<LoginPage />} />
+						<Route path='/register' element={<RegisterPage />} />
 					</Routes>
 				</div>
 			</BrowserRouter>
