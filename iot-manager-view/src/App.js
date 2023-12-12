@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserContextProvider } from './context/UserContext';
 import Home from './pages/Home/Home';
 import LoginPage from './pages/Login/Login';
-import './App.css';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 import RegisterPage from './pages/Register/Register';
+import './App.css';
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 						<Route path='/' element={<Home />} />
 						<Route path='/login' element={<LoginPage />} />
 						<Route path='/register' element={<RegisterPage />} />
+						<Route path='*' element={<ErrorPage />} />
 					</Routes>
 				</div>
 			</BrowserRouter>

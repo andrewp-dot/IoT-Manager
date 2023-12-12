@@ -19,7 +19,7 @@ const RegisterForm = () => {
 
 	// const sendFormData = async () => {
 	// 	try {
-	// 		const response = await fetch(config.backend.api.register.url, {
+	// 		const response = await fetch(config.api.register.url, {
 	// 			method: 'POST',
 	// 			mode: 'cors',
 	// 			cache: 'no-cache',
