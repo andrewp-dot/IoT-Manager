@@ -4,6 +4,7 @@ include_once(__DIR__ . DS . '..' . DS . 'error.php');
 include_once(__DIR__ . DS . '..' . DS . 'model' . DS . 'UserModel.php');
 include_once(__DIR__ . DS . '..' . DS . 'model' . DS . 'IotDatabase.php');
 
+defined('LOGIN_EXPIRATION') ? null : define('LOGIN_EXPIRATION',600);
 class Authenticator extends BaseController
 {
     /**
@@ -27,7 +28,7 @@ class Authenticator extends BaseController
             $userPwd = $user['password'];
             if ($userPwd === $pwd) {
                 // set cookie for 10 min
-                setcookie('user_token', $user['login'], time() + 600, '/');
+                setcookie('user_token', $user['login'], time() + LOGIN_EXPIRATION, '/');
                 echo json_encode(["login" => $user['login'], "role" => $user['role']]);
                 exit;
             } else {
@@ -41,6 +42,7 @@ class Authenticator extends BaseController
 
     public function logout($login)
     {
-        // set cookie with expiration of 0
+        $user = $this->userModel->getUser($login);
+        setcookie('user_token', $user['login'], time() - LOGIN_EXPIRATION, '/');
     }
 }
