@@ -41,7 +41,7 @@ const RegisterForm = () => {
 		reducer,
 		INITIAL_STATE
 	);
-	const [error, setError] = useState(false);
+	const [error, setError] = useState({ err: false, msg: '' });
 	const navigate = useNavigate();
 
 	// const sendFormData = async () => {
@@ -76,17 +76,54 @@ const RegisterForm = () => {
 	// 	}
 	// };
 
+	const errorStyle = (inputValue) => {
+		const isError = error.err && inputValue.trim() === '';
+		return isError ? cls['invalid'] : '';
+	};
+
+	const pwdAndRepeatPwdIsMatched = () => {
+		return registerFormData.password === registerFormData.repeatPassword;
+	};
+
+	const registerDataIsValid = () => {
+		if (
+			registerFormData.login === '' ||
+			registerFormData.email === '' ||
+			registerFormData.password === '' ||
+			registerFormData.repeatPassword === ''
+		) {
+			setError({
+				err: true,
+				msg: 'Please fill all required fields.',
+			});
+			return false;
+		} else if (!pwdAndRepeatPwdIsMatched()) {
+			setError({
+				err: true,
+				msg: 'Password and repeat password does not match.',
+			});
+			return false;
+		}
+		return true;
+	};
+
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
 		console.log(registerFormData);
 
 		// validate if all required data are in here
-		// if (loginFormData.login === '' || loginFormData.password === '') {
-		// 	setError(true);
-		// 	return;
-		// }
+		if (!registerDataIsValid()) {
+			return;
+		}
 		// sendFormData();
 		// setLoginFormData(LOGIN_DEFAULT);
+	};
+
+	const repeatPassowrdErrorStyle = () => {
+		if (!pwdAndRepeatPwdIsMatched()) {
+			return cls['invalid'];
+		}
+		return errorStyle(registerFormData.repeatPassword);
 	};
 
 	return (
@@ -100,8 +137,8 @@ const RegisterForm = () => {
 							name='login'
 							id='login'
 							placeholder='Login'
-							// className={}
 							value={registerFormData.login}
+							className={errorStyle(registerFormData.login)}
 							onChange={(e) =>
 								dispatchRegisterForm({ type: 'login', value: e.target.value })
 							}
@@ -114,7 +151,7 @@ const RegisterForm = () => {
 							name='email'
 							id='email'
 							placeholder='example@mail.com'
-							// className={}
+							className={errorStyle(registerFormData.email)}
 							value={registerFormData.email}
 							onChange={(e) =>
 								dispatchRegisterForm({ type: 'email', value: e.target.value })
@@ -128,7 +165,7 @@ const RegisterForm = () => {
 							name='password'
 							id='password'
 							placeholder='Password'
-							// className={}
+							className={errorStyle(registerFormData.password)}
 							value={registerFormData.password}
 							onChange={(e) =>
 								dispatchRegisterForm({ type: 'pwd', value: e.target.value })
@@ -142,7 +179,7 @@ const RegisterForm = () => {
 							name='repeatPassowrd'
 							id='repeatPassowrd'
 							placeholder='Repeat password'
-							// className={}
+							className={repeatPassowrdErrorStyle()}
 							value={registerFormData.repeatPassword}
 							onChange={(e) =>
 								dispatchRegisterForm({
@@ -152,6 +189,7 @@ const RegisterForm = () => {
 							}
 						/>
 					</div>
+					<div className={cls['form-error']}>{error.msg}</div>
 					<div className={cls['controls']}>
 						{/* maybe display block and ask user if he already has account */}
 						<Button

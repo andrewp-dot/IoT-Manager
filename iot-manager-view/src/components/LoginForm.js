@@ -14,7 +14,7 @@ const LOGIN_DEFAULT = {
 const LoginForm = () => {
 	const user = useContext(UserContext);
 	const [loginFormData, setLoginFormData] = useState(LOGIN_DEFAULT);
-	const [error, setError] = useState(false);
+	const [error, setError] = useState({ err: false, msg: '' });
 	const navigate = useNavigate();
 
 	const loginHandler = (e) => {
@@ -46,10 +46,10 @@ const LoginForm = () => {
 				const userData = await response.json();
 				user.login(userData.login, userData.role);
 				navigate('/systems');
-				setError(false);
+				setError({ err: false, msg: '' });
 			} else {
 				const errorMessage = await response.json();
-				console.log(errorMessage.message);
+				setError({ err: true, msg: errorMessage.message });
 			}
 		} catch (e) {
 			// handle error
@@ -57,12 +57,26 @@ const LoginForm = () => {
 		}
 	};
 
+	const loginDataIsValid = () => {
+		if (loginFormData.login === '' && loginFormData.password === '') {
+			setError({ err: true, msg: 'Missing login and password.' });
+			return false;
+		}
+		if (loginFormData.login === '') {
+			setError({ err: true, msg: 'Missing login.' });
+			return false;
+		}
+		if (loginFormData.password === '') {
+			setError({ err: true, msg: 'Missing password.' });
+			return false;
+		}
+		return true;
+	};
+
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
-
-		// validate if all required data are in here
-		if (loginFormData.login === '' || loginFormData.password === '') {
-			setError(true);
+		if (!loginDataIsValid()) {
+			console.log('here');
 			return;
 		}
 		sendFormData();
@@ -81,7 +95,9 @@ const LoginForm = () => {
 							id='login'
 							placeholder='Login'
 							className={
-								error && loginFormData.login.trim() === '' ? cls['invalid'] : ''
+								error.err && loginFormData.login.trim() === ''
+									? cls['invalid']
+									: ''
 							}
 							value={loginFormData.login}
 							onChange={loginHandler}
@@ -95,7 +111,7 @@ const LoginForm = () => {
 							id='password'
 							placeholder='Password'
 							className={
-								error && loginFormData.password.trim() === ''
+								error.err && loginFormData.password.trim() === ''
 									? cls['invalid']
 									: ''
 							}
@@ -103,6 +119,7 @@ const LoginForm = () => {
 							onChange={passwordHandler}
 						/>
 					</div>
+					<div className={cls['form-error']}>{error.msg}</div>
 					<div className={cls['controls']}>
 						<Button
 							type='button'
