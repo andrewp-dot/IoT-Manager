@@ -4,18 +4,45 @@ import Card from '../UI/Card';
 import { useNavigate } from 'react-router-dom';
 import cls from './styles/loginFormStyles.module.css';
 
+const INITIAL_STATE = {
+	login: '',
+	email: '',
+	password: '',
+	repeatPassword: '',
+};
+
+const reducer = (state, action) => {
+	if (action.type === 'login') {
+		return {
+			...state,
+			login: action.value,
+		};
+	} else if (action.type === 'email') {
+		return {
+			...state,
+			email: action.value,
+		};
+	} else if (action.type === 'pwd') {
+		return {
+			...state,
+			password: action.value,
+		};
+	} else if (action.type === 'repeatPwd') {
+		return {
+			...state,
+			repeatPassword: action.value,
+		};
+	}
+};
+
 const RegisterForm = () => {
 	// const user = useContext(UserContext);
+	const [registerFormData, dispatchRegisterForm] = useReducer(
+		reducer,
+		INITIAL_STATE
+	);
 	const [error, setError] = useState(false);
 	const navigate = useNavigate();
-
-	// const loginHandler = (e) => {
-	// 	setLoginFormData({ ...loginFormData, login: e.target.value });
-	// };
-
-	// const passwordHandler = (e) => {
-	// 	setLoginFormData({ ...loginFormData, password: e.target.value });
-	// };
 
 	// const sendFormData = async () => {
 	// 	try {
@@ -51,6 +78,7 @@ const RegisterForm = () => {
 
 	const onSubmitHandler = (e) => {
 		e.preventDefault();
+		console.log(registerFormData);
 
 		// validate if all required data are in here
 		// if (loginFormData.login === '' || loginFormData.password === '') {
@@ -73,32 +101,24 @@ const RegisterForm = () => {
 							id='login'
 							placeholder='Login'
 							// className={}
-							// value={}
-							// onChange={}
+							value={registerFormData.login}
+							onChange={(e) =>
+								dispatchRegisterForm({ type: 'login', value: e.target.value })
+							}
 						/>
 					</div>
 					<div className={cls['form-section']}>
-						<label htmlFor='name'>Name</label>
+						<label htmlFor='email'>Email</label>
 						<input
-							type='text'
-							name='name'
-							id='name'
-							placeholder='Name'
+							type='email'
+							name='email'
+							id='email'
+							placeholder='example@mail.com'
 							// className={}
-							// value={}
-							// onChange={}
-						/>
-					</div>
-					<div className={cls['form-section']}>
-						<label htmlFor='surname'>Surname</label>
-						<input
-							type='text'
-							name='surname'
-							id='surname'
-							placeholder='Surname'
-							// className={}
-							// value={}
-							// onChange={}
+							value={registerFormData.email}
+							onChange={(e) =>
+								dispatchRegisterForm({ type: 'email', value: e.target.value })
+							}
 						/>
 					</div>
 					<div className={cls['form-section']}>
@@ -109,8 +129,10 @@ const RegisterForm = () => {
 							id='password'
 							placeholder='Password'
 							// className={}
-							// value={}
-							// onChange={}
+							value={registerFormData.password}
+							onChange={(e) =>
+								dispatchRegisterForm({ type: 'pwd', value: e.target.value })
+							}
 						/>
 					</div>
 					<div className={cls['form-section']}>
@@ -121,8 +143,13 @@ const RegisterForm = () => {
 							id='repeatPassowrd'
 							placeholder='Repeat password'
 							// className={}
-							// value={}
-							// onChange={}
+							value={registerFormData.repeatPassword}
+							onChange={(e) =>
+								dispatchRegisterForm({
+									type: 'repeatPwd',
+									value: e.target.value,
+								})
+							}
 						/>
 					</div>
 					<div className={cls['controls']}>
