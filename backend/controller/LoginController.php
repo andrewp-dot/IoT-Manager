@@ -3,11 +3,11 @@
 include_once 'BaseController.php';
 include_once 'Authenticator.php';
 
-class LoginController implements BaseController
+class LoginController extends BaseController
 {
     public function processRequest($requestedData)
     {
-        $auth = new Authenticator();
-        $auth->login($requestedData['login'], $requestedData['password']);
+        $authenticator = new Authenticator($this->userModel);
+        $authenticator->login($requestedData['login'], $requestedData['password']);
     }
 }

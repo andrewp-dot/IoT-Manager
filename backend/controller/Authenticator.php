@@ -1,9 +1,10 @@
 <?php
 
-require_once(__DIR__ . DS . '..' . DS . 'error.php');
-require_once(__DIR__ . DS . '..' . DS . 'model' . DS . 'IotDatabase.php');
+include_once(__DIR__ . DS . '..' . DS . 'error.php');
+include_once(__DIR__ . DS . '..' . DS . 'model' . DS . 'UserModel.php');
+include_once(__DIR__ . DS . '..' . DS . 'model' . DS . 'IotDatabase.php');
 
-class Authenticator extends IotDatabase
+class Authenticator extends BaseController
 {
     /**
      * Verifies the user based on session ID in cookie
@@ -16,19 +17,18 @@ class Authenticator extends IotDatabase
     public function login($login, $pwd)
     {
         if (!isset($login) || !isset($pwd)) {
-            echo json_encode(["notSet" => 403]);
+            ApiError::reportError(403, "notSet");
         }
-        $loginQuery = "SELECT * FROM users WHERE login = ?";
-        $stmt = $this->db->prepare($loginQuery);
-        $stmt->execute([$login]);
-        $user = $stmt->fetch();
+        
+        // fix login to prevent sql injection
+        $user = $this->userModel->getUser($login);
 
         if ($user) {
             $userPwd = $user['password'];
             if ($userPwd === $pwd) {
                 // set cookie for 10 min
                 setcookie('user_token', $user['login'], time() + 600, '/');
-                echo json_encode(["login" => $user['login'], "role" => $user['status']]);
+                echo json_encode(["login" => $user['login'], "role" => $user['role']]);
                 exit;
             } else {
                 ApiError::reportError(401, "Password is invalid.");

@@ -1,10 +1,13 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useContext } from 'react';
+import UserContext from '../context/UserContext';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
 import { useNavigate } from 'react-router-dom';
+import config from '../config.json';
 import cls from './styles/loginFormStyles.module.css';
+import { act } from 'react-dom/test-utils';
 
-const INITIAL_STATE = {
+const REGISTER_INITIAL_STATE = {
 	login: '',
 	email: '',
 	password: '',
@@ -32,49 +35,52 @@ const reducer = (state, action) => {
 			...state,
 			repeatPassword: action.value,
 		};
+	} else if (action.type === 'reset') {
+		return REGISTER_INITIAL_STATE;
 	}
 };
 
 const RegisterForm = () => {
-	// const user = useContext(UserContext);
+	const user = useContext(UserContext);
 	const [registerFormData, dispatchRegisterForm] = useReducer(
 		reducer,
-		INITIAL_STATE
+		REGISTER_INITIAL_STATE
 	);
 	const [error, setError] = useState({ err: false, msg: '' });
 	const navigate = useNavigate();
 
-	// const sendFormData = async () => {
-	// 	try {
-	// 		const response = await fetch(config.api.register.url, {
-	// 			method: 'POST',
-	// 			mode: 'cors',
-	// 			cache: 'no-cache',
-	// 			credentials: 'include',
-	// 			headers: {
-	// 				'Content-Type': 'application/json',
-	// 				// 'Content-Type': 'application/x-www-form-urlencoded',
-	// 			},
-	// 			redirect: 'follow', // manual, *follow, error
-	// 			referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
-	// 			withCredentials: true,
-	// 			body: JSON.stringify(loginFormData),
-	// 		});
-	// 		// get response and set data
-	// 		if (response.ok) {
-	// 			const userData = await response.json();
-	// 			user.login(userData.login, userData.role);
-	// 			navigate('/systems');
-	// 			setError(false);
-	// 		} else {
-	// 			const errorMessage = await response.json();
-	// 			console.log(errorMessage.message);
-	// 		}
-	// 	} catch (e) {
-	// 		// handle error
-	// 		console.log(e);
-	// 	}
-	// };
+	const sendFormData = async () => {
+		try {
+			const response = await fetch(config.api.register.url, {
+				method: 'POST',
+				mode: 'cors',
+				cache: 'no-cache',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json',
+					// 'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				redirect: 'follow', // manual, *follow, error
+				referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
+				withCredentials: true,
+				body: JSON.stringify(registerFormData),
+			});
+			// get response and set data
+			if (response.ok) {
+				const userData = await response.json();
+				user.login(userData.login, userData.role);
+				navigate('/systems');
+				dispatchRegisterForm({ type: 'reset', value: '' });
+				setError({ err: false, msg: '' });
+			} else {
+				const errorMessage = await response.json();
+				setError({ err: true, msg: errorMessage.message });
+			}
+		} catch (e) {
+			// handle error
+			console.log(e);
+		}
+	};
 
 	const errorStyle = (inputValue) => {
 		const isError = error.err && inputValue.trim() === '';
@@ -115,8 +121,7 @@ const RegisterForm = () => {
 		if (!registerDataIsValid()) {
 			return;
 		}
-		// sendFormData();
-		// setLoginFormData(LOGIN_DEFAULT);
+		sendFormData();
 	};
 
 	const repeatPassowrdErrorStyle = () => {
