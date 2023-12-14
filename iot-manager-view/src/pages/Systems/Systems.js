@@ -7,6 +7,20 @@ import Card from '../../UI/Card';
 import cls from './styles/systems.module.css';
 import SystemCard from './SystemCard';
 
+const FETCH_OPTIONS = {
+	method: 'POST',
+	mode: 'cors',
+	cache: 'no-cache',
+	credentials: 'include',
+	headers: {
+		'Content-Type': 'application/json',
+		// 'Content-Type': 'application/x-www-form-urlencoded',
+	},
+	redirect: 'follow', // manual, *follow, error
+	referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
+	withCredentials: true,
+};
+
 /**
  * Maybe create protected component
  * @returns
@@ -47,6 +61,31 @@ const SystemsPage = () => {
 		setLoading(false);
 	};
 
+	const TEST_SYSTEM = { name: 'TestSys', description: 'Test descr' };
+	const createSystemRequest = async () => {
+		try {
+			const response = await fetch(config.api.systems.url, {
+				...FETCH_OPTIONS,
+				body: JSON.stringify({
+					...userCtx.user,
+					...TEST_SYSTEM,
+					request: 'createSystem',
+				}),
+			});
+			// get response and set data
+			if (response.ok) {
+				const systems = await response.json();
+				setUserSystems(systems);
+				console.log(systems);
+			} else {
+				const errorMessage = await response.json();
+				console.log(errorMessage);
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
 	useEffect(() => {
 		getUserSystems();
 	}, []);
@@ -74,7 +113,14 @@ const SystemsPage = () => {
 
 	return (
 		<BasicPage>
-			<div className={cls['systems']}>{content}</div>
+			<div className={cls['systems']}>
+				{content}
+				<Card>
+					<div className={cls['system']} onClick={createSystemRequest}>
+						+
+					</div>
+				</Card>
+			</div>
 		</BasicPage>
 	);
 };

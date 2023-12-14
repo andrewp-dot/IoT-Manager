@@ -16,7 +16,7 @@ class SystemsController implements BaseController
         if ($requestedData['request'] === 'getUserSystem') {
             $this->userSystems($requestedData['login']);
         } else if ($requestedData['request'] === 'createSystem') {
-            $this->createSystem($requestedData['login'], $requestedData['name'], $requestedData['desc']);
+            $this->createSystem($requestedData['login'], $requestedData['name'], $requestedData['description']);
         }
     }
 
@@ -29,9 +29,10 @@ class SystemsController implements BaseController
     private function createSystem($owner, $name, $desc)
     {
         $this->systemsModel->createSystem([
-            "owner" => $owner,
+            "login" => $owner,
             "name" => $name,
             "description" => $desc,
         ]);
+        $this->userSystems($owner);
     }
 }
