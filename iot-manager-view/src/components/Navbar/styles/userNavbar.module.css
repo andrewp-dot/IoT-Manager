@@ -22,5 +22,5 @@
 
 .active {
 	cursor: pointer;
-	background-color: black;
+	background-color: var(--color-dark-grey);
 }

@@ -22,7 +22,9 @@ const SystemsPage = () => {
 				{testArr.map((item) => {
 					return (
 						<Card width='200px'>
-							<p style={{ height: '200px' }}>{item}</p>
+							<p style={{ height: '200px', color: 'var(--color-dark-grey)' }}>
+								{item}
+							</p>
 						</Card>
 					);
 				})}

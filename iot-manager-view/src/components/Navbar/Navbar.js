@@ -14,11 +14,6 @@ import LoggedUserNavbar from './LoggedUserNavbar';
 const NavBar = () => {
 	const user = useContext(UserContext);
 
-	// permissions
-	// useEffect(() => {
-	// 	console.log('Permission has changed');
-	// }, user);
-
 	return (
 		<header className={cls['navbar']}>
 			{user.user.role === 'guest' ? (
