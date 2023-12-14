@@ -141,9 +141,9 @@ INSERT INTO `users` (`login`, `email`, `password`, `role`) VALUES
 ('Cyrci', 'cyrilsta29@gmail.com', 'aaa', 'user'),
 ('Dav', 'dav.sokol@gmail.com', 'aaa', 'broker');
 -- -- -- --------------------------------------------------------
--- INSERT INTO `systems` ( `name`, `description`,`owner`) VALUES
--- ('system1', 'First system', 'Ando'),
--- ('system2', NULL, 'Bro');
+INSERT INTO `systems` ( `name`, `description`,`owner`) VALUES
+('system1', 'First system', 'Ando'),
+('system2', NULL, 'Bro');
 -- -- --------------------------------------------------------
 INSERT INTO `usersys` (`userid`, `systemid`) VALUES
 ('Ando', 2);

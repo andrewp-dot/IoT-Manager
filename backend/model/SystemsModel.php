@@ -13,11 +13,16 @@ class SystemsModel extends IotDatabase
         $systemStmt->execute([$login]);
         $fetchedSystems = $systemStmt->fetchAll();
 
-        // $systems = [];
-        // foreach($fetchedSystems as $system)
-        // {
-        //     $systems[] = $system;
-        // }
-        return $fetchedSystems;
+        $systems = [];
+        foreach($fetchedSystems as $system)
+        {
+            $systems[] = [
+                "id" => $system['id'],
+                "sysname" => $system['name'],
+                "desc" => $system['description'],
+                "owner" => $system['owner'],
+            ];
+        }
+        return $systems;
     }
 }

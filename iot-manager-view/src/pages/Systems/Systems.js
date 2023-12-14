@@ -81,11 +81,13 @@ const SystemsPage = () => {
 		// 		</Card>
 		// 	);
 		// });
-		// setLoading(true);
-		// getUserSystems();
 		if (userSystems.length > 0) {
-			content = userSystems.map((item) => {
-				<Card>test</Card>;
+			content = userSystems.map((sys) => {
+				return (
+					<Card key={sys.id}>
+						<p style={{ color: 'var(--color-dark-grey)' }}>{sys.sysname}</p>
+					</Card>
+				);
 			});
 		} else {
 			content = <p>No systems has been added yet.</p>;

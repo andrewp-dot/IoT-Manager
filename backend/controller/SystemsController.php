@@ -15,7 +15,7 @@ class SystemsController implements BaseController
     {
         if($method === 'GET')
         {
-            $systems = $this->systemsModel->getSystemsByUser('login');
+            $systems = $this->systemsModel->getSystemsByUser('Bro');
             echo json_encode($systems);
             return;
         }
