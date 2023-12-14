@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import BasicPage from '../BasicPage';
 import { Navigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
@@ -13,16 +13,19 @@ import cls from './styles/systems.module.css';
 const SystemsPage = () => {
 	const userCtx = useContext(UserContext);
 	const [loading, setLoading] = useState(false);
+	const [userSystems, setUserSystems] = useState([]);
+
+	useEffect(() => {
+		getUserSystems();
+	}, []);
+
 	if (userCtx.user.role.trim() === 'guest') {
 		return <Navigate to='/pageNotFound' />;
 	}
 
 	const getUserSystems = async () => {
-		setLoading(true);
-
-		let systems = [];
 		try {
-			const response = await fetch(config.api.systems, {
+			const response = await fetch(config.api.systems.url, {
 				method: 'GET',
 				mode: 'cors',
 				cache: 'no-cache',
@@ -37,36 +40,57 @@ const SystemsPage = () => {
 			});
 			// get response and set data
 			if (response.ok) {
-				systems = await response.json();
+				const systems = await response.json();
+				setUserSystems(systems);
 				console.log(systems);
 			} else {
 				const errorMessage = await response.json();
-				console.log(errorMessage);
+				// console.log(errorMessage);
 			}
 		} catch (e) {
 			console.log(e);
 		}
 
-		setLoading(false);
-		return systems || [];
+		// setLoading(false);
 	};
 
-	const testArr = ['Test', 'Latka', 'Tutu', 'Sesky', 'Danko'];
+	const testArr = [
+		'Test',
+		'Latka',
+		'Tutu',
+		'Sesky',
+		'Danko',
+		'Hehe',
+		'Kundo',
+		'Zeman',
+		'Mliekaren senica',
+		'Piča vody',
+	];
 
 	var content;
 
 	if (loading) {
 		content = 'Loading...';
 	} else {
-		content = testArr.map((item) => {
-			return (
-				<Card width='200px'>
-					<p style={{ height: '200px', color: 'var(--color-dark-grey)' }}>
-						{item}
-					</p>
-				</Card>
-			);
-		});
+		// content = testArr.map((item) => {
+		// 	return (
+		// 		<Card width='200px'>
+		// 			<p style={{ height: '200px', color: 'var(--color-dark-grey)' }}>
+		// 				{item}
+		// 			</p>
+		// 		</Card>
+		// 	);
+		// });
+		// setLoading(true);
+		// getUserSystems();
+		if (userSystems.length > 0) {
+			content = userSystems.map((item) => {
+				<Card>test</Card>;
+			});
+		} else {
+			content = <p>No systems has been added yet.</p>;
+		}
+		// setLoading(true);
 	}
 
 	return (

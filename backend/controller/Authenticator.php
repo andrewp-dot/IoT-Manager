@@ -5,8 +5,14 @@ include_once(__DIR__ . DS . '..' . DS . 'model' . DS . 'UserModel.php');
 include_once(__DIR__ . DS . '..' . DS . 'model' . DS . 'IotDatabase.php');
 
 defined('LOGIN_EXPIRATION') ? null : define('LOGIN_EXPIRATION',600);
-class Authenticator extends BaseController
+class Authenticator
 {
+    private $userModel;
+    
+    public function __construct($userModel)
+    {
+        $this->userModel = $userModel;
+    }
     /**
      * Verifies the user based on session ID in cookie
      */

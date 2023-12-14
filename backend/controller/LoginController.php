@@ -2,12 +2,22 @@
 
 include_once 'BaseController.php';
 include_once 'Authenticator.php';
+include_once(__DIR__ . DS . '..' . DS . 'model' . DS . 'UserModel.php');
 
-class LoginController extends BaseController
+class LoginController implements BaseController
 {
-    public function processRequest($requestedData)
+    private $userModel;
+    
+    public function __construct()
     {
-        $authenticator = new Authenticator($this->userModel);
-        $authenticator->login($requestedData['login'], $requestedData['password']);
+        $this->userModel = new UserModel();
+    }
+    public function processRequest($requestedData, $method)
+    {
+        if($method === 'POST')
+        {
+            $authenticator = new Authenticator($this->userModel);
+            $authenticator->login($requestedData['login'], $requestedData['password']);
+        }
     }
 }
