@@ -8,6 +8,9 @@
 		},
 		"register": {
 			"url": "http://localhost:8000/register"
+		},
+		"systems": {
+			"url": "http://localhost:8000/systems"
 		}
 	}
 }
