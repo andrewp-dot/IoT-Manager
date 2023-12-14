@@ -6,3 +6,15 @@
 	max-width: 80%;
 	gap: 50px;
 }
+
+.system {
+	width: 200px;
+	height: 200px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--color-dark-grey);
+	cursor: pointer;
+	box-sizing: border-box;
+}

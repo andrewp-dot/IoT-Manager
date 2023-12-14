@@ -5,6 +5,7 @@ import UserContext from '../../context/UserContext';
 import config from '../../config.json';
 import Card from '../../UI/Card';
 import cls from './styles/systems.module.css';
+import SystemCard from './SystemCard';
 
 /**
  * Maybe create protected component
@@ -12,7 +13,7 @@ import cls from './styles/systems.module.css';
  */
 const SystemsPage = () => {
 	const userCtx = useContext(UserContext);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [userSystems, setUserSystems] = useState([]);
 
 	const getUserSystems = async () => {
@@ -43,8 +44,7 @@ const SystemsPage = () => {
 		} catch (e) {
 			console.log(e);
 		}
-
-		// setLoading(false);
+		setLoading(false);
 	};
 
 	useEffect(() => {
@@ -55,45 +55,21 @@ const SystemsPage = () => {
 		return <Navigate to='/pageNotFound' />;
 	}
 
-	const testArr = [
-		'Test',
-		'Latka',
-		'Tutu',
-		'Sesky',
-		'Danko',
-		'Hehe',
-		'Kundo',
-		'Zeman',
-		'Mliekaren senica',
-		'Piča vody',
-	];
-
 	var content;
-
 	if (loading) {
 		content = 'Loading...';
 	} else {
-		// content = testArr.map((item) => {
-		// 	return (
-		// 		<Card width='200px'>
-		// 			<p style={{ height: '200px', color: 'var(--color-dark-grey)' }}>
-		// 				{item}
-		// 			</p>
-		// 		</Card>
-		// 	);
-		// });
 		if (userSystems.length > 0) {
 			content = userSystems.map((sys) => {
 				return (
 					<Card key={sys.id}>
-						<p style={{ color: 'var(--color-dark-grey)' }}>{sys.sysname}</p>
+						<SystemCard system={sys} />
 					</Card>
 				);
 			});
 		} else {
 			content = <p>No systems has been added yet.</p>;
 		}
-		// setLoading(true);
 	}
 
 	return (
