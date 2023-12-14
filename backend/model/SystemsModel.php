@@ -1,6 +1,6 @@
 <?php
 
-class SystemsModel extends IotDatabase 
+class SystemsModel extends IotDatabase
 {
     public function getSystemsByUser($login)
     {
@@ -14,8 +14,7 @@ class SystemsModel extends IotDatabase
         $fetchedSystems = $systemStmt->fetchAll();
 
         $systems = [];
-        foreach($fetchedSystems as $system)
-        {
+        foreach ($fetchedSystems as $system) {
             $systems[] = [
                 "id" => $system['id'],
                 "sysname" => $system['name'],

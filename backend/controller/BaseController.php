@@ -16,5 +16,5 @@ interface BaseController
     //     // $this->systemsModel = ;
     //     // $this->deviceModel = ;
     // }
-    public function processRequest($requestedData, $method);
+    public function processRequest($requestedData);
 }

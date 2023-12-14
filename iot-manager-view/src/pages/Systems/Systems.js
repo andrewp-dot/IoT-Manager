@@ -15,18 +15,10 @@ const SystemsPage = () => {
 	const [loading, setLoading] = useState(false);
 	const [userSystems, setUserSystems] = useState([]);
 
-	useEffect(() => {
-		getUserSystems();
-	}, []);
-
-	if (userCtx.user.role.trim() === 'guest') {
-		return <Navigate to='/pageNotFound' />;
-	}
-
 	const getUserSystems = async () => {
 		try {
 			const response = await fetch(config.api.systems.url, {
-				method: 'GET',
+				method: 'POST',
 				mode: 'cors',
 				cache: 'no-cache',
 				credentials: 'include',
@@ -37,6 +29,7 @@ const SystemsPage = () => {
 				redirect: 'follow', // manual, *follow, error
 				referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
 				withCredentials: true,
+				body: JSON.stringify(userCtx.user),
 			});
 			// get response and set data
 			if (response.ok) {
@@ -45,7 +38,7 @@ const SystemsPage = () => {
 				console.log(systems);
 			} else {
 				const errorMessage = await response.json();
-				// console.log(errorMessage);
+				console.log(errorMessage);
 			}
 		} catch (e) {
 			console.log(e);
@@ -53,6 +46,14 @@ const SystemsPage = () => {
 
 		// setLoading(false);
 	};
+
+	useEffect(() => {
+		getUserSystems();
+	}, []);
+
+	if (userCtx.user.role.trim() === 'guest') {
+		return <Navigate to='/pageNotFound' />;
+	}
 
 	const testArr = [
 		'Test',

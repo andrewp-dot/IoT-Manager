@@ -7,17 +7,14 @@ class SystemsController implements BaseController
     private $systemsModel;
 
     public function __construct()
-    {   
+    {
         $this->systemsModel = new SystemsModel();
     }
-    
-    public function processRequest($requestedData, $method)
+
+    public function processRequest($requestedData)
     {
-        if($method === 'GET')
-        {
-            $systems = $this->systemsModel->getSystemsByUser('Bro');
-            echo json_encode($systems);
-            return;
-        }
+        $systems = $this->systemsModel->getSystemsByUser($requestedData['login']);
+        echo json_encode($systems);
+        return;
     }
 }

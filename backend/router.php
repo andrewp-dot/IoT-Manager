@@ -15,7 +15,7 @@ class Router
             case "/register":
                 return null;
             case "/systems":
-                    return new SystemsController();
+                return new SystemsController();
             default:
                 return null;
         }
