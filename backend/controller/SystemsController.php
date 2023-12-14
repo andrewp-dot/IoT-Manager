@@ -13,8 +13,25 @@ class SystemsController implements BaseController
 
     public function processRequest($requestedData)
     {
-        $systems = $this->systemsModel->getSystemsByUser($requestedData['login']);
+        if ($requestedData['request'] === 'getUserSystem') {
+            $this->userSystems($requestedData['login']);
+        } else if ($requestedData['request'] === 'createSystem') {
+            $this->createSystem($requestedData['login'], $requestedData['name'], $requestedData['desc']);
+        }
+    }
+
+    private function userSystems($login)
+    {
+        $systems = $this->systemsModel->getSystemsByUser($login);
         echo json_encode($systems);
-        return;
+    }
+
+    private function createSystem($owner, $name, $desc)
+    {
+        $this->systemsModel->createSystem([
+            "owner" => $owner,
+            "name" => $name,
+            "description" => $desc,
+        ]);
     }
 }

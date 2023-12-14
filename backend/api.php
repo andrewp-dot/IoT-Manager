@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $requestData = json_decode(file_get_contents('php://input'), true);
     $controller = $router->getController($_SERVER['REQUEST_URI']);
     if ($controller) {
-        $controller->processRequest($requestData, $_SERVER['REQUEST_METHOD']);
+        $controller->processRequest($requestData);
     } else {
         ApiError::reportError(404, 'Page not found.');
     }
