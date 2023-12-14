@@ -30,7 +30,7 @@ const SystemsPage = () => {
 				redirect: 'follow', // manual, *follow, error
 				referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
 				withCredentials: true,
-				body: JSON.stringify(userCtx.user),
+				body: JSON.stringify({ ...userCtx.user, request: 'getUserSystem' }),
 			});
 			// get response and set data
 			if (response.ok) {

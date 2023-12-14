@@ -39,7 +39,7 @@ const LoginForm = () => {
 				redirect: 'follow', // manual, *follow, error
 				referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
 				withCredentials: true,
-				body: JSON.stringify(loginFormData),
+				body: JSON.stringify({ ...loginFormData, request: 'login' }),
 			});
 			// get response and set data
 			if (response.ok) {
@@ -85,7 +85,7 @@ const LoginForm = () => {
 
 	return (
 		<>
-			<Card width='20%'>
+			<Card width='max(20%,300px)'>
 				<form className={cls['login-form']} onSubmit={onSubmitHandler}>
 					<div className={cls['form-section']}>
 						<label htmlFor='login'>Login</label>

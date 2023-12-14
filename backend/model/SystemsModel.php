@@ -27,6 +27,7 @@ class SystemsModel extends IotDatabase
 
     public function createSystem($systemData)
     {
+        $this->db->beginTransaction();
         // insert system into systems
         $createSystem = "INSERT INTO systems (`name`,`description`,`owner`) VALUES (:name, :description, :owner)";
         $createSystemStmt = $this->db->prepare($createSystem);
@@ -43,6 +44,7 @@ class SystemsModel extends IotDatabase
         $accessSystemStmt = $this->db->prepare($accessSystem);
         $accessSystemStmt->bindParam(':userid', $systemData['login'], PDO::PARAM_STR);
         $accessSystemStmt->bindParam(':systemid', $createdSystemId, PDO::PARAM_STR);
+        $accessSystemStmt->execute();
 
         // commit changes
         $this->db->commit();

@@ -14,7 +14,9 @@ class LoginController implements BaseController
     }
     public function processRequest($requestedData)
     {
-        $authenticator = new Authenticator($this->userModel);
-        $authenticator->login($requestedData['login'], $requestedData['password']);
+        if ($requestedData['request'] === 'login') {
+            $authenticator = new Authenticator($this->userModel);
+            $authenticator->login($requestedData['login'], $requestedData['password']);
+        }
     }
 }

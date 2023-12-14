@@ -63,15 +63,15 @@ const RegisterForm = () => {
 				redirect: 'follow', // manual, *follow, error
 				referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
 				withCredentials: true,
-				body: JSON.stringify(registerFormData),
+				body: JSON.stringify({ ...registerFormData, request: 'register' }),
 			});
 			// get response and set data
 			if (response.ok) {
 				const userData = await response.json();
 				user.login(userData.login, userData.role);
-				navigate('/systems');
 				dispatchRegisterForm({ type: 'reset', value: '' });
 				setError({ err: false, msg: '' });
+				navigate('/systems');
 			} else {
 				const errorMessage = await response.json();
 				setError({ err: true, msg: errorMessage.message });
@@ -133,7 +133,7 @@ const RegisterForm = () => {
 
 	return (
 		<>
-			<Card width='20%'>
+			<Card width='max(20%,300px)'>
 				<form className={cls['login-form']} onSubmit={onSubmitHandler}>
 					<div className={cls['form-section']}>
 						<label htmlFor='login'>Login</label>

@@ -1,7 +1,7 @@
 <?php
 
 include_once 'controller/LoginController.php';
-// include_once 'controller/RegisterController.php';
+include_once 'controller/RegisterController.php';
 include_once 'controller/SystemsController.php';
 class Router
 {
@@ -13,7 +13,7 @@ class Router
             case "/login":
                 return new LoginController();
             case "/register":
-                return null;
+                return new RegisterController();
             case "/systems":
                 return new SystemsController();
             default:
