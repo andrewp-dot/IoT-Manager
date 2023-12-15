@@ -1,0 +1,9 @@
+.profile {
+	display: block;
+	width: 100%;
+}
+
+.user-info {
+	background-color: var(--color-dark-grey);
+	padding: 1rem;
+}

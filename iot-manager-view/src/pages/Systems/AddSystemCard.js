@@ -27,7 +27,7 @@ const AddSystemCard = ({ createSystem }) => {
 		content = '+';
 	}
 	return (
-		<Card>
+		<Card backgroundColor={'rgba(255,255,255,0.7'}>
 			<div
 				className={cls['system']}
 				onClick={() => {

@@ -1,7 +1,7 @@
 .card {
 	min-width: 200px;
 	border-radius: 25px;
-	background-color: var(--color-primary);
+	/* background-color: var(--color-primary); */
 	display: flex;
 	align-items: center;
 	justify-content: center;
