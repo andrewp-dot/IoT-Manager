@@ -12,5 +12,17 @@
 		"systems": {
 			"url": "http://localhost:8000/systems"
 		}
+	},
+	"fetchOptions": {
+		"method": "POST",
+		"mode": "cors",
+		"cache": "no-cache",
+		"credentials": "include",
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"redirect": "follow",
+		"referrerPolicy": "no-referrer",
+		"withCredentials": "true"
 	}
 }

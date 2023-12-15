@@ -83,5 +83,13 @@ class SystemsModel extends IotDatabase
      */
     public function getUserSystem($login, $sysid)
     {
+        $userSysQuery = "SELECT * FROM systems JOIN usersys ON usersys.systemid = systems.id WHERE userid = :login AND systemid = :sysid";
+        $userSysQueryStmt = $this->db->prepare($userSysQuery);
+        $userSysQueryStmt->bindParam(':login', $login, PDO::PARAM_STR);
+        $userSysQueryStmt->bindParam(':sysid', $sysid, PDO::PARAM_INT);
+
+        $userSysQueryStmt->execute();
+        $userSystem = $userSysQueryStmt->fetch();
+        return $userSystem;
     }
 }

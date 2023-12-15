@@ -9,7 +9,6 @@ const AddSystemCard = ({ createSystem }) => {
 	const handleChangeSysname = (e) => {
 		if (e.key === 'Enter') {
 			if (sysnameInputRef.current.value.trim() !== '') {
-				console.log('Send changes:' + sysnameInputRef.current.value.trim());
 				createSystem(sysnameInputRef.current.value.trim());
 			}
 			setAddSystem(false);

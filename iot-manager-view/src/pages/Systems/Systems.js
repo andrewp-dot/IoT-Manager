@@ -1,26 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import BasicPage from '../BasicPage';
 import { Navigate } from 'react-router-dom';
+import BasicPage from '../BasicPage';
 import UserContext from '../../context/UserContext';
-import config from '../../config.json';
-import Card from '../../UI/Card';
-import cls from './styles/systems.module.css';
 import SystemCard from './SystemCard';
 import AddSystemCard from './AddSystemCard';
-
-const FETCH_OPTIONS = {
-	method: 'POST',
-	mode: 'cors',
-	cache: 'no-cache',
-	credentials: 'include',
-	headers: {
-		'Content-Type': 'application/json',
-		// 'Content-Type': 'application/x-www-form-urlencoded',
-	},
-	redirect: 'follow', // manual, *follow, error
-	referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
-	withCredentials: true,
-};
+import cls from './styles/systems.module.css';
+import config from '../../config.json';
 
 /**
  * Maybe create protected component
@@ -34,24 +19,14 @@ const SystemsPage = () => {
 	const getUserSystems = async () => {
 		try {
 			const response = await fetch(config.api.systems.url, {
-				method: 'POST',
-				mode: 'cors',
-				cache: 'no-cache',
-				credentials: 'include',
-				headers: {
-					'Content-Type': 'application/json',
-					// 'Content-Type': 'application/x-www-form-urlencoded',
-				},
-				redirect: 'follow', // manual, *follow, error
-				referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when);
-				withCredentials: true,
+				...config.fetchOptions,
 				body: JSON.stringify({ ...userCtx.user, request: 'getUserSystem' }),
 			});
 			// get response and set data
 			if (response.ok) {
 				const systems = await response.json();
 				setUserSystems(systems);
-				console.log(systems);
+				// console.log(systems);
 			} else {
 				const errorMessage = await response.json();
 				console.log(errorMessage);
@@ -59,13 +34,14 @@ const SystemsPage = () => {
 		} catch (e) {
 			console.log(e);
 		}
+		// setTimeout(() => setLoading(false), 3000);
 		setLoading(false);
 	};
 
 	const createSystemRequest = async (systemName) => {
 		try {
 			const response = await fetch(config.api.systems.url, {
-				...FETCH_OPTIONS,
+				...config.fetchOptions,
 				body: JSON.stringify({
 					...userCtx.user,
 					name: systemName,
@@ -102,15 +78,15 @@ const SystemsPage = () => {
 			content = userSystems.map((sys) => {
 				return <SystemCard key={sys.id} system={sys} />;
 			});
+			content.push(
+				<AddSystemCard key='create' createSystem={createSystemRequest} />
+			);
 		}
 	}
 
 	return (
 		<BasicPage>
-			<div className={cls['systems']}>
-				{content}
-				<AddSystemCard createSystem={createSystemRequest} />
-			</div>
+			<div className={cls['systems']}>{content}</div>
 		</BasicPage>
 	);
 };
