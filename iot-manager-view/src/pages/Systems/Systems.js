@@ -6,6 +6,7 @@ import config from '../../config.json';
 import Card from '../../UI/Card';
 import cls from './styles/systems.module.css';
 import SystemCard from './SystemCard';
+import AddSystemCard from './AddSystemCard';
 
 const FETCH_OPTIONS = {
 	method: 'POST',
@@ -61,14 +62,13 @@ const SystemsPage = () => {
 		setLoading(false);
 	};
 
-	const TEST_SYSTEM = { name: 'TestSys', description: 'Test descr' };
-	const createSystemRequest = async () => {
+	const createSystemRequest = async (systemName) => {
 		try {
 			const response = await fetch(config.api.systems.url, {
 				...FETCH_OPTIONS,
 				body: JSON.stringify({
 					...userCtx.user,
-					...TEST_SYSTEM,
+					name: systemName,
 					request: 'createSystem',
 				}),
 			});
@@ -100,14 +100,8 @@ const SystemsPage = () => {
 	} else {
 		if (userSystems.length > 0) {
 			content = userSystems.map((sys) => {
-				return (
-					<Card key={sys.id}>
-						<SystemCard system={sys} />
-					</Card>
-				);
+				return <SystemCard key={sys.id} system={sys} />;
 			});
-		} else {
-			content = <p>No systems has been added yet.</p>;
 		}
 	}
 
@@ -115,11 +109,7 @@ const SystemsPage = () => {
 		<BasicPage>
 			<div className={cls['systems']}>
 				{content}
-				<Card>
-					<div className={cls['system']} onClick={createSystemRequest}>
-						+
-					</div>
-				</Card>
+				<AddSystemCard createSystem={createSystemRequest} />
 			</div>
 		</BasicPage>
 	);

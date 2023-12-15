@@ -2,6 +2,10 @@
 
 class SystemsModel extends IotDatabase
 {
+
+    /**
+     * Retrieves all user's systems
+     */
     public function getSystemsByUser($login)
     {
         $systemsQuery = "SELECT systems.*
@@ -25,6 +29,9 @@ class SystemsModel extends IotDatabase
         return $systems;
     }
 
+    /**
+     * Creates user system 
+     */
     public function createSystem($systemData)
     {
         $this->db->beginTransaction();
@@ -48,5 +55,33 @@ class SystemsModel extends IotDatabase
 
         // commit changes
         $this->db->commit();
+    }
+
+
+    /**
+     * Changes the target system name
+     */
+    public function changeSystemName($login, $sysid, $newName)
+    {
+        $this->db->beginTransaction();
+
+        // check if user is the owner 
+
+        // change name 
+        $changeSystem = "UPDATE systems
+        SET name = ':sysname'
+        WHERE id = ':sysid';";
+        $changeSystemStmt = $this->db->prepare($changeSystem);
+        $changeSystemStmt->bindParam(':name', $newName, PDO::PARAM_STR);
+        $changeSystemStmt->bindParam(':sysid', $sysid, PDO::PARAM_INT);
+
+        $this->db->commit();
+    }
+
+    /**
+     * Retrieves single system by user and system id
+     */
+    public function getUserSystem($login, $sysid)
+    {
     }
 }
