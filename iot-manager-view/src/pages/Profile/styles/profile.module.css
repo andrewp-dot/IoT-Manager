@@ -1,9 +1,19 @@
 .profile {
-	display: block;
 	width: 100%;
+	background-color: var(--color-dark-grey);
 }
 
 .user-info {
-	background-color: var(--color-dark-grey);
+	/* background-color: red; */
 	padding: 1rem;
+}
+
+.account-options {
+	display: inline-block;
+	/* background-color: blue; */
+	padding: 1rem;
+}
+
+.account-options button {
+	margin-left: 2rem;
 }

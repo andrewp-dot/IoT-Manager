@@ -4,8 +4,6 @@ import cls from './styles/systems.module.css';
 import { Link } from 'react-router-dom';
 
 const SystemCard = ({ system }) => {
-	// const navigate = useNavigate();
-
 	const systemUrl = '/systems/' + system.id;
 
 	return (

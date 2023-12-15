@@ -5,6 +5,7 @@ import UserContext from '../../../context/UserContext';
 import { useParams, Navigate } from 'react-router-dom';
 import config from '../../../config.json';
 import cls from '../styles/systemDetail.module.css';
+import ProtectedPage from '../../ProtectedPage';
 
 const System = () => {
 	const [system, setSystem] = useState(null);
@@ -37,11 +38,6 @@ const System = () => {
 		userSystemRequest();
 	}, []);
 
-	// create protected component
-	if (userCtx.user.role.trim() === 'guest') {
-		return <Navigate to='/pageNotFound' />;
-	}
-
 	var content = <p>No system found</p>;
 	if (system !== null) {
 		content = (
@@ -60,7 +56,7 @@ const System = () => {
 			</div>
 		);
 	}
-	return <BasicPage>{content}</BasicPage>;
+	return <ProtectedPage>{content}</ProtectedPage>;
 };
 
 export default System;

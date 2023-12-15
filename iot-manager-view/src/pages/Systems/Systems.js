@@ -6,6 +6,7 @@ import SystemCard from './SystemCard';
 import AddSystemCard from './AddSystemCard';
 import cls from './styles/systems.module.css';
 import config from '../../config.json';
+import ProtectedPage from '../ProtectedPage';
 
 /**
  * Maybe create protected component
@@ -66,10 +67,6 @@ const SystemsPage = () => {
 		getUserSystems();
 	}, []);
 
-	if (userCtx.user.role.trim() === 'guest') {
-		return <Navigate to='/pageNotFound' />;
-	}
-
 	var content;
 	if (loading) {
 		content = 'Loading...';
@@ -85,9 +82,9 @@ const SystemsPage = () => {
 	}
 
 	return (
-		<BasicPage>
+		<ProtectedPage>
 			<div className={cls['systems']}>{content}</div>
-		</BasicPage>
+		</ProtectedPage>
 	);
 };
 
