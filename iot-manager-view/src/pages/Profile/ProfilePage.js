@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import UserContext from '../../context/UserContext';
-import BasicPage from '../BasicPage';
 import LogoutButton from '../../UI/LogoutButton';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import cls from './styles/profile.module.css';
 import Button from '../../UI/Button';
 import ProtectedPage from '../ProtectedPage';
+
+import Checkbox from '../../UI/Checkbox';
 
 const ProfilePage = () => {
 	const userCtx = useContext(UserContext);
@@ -44,6 +45,7 @@ const ProfilePage = () => {
 					</LogoutButton>
 				</div>
 			</div>
+			<Checkbox />
 		</ProtectedPage>
 	);
 };
