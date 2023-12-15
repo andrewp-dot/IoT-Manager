@@ -7,7 +7,12 @@
 	gap: 50px;
 }
 
+.systems a {
+	text-decoration: none;
+}
+
 .system {
+	padding: 1rem;
 	width: 200px;
 	height: 200px;
 	text-align: center;
@@ -17,4 +22,6 @@
 	color: var(--color-dark-grey);
 	cursor: pointer;
 	box-sizing: border-box;
+	word-break: break-word;
+	text-wrap: wrap;
 }

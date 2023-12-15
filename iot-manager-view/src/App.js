@@ -7,6 +7,7 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import RegisterPage from './pages/Register/Register';
 import ProfilePage from './pages/Profile/ProfilePage';
 import SystemsPage from './pages/Systems/Systems';
+import System from './pages/Systems/System/System';
 import './App.css';
 
 function App() {
@@ -19,7 +20,11 @@ function App() {
 						<Route path='/login' element={<LoginPage />} />
 						<Route path='/register' element={<RegisterPage />} />
 						<Route path='/profile' element={<ProfilePage />} />
-						<Route path='/systems' element={<SystemsPage />} />
+						<Route path='/systems'>
+							<Route path='' element={<SystemsPage />} />
+							<Route path=':id' element={<System />} />
+						</Route>
+
 						<Route path='*' element={<ErrorPage />} />
 					</Routes>
 				</div>
