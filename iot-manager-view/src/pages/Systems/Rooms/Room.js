@@ -1,17 +1,40 @@
 import React from 'react';
 import Card from '../../../UI/Card';
+import Checkbox from '../../../UI/Checkbox';
 import cls from './styles/rooms.module.css';
 
 const Room = () => {
+	const toogleValueChangeHandler = (val) => {
+		console.log(val);
+	};
 	return (
 		<Card>
 			<div className={cls['room']}>
 				<h2>Room name</h2>
-				<ul>
-					<li>Device1</li>
-					<li>Device2</li>
-					<li>Device3</li>
-				</ul>
+				<div>
+					Device1
+					<Checkbox
+						id='1'
+						value={true}
+						onValueChange={toogleValueChangeHandler}
+					/>
+				</div>
+				<div>
+					Device2
+					<Checkbox
+						id='2'
+						value={false}
+						onValueChange={toogleValueChangeHandler}
+					/>
+				</div>
+				<div>
+					Device3
+					<Checkbox
+						id='3'
+						value={true}
+						onValueChange={toogleValueChangeHandler}
+					/>
+				</div>
 			</div>
 		</Card>
 	);

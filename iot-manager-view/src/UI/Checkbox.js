@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import cls from './styles/checkbox.module.css';
 
-const Checkbox = ({ value, getValue }) => {
+const Checkbox = ({ id, value, onValueChange }) => {
 	const [checked, setChecked] = useState(value);
 	return (
-		<label htmlFor='checkbox' className={cls['toogle']}>
+		<label htmlFor={id} className={cls['toogle']}>
 			<input
 				className={cls['input']}
-				id='checkbox'
+				id={id}
 				type='checkbox'
 				onChange={() => {
 					setChecked(!checked);
-					getValue();
+					onValueChange();
 				}}
 				checked={checked}
 			/>
