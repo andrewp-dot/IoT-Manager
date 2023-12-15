@@ -1,15 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import GuestNavbar from './GuestNavbar';
 import UserContext from '../../context/UserContext';
-import cls from './styles/navbar.module.css';
 import LoggedUserNavbar from './LoggedUserNavbar';
-
-/**
- * TODO:
- * 1) setup correct paths and nested routes etc
- *  eg. http://localhost/user/systems/:room/:device ...
- * 2) conditional navbar
- */
+import cls from './styles/navbar.module.css';
 
 const NavBar = () => {
 	const user = useContext(UserContext);

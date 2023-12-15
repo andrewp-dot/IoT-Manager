@@ -83,7 +83,9 @@ const SystemsPage = () => {
 
 	return (
 		<ProtectedPage>
-			<div className={cls['systems']}>{content}</div>
+			<div className={cls['systems-container']}>
+				<div className={cls['systems']}>{content}</div>
+			</div>
 		</ProtectedPage>
 	);
 };

@@ -1,9 +1,16 @@
-.systems {
-	margin: 2rem 0;
+.systems-container {
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	width: 80%;
+}
+
+.systems {
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
 	flex-wrap: wrap;
-	max-width: 80%;
 	gap: 50px;
 }
 
