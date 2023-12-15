@@ -45,7 +45,6 @@ const ProfilePage = () => {
 					</LogoutButton>
 				</div>
 			</div>
-			<Checkbox />
 		</ProtectedPage>
 	);
 };

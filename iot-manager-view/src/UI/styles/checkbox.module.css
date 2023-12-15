@@ -1,7 +1,7 @@
 .slider {
 	width: 25px;
 	height: 15px;
-	background-color: #4cbb17;
+	background-color: #cc0000;
 	display: flex;
 	align-items: center;
 	padding: 0 2px;
@@ -13,7 +13,7 @@
 	content: '';
 	width: 10px;
 	height: 10px;
-	background-color: black;
+	background-color: var(--color-dark-grey);
 	border-radius: 5px;
 	transition: all 0.3s ease-in;
 }
@@ -24,7 +24,7 @@
 }
 
 .input:checked + .slider {
-	background-color: #cc0000;
+	background-color: #4cbb17;
 }
 
 .input:checked + .toogle {
