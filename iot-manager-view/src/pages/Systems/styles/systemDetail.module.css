@@ -1,0 +1,30 @@
+.system-detail {
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 80%;
+}
+
+.system-detail-header {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	background-color: var(--color-dark-grey);
+	width: max(100%, 320px);
+	border-radius: 25px;
+}
+
+.system-detail-header .title {
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+
+.system-detail-header .owner {
+	text-align: right;
+}
+
+.system-detail-header .desc {
+	margin: 0.5rem 0;
+}

@@ -1,8 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import BasicPage from '../../BasicPage';
+import Rooms from '../Rooms/Rooms';
 import UserContext from '../../../context/UserContext';
 import { useParams, Navigate } from 'react-router-dom';
 import config from '../../../config.json';
+import cls from '../styles/systemDetail.module.css';
 
 const System = () => {
 	const [system, setSystem] = useState(null);
@@ -43,11 +45,18 @@ const System = () => {
 	var content = <p>No system found</p>;
 	if (system !== null) {
 		content = (
-			<div>
-				{system.id} <br />
-				{system.name} <br />
-				{system.desc} <br />
-				{system.owner}
+			<div className={cls['system-detail']}>
+				<div className={cls['system-detail-header']}>
+					<h1 className={cls['title']}>{system.name}</h1>
+					<div className={cls['desc']}>
+						<em>Description:</em> <br />
+						{system.desc || 'No description has been added yet.'}
+					</div>
+					<div className={cls['owner']}>
+						<em>Owner:</em> {system.owner}
+					</div>
+				</div>
+				<Rooms />
 			</div>
 		);
 	}
