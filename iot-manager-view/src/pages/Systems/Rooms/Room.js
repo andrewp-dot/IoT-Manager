@@ -11,29 +11,57 @@ const Room = () => {
 		<Card>
 			<div className={cls['room']}>
 				<h2>Room name</h2>
-				<div>
-					Device1
-					<Checkbox
-						id='1'
-						value={true}
-						onValueChange={toogleValueChangeHandler}
-					/>
-				</div>
-				<div>
-					Device2
-					<Checkbox
-						id='2'
-						value={false}
-						onValueChange={toogleValueChangeHandler}
-					/>
-				</div>
-				<div>
-					Device3
-					<Checkbox
-						id='3'
-						value={true}
-						onValueChange={toogleValueChangeHandler}
-					/>
+				<div className={cls['devices-preview-container']}>
+					<div className={cls['devices-preview']}>
+						<div className={cls['device-preview']}>
+							Device1
+							<Checkbox
+								id='1'
+								value={true}
+								onValueChange={toogleValueChangeHandler}
+							/>
+						</div>
+						<div className={cls['device-preview']}>
+							Device2
+							<Checkbox
+								id='2'
+								value={false}
+								onValueChange={toogleValueChangeHandler}
+							/>
+						</div>
+						<div className={cls['device-preview']}>
+							Device3
+							<Checkbox
+								id='3'
+								value={true}
+								onValueChange={toogleValueChangeHandler}
+							/>
+						</div>
+						<div className={cls['device-preview']}>
+							Device3
+							<Checkbox
+								id='4'
+								value={true}
+								onValueChange={toogleValueChangeHandler}
+							/>
+						</div>
+						<div className={cls['device-preview']}>
+							Device3
+							<Checkbox
+								id='3'
+								value={true}
+								onValueChange={toogleValueChangeHandler}
+							/>
+						</div>
+						<div className={cls['device-preview']}>
+							Device3
+							<Checkbox
+								id='3'
+								value={true}
+								onValueChange={toogleValueChangeHandler}
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</Card>
