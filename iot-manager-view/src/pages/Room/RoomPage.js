@@ -8,7 +8,7 @@ import cls from './styles/roomPage.module.css';
 
 const RoomPage = () => {
 	const { id: sysid, roomID } = useParams();
-	const [room, setRoom] = useState([]);
+	const [room, setRoom] = useState(null);
 
 	const getRoom = useCallback(async () => {
 		try {
@@ -37,17 +37,20 @@ const RoomPage = () => {
 		getRoom();
 	}, [getRoom]);
 
+	let roomDevices = [];
+	if (room) {
+		roomDevices = room.devices.map((device) => (
+			<p key={device.id}>{device.alias}</p>
+		));
+	}
+
 	return (
 		<ProtectedPage>
 			<div className={cls['room-page']}>
 				<Card>
 					<div className={cls['room-content']}>
-						<h2>{room.name}</h2>
-						<div className={cls['room-devices']}>
-							{/* {room.devices.map((device) => (
-								<p key={device.id}>{device.alias}</p>
-							))} */}
-						</div>
+						<h2>{room ? room.name : 'no'}</h2>
+						<div className={cls['room-devices']}>{roomDevices}</div>
 						<div>
 							<Button onClick={() => console.log('Add device')}>Add</Button>
 						</div>
