@@ -18,18 +18,7 @@ class SystemsModel extends IotDatabase
         WHERE users.login = ?";
         $systemStmt = $this->db->prepare($systemsQuery);
         $systemStmt->execute([$login]);
-        $fetchedSystems = $systemStmt->fetchAll();
-
-        $systems = [];
-        foreach ($fetchedSystems as $system) {
-            $systems[] = [
-                "id" => $system['id'],
-                "sysname" => $system['name'],
-                "desc" => $system['description'],
-                "owner" => $system['owner'],
-            ];
-        }
-        return $systems;
+        return $systemStmt->fetchAll();
     }
 
     /**
@@ -109,17 +98,7 @@ class SystemsModel extends IotDatabase
         $systemRoomsStmt = $this->db->prepare($systemRoomsQuery);
         $systemRoomsStmt->execute([$sysid]);
         $fetchedRooms = $systemRoomsStmt->fetchAll();
-
-        $rooms = [];
-        foreach ($fetchedRooms as $room) {
-            $rooms[] = [
-                "id" => $room['roomid'],
-                "name" => $room['name'],
-                // get devices list of the room
-                "devices" => $this->getRoomDevices($room['roomid']),
-            ];
-        }
-        return $rooms;
+        return $fetchedRooms;
     }
 
     public function createRoomInSystem($sysid, $roomName)

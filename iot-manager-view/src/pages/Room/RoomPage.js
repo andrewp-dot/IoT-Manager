@@ -8,21 +8,22 @@ import cls from './styles/roomPage.module.css';
 
 const RoomPage = () => {
 	const { id: sysid, roomID } = useParams();
-	const [devices, setDevices] = useState([]);
+	const [room, setRoom] = useState([]);
 
-	const getRoomDevices = useCallback(async () => {
+	const getRoom = useCallback(async () => {
 		try {
 			const response = await fetch(config.api.devices.url, {
 				...config.fetchOptions,
 				body: JSON.stringify({
 					roomid: roomID,
-					request: 'getRoomDevices',
+					request: 'getRoom',
 				}),
 			});
 
 			if (response.ok) {
-				const devices = await response.json();
-				setDevices(devices);
+				const room = await response.json();
+				setRoom(room);
+				console.log(room);
 			} else {
 				const errorMessage = await response.json();
 				console.log(errorMessage);
@@ -33,22 +34,19 @@ const RoomPage = () => {
 	}, [sysid, roomID]);
 
 	useEffect(() => {
-		getRoomDevices();
-	}, [getRoomDevices]);
+		getRoom();
+	}, [getRoom]);
 
 	return (
 		<ProtectedPage>
 			<div className={cls['room-page']}>
 				<Card>
 					<div className={cls['room-content']}>
-						{/* name in here */}
-						<h2>
-							Room {sysid}/{roomID}
-						</h2>
+						<h2>{room.name}</h2>
 						<div className={cls['room-devices']}>
-							{devices.map((device) => (
+							{/* {room.devices.map((device) => (
 								<p key={device.id}>{device.alias}</p>
-							))}
+							))} */}
 						</div>
 						<div>
 							<Button onClick={() => console.log('Add device')}>Add</Button>

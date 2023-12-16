@@ -16,7 +16,11 @@ class DeviceController implements BaseController
         if ($requestedData['request'] === 'setDeviceStatus') {
             $this->setDeviceStatus($requestedData['devid'], $requestedData['status']);
         } else if ($requestedData['request'] === 'getRoomDevices') {
-            $this->getRoomDevices($requestedData['roomid']);
+            $roomDevices = $this->getRoomDevices($requestedData['roomid']);
+            echo json_encode($roomDevices);
+        } else if ($requestedData['request'] === 'getRoom') {
+            $room = $this->getRoom($requestedData['roomid']);
+            echo json_encode($room);
         } else {
             ApiError::reportError(400, 'Unhandled type of request.');
         }
@@ -36,7 +40,30 @@ class DeviceController implements BaseController
 
     private function getRoomDevices($roomid)
     {
-        $devices = $this->deviceModel->getRoomDevices($roomid);
-        echo json_encode($devices);
+        $fetchedDevices = $this->deviceModel->getRoomDevices($roomid);
+        $devices = [];
+        foreach ($fetchedDevices as $device) {
+            $devices[] = [
+                "id" => $device['devid'],
+                "alias" => $device['alias'],
+                "status" => $device['status'],
+                "type" => $device['type'],
+                "description" => $device['description'],
+            ];
+        }
+        return $devices;
+    }
+
+    private function getRoom($roomid)
+    {
+        $fetchedRoom = $this->deviceModel->getSingleRoom($roomid);
+        $devices = $this->getRoomDevices($roomid);
+        $room = [
+            "id" => $fetchedRoom['roomid'],
+            "name" => $fetchedRoom['name'],
+            "devices" => $devices,
+        ];
+
+        return $room;
     }
 }

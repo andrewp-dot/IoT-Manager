@@ -17,6 +17,7 @@ const Rooms = ({ sysid }) => {
 			if (response.ok) {
 				const rooms = await response.json();
 				setRooms(rooms);
+				console.log(rooms);
 			} else {
 				const errorMessage = await response.json();
 				console.log(errorMessage);

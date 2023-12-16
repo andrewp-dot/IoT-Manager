@@ -3,7 +3,6 @@
 include_once('IotDatabase.php');
 class DeviceModel extends IotDatabase
 {
-
     public function getSingleDevice($devid)
     {
         $getDeviceQuery = "SELECT * from devices WHERE devid = ?";
@@ -31,19 +30,15 @@ class DeviceModel extends IotDatabase
         $roomDevicesStmt = $this->db->prepare($roomDevicesQuery);
         $roomDevicesStmt->bindParam(':roomid', $roomid, PDO::PARAM_INT);
         $roomDevicesStmt->execute();
+        return $roomDevicesStmt->fetchAll();
+    }
+    public function getSingleRoom($roomid)
+    {
+        $getRoomQuery = "SELECT * FROM rooms WHERE roomid = ?";
+        $getRoomStmt = $this->db->prepare($getRoomQuery);
+        $getRoomStmt->execute([$roomid]);
 
-        $fetchedDevices = $roomDevicesStmt->fetchAll();
-
-        $devices = [];
-        foreach ($fetchedDevices as $device) {
-            $devices[] = [
-                "id" => $device['devid'],
-                "alias" => $device['alias'],
-                "status" => $device['status'],
-                "type" => $device['type'],
-                "description" => $device['description'],
-            ];
-        }
-        return $devices;
+        $gotRoom = $getRoomStmt->fetch();
+        return $gotRoom;
     }
 }
