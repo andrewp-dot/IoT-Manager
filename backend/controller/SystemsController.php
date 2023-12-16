@@ -1,5 +1,6 @@
 <?php
 
+include_once 'BaseController.php';
 include_once(__DIR__ . DS . '..' . DS . 'model' . DS . 'SystemsModel.php');
 
 class SystemsController implements BaseController

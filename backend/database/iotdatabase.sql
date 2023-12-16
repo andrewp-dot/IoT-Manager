@@ -12,7 +12,7 @@ SET time_zone = "+00:00";
 -- Database: `iotdatabase`
 --
 
-DROP TABLE IF EXISTS `device`;
+DROP TABLE IF EXISTS `devices`;
 DROP TABLE IF EXISTS `kpis`;
 DROP TABLE IF EXISTS `parameters`;
 DROP TABLE IF EXISTS `systems`;
@@ -80,9 +80,9 @@ CREATE TABLE `rooms` (
 
 -- --------------------------------------------------------
 --
--- Table structure for table `device`
+-- Table structure for table `devices`
 --
-CREATE TABLE `device` (
+CREATE TABLE `devices` (
   `devid` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
   `alias` varchar(255) DEFAULT NULL,
   `status` ENUM('on', 'off', 'err') DEFAULT 'on' NOT NULL,

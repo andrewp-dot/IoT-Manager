@@ -1,23 +1,41 @@
 import React from 'react';
 import Card from '../../../UI/Card';
 import Checkbox from '../../../UI/Checkbox';
+import config from '../../../config.json';
 import cls from './styles/rooms.module.css';
 
 const Room = ({ name, devices }) => {
-	const toogleValueChangeHandler = (val) => {
-		console.log(val);
+	const toogleStatusHandler = async (status, devid) => {
+		const statusToStr = status ? 'off' : 'on';
+		try {
+			const response = await fetch(config.api.devices.url, {
+				...config.fetchOptions,
+				body: JSON.stringify({
+					devid: devid,
+					status: statusToStr,
+					request: 'setDeviceStatus',
+				}),
+			});
+			if (response.ok) {
+				const errorMessage = await response.json();
+				console.log(errorMessage);
+			}
+		} catch (e) {
+			console.log(e);
+		}
+		console.log(status);
 	};
 
 	const currentDevices = devices.map((device) => {
 		const statusToBool = device.status === 'on';
-		console.log(device);
+		console.log(statusToBool);
 		return (
 			<div key={device.id} className={cls['device-preview']}>
 				{device.alias}
 				<Checkbox
 					id={device.id}
-					value={statusToBool}
-					onValueChange={toogleValueChangeHandler}
+					status={statusToBool}
+					onStatusChange={toogleStatusHandler}
 				/>
 			</div>
 		);
