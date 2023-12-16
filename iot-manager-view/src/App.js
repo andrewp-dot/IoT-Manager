@@ -9,6 +9,7 @@ import ProfilePage from './pages/Profile/ProfilePage';
 import SystemsPage from './pages/Systems/Systems';
 import System from './pages/Systems/System/System';
 import './App.css';
+import RoomPage from './pages/Room/RoomPage';
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 						<Route path='/profile' element={<ProfilePage />} />
 						<Route path='/systems'>
 							<Route path='' element={<SystemsPage />} />
+							<Route path=':id/:roomID' element={<RoomPage />} />
 							<Route path=':id' element={<System />} />
 						</Route>
 

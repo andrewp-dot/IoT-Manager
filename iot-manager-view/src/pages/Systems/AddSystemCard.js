@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Card from '../../UI/Card';
 import cls from './styles/systems.module.css';
 
@@ -14,18 +14,13 @@ const AddSystemCard = ({ createSystem }) => {
 			setAddSystem(false);
 		}
 	};
-	let content;
-	if (addSystem) {
-		content = (
-			<input
-				ref={sysnameInputRef}
-				type='text'
-				onKeyDown={handleChangeSysname}
-			/>
-		);
-	} else {
-		content = '+';
-	}
+	useEffect(() => {
+		// Focus on the input when it becomes visible
+		if (addSystem) {
+			sysnameInputRef.current.focus();
+		}
+	}, [addSystem]);
+
 	return (
 		<Card backgroundColor={'rgba(255,255,255,0.7'}>
 			<div
@@ -34,7 +29,16 @@ const AddSystemCard = ({ createSystem }) => {
 					setAddSystem(true);
 				}}
 			>
-				{content}
+				{addSystem ? (
+					<input
+						ref={sysnameInputRef}
+						type={'text'}
+						onKeyDown={handleChangeSysname}
+						onBlur={() => setAddSystem(false)}
+					/>
+				) : (
+					'+'
+				)}
 			</div>
 		</Card>
 	);

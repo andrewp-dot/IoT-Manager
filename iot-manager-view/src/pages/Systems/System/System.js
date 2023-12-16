@@ -25,6 +25,7 @@ const System = () => {
 			if (response.ok) {
 				const systemData = await response.json();
 				setSystem(systemData);
+				console.log(systemData);
 			} else {
 				const errorMessage = await response.json();
 				console.log(errorMessage);
@@ -39,7 +40,7 @@ const System = () => {
 	}, [userSystemRequest]);
 
 	var content = <p>No system found</p>;
-	if (system !== null) {
+	if (system) {
 		content = (
 			<div className={cls['system-detail']}>
 				<div className={cls['system-detail-header']}>
