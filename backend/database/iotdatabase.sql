@@ -70,10 +70,10 @@ CREATE TABLE `usersys` (
 -- Table structure for table `rooms`
 --
 CREATE TABLE `rooms` (
-  `id` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
+  `roomid` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
   `name` varchar(255) NOT NULL,
   `systemid` int(10) UNSIGNED NOT NULL,
-  PRIMARY KEY(`id`),
+  PRIMARY KEY(`roomid`),
   CONSTRAINT `roomsys` FOREIGN KEY (`systemid`) REFERENCES `systems` (`id`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -83,14 +83,14 @@ CREATE TABLE `rooms` (
 -- Table structure for table `device`
 --
 CREATE TABLE `device` (
-  `id` varchar(255) NOT NULL,
+  `devid` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
   `alias` varchar(255) DEFAULT NULL,
   `status` ENUM('on', 'off', 'err') DEFAULT 'on' NOT NULL,
   `type` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
   `roomid` int(10) NOT NULL,
-  PRIMARY KEY(`id`),
-  CONSTRAINT `roomid` FOREIGN KEY (`roomid`) REFERENCES `roomid` (`id`)
+  PRIMARY KEY(`devid`),
+  CONSTRAINT `roomid` FOREIGN KEY (`roomid`) REFERENCES `roomid` (`roomid`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -99,11 +99,11 @@ CREATE TABLE `device` (
 -- Table structure for table `parameters`
 --
 CREATE TABLE `parameters` (
-  `id` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
+  `paramid` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
   `name` varchar(255) NOT NULL,
   `value` float DEFAULT NULL,
-  `deviceid` varchar(255) NOT NULL,
-  PRIMARY KEY(`id` , `deviceid`)
+  `devid` varchar(255) NOT NULL,
+  PRIMARY KEY(`paramid` , `devid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------

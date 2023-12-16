@@ -92,14 +92,21 @@ class SystemsModel extends IotDatabase
 
     public function getRoomDevices($roomid)
     {
-        $roomDevicesQuery = "SELECT * FROM device JOIN rooms ON rooms.id = device.id WHERE roomid = ?";
+        $roomDevicesQuery = "SELECT * FROM device NATURAL JOIN rooms WHERE roomid = ?";
         $roomDevicesStmt = $this->db->prepare($roomDevicesQuery);
         $roomDevicesStmt->execute([$roomid]);
 
         $fetchedDevices = $roomDevicesStmt->fetchAll();
+
         $devices = [];
         foreach ($fetchedDevices as $device) {
-            $devices[] = $device;
+            $devices[] = [
+                "id" => $device['devid'],
+                "alias" => $device['alias'],
+                "status" => $device['status'],
+                "type" => $device['type'],
+                "description" => $device['description'],
+            ];
         }
         return $devices;
     }
@@ -118,10 +125,10 @@ class SystemsModel extends IotDatabase
         $rooms = [];
         foreach ($fetchedRooms as $room) {
             $rooms[] = [
-                "id" => $room['id'],
+                "id" => $room['roomid'],
                 "name" => $room['name'],
                 // get devices list of the room
-                "devices" => $this->getRoomDevices($room['id']),
+                "devices" => $this->getRoomDevices($room['roomid']),
             ];
         }
         return $rooms;

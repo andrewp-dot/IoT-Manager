@@ -9,12 +9,14 @@ const Room = ({ name, devices }) => {
 	};
 
 	const currentDevices = devices.map((device) => {
+		const statusToBool = device.status === 'on';
+		console.log(device);
 		return (
 			<div key={device.id} className={cls['device-preview']}>
 				{device.alias}
 				<Checkbox
 					id={device.id}
-					value={device.status}
+					value={statusToBool}
 					onValueChange={toogleValueChangeHandler}
 				/>
 			</div>
