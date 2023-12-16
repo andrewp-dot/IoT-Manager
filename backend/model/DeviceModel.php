@@ -24,4 +24,26 @@ class DeviceModel extends IotDatabase
 
         $this->db->commit();
     }
+
+    public function getRoomDevices($roomid)
+    {
+        $roomDevicesQuery = "SELECT * FROM devices NATURAL JOIN rooms WHERE roomid = :roomid";
+        $roomDevicesStmt = $this->db->prepare($roomDevicesQuery);
+        $roomDevicesStmt->bindParam(':roomid', $roomid, PDO::PARAM_INT);
+        $roomDevicesStmt->execute();
+
+        $fetchedDevices = $roomDevicesStmt->fetchAll();
+
+        $devices = [];
+        foreach ($fetchedDevices as $device) {
+            $devices[] = [
+                "id" => $device['devid'],
+                "alias" => $device['alias'],
+                "status" => $device['status'],
+                "type" => $device['type'],
+                "description" => $device['description'],
+            ];
+        }
+        return $devices;
+    }
 }

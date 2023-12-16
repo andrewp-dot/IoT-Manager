@@ -17,6 +17,8 @@ class LoginController implements BaseController
         if ($requestedData['request'] === 'login') {
             $authenticator = new Authenticator($this->userModel);
             $authenticator->login($requestedData['login'], $requestedData['password']);
+        } else {
+            ApiError::reportError(400, 'Unhandled type of request.');
         }
     }
 }

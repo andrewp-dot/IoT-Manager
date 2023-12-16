@@ -25,12 +25,10 @@ const Room = ({ roomid, name, devices, sysid }) => {
 		} catch (e) {
 			console.log(e);
 		}
-		console.log(status);
 	};
 
 	const currentDevices = devices.map((device) => {
 		const statusToBool = device.status === 'on';
-		console.log(statusToBool);
 		return (
 			<div key={device.id} className={cls['device-preview']}>
 				{device.alias}
@@ -42,12 +40,16 @@ const Room = ({ roomid, name, devices, sysid }) => {
 			</div>
 		);
 	});
+
+	const navigateToRoom = (e) => {
+		if (e.target.classList.contains(cls['room'])) {
+			navigate('/systems/' + sysid + '/' + roomid);
+		}
+	};
+
 	return (
 		<Card>
-			<div
-				className={cls['room']}
-				onClick={() => navigate('/systems/' + sysid + '/' + roomid)}
-			>
+			<div className={cls['room']} onClick={navigateToRoom}>
 				<h2 className={cls['title']}>{name}</h2>
 				<div className={cls['devices-preview-container']}>
 					<div className={cls['devices-preview']}>{currentDevices}</div>

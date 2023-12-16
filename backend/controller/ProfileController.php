@@ -17,6 +17,8 @@ class ProfileController implements BaseController
             $this->deleteAccount($requestedData['login'], $requestedData['password']);
         } else if ($requestedData['request'] === 'changeUserPassword') {
             $this->changeUserPassword($requestedData['login'], $requestedData['password'], $requestedData['newPassword']);
+        } else {
+            ApiError::reportError(400, 'Unhandled type of request.');
         }
     }
 

@@ -51,7 +51,6 @@ const SystemsPage = () => {
 			if (response.ok) {
 				const systems = await response.json();
 				setUserSystems(systems);
-				console.log(systems);
 			} else {
 				const errorMessage = await response.json();
 				console.log(errorMessage);

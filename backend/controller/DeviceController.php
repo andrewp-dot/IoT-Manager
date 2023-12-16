@@ -15,6 +15,10 @@ class DeviceController implements BaseController
     {
         if ($requestedData['request'] === 'setDeviceStatus') {
             $this->setDeviceStatus($requestedData['devid'], $requestedData['status']);
+        } else if ($requestedData['request'] === 'getRoomDevices') {
+            $this->getRoomDevices($requestedData['roomid']);
+        } else {
+            ApiError::reportError(400, 'Unhandled type of request.');
         }
     }
 
@@ -28,5 +32,11 @@ class DeviceController implements BaseController
         } else {
             ApiError::reportMessage("Device not found.");
         }
+    }
+
+    private function getRoomDevices($roomid)
+    {
+        $devices = $this->deviceModel->getRoomDevices($roomid);
+        echo json_encode($devices);
     }
 }

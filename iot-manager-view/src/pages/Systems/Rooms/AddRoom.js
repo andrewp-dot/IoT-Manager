@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Card from '../../../UI/Card';
 import cls from './styles/rooms.module.css';
 
@@ -15,14 +15,11 @@ const AddRoom = ({ createRoom }) => {
 		}
 	};
 
-	let content;
-	if (addRoom) {
-		content = (
-			<input ref={roomInputRef} type='text' onKeyDown={handleChangeRoomName} />
-		);
-	} else {
-		content = '+';
-	}
+	useEffect(() => {
+		if (roomInputRef.current) {
+			roomInputRef.current.focus();
+		}
+	}, [addRoom]);
 	return (
 		<Card backgroundColor={'rgba(255,255,255,0.7'}>
 			<div
@@ -31,7 +28,16 @@ const AddRoom = ({ createRoom }) => {
 					setAddRoom(true);
 				}}
 			>
-				{content}
+				{addRoom ? (
+					<input
+						ref={roomInputRef}
+						type='text'
+						onKeyDown={handleChangeRoomName}
+						onBlur={() => setAddRoom(false)}
+					/>
+				) : (
+					'+'
+				)}
 			</div>
 		</Card>
 	);

@@ -26,6 +26,8 @@ class SystemsController implements BaseController
             $this->getSystemRooms($requestedData['sysid']);
         } else if ($requestedData['request'] === 'createRoom') {
             $this->createRoom($requestedData['sysid'], $requestedData['roomName']);
+        } else {
+            ApiError::reportError(400, 'Unhandled type of request.');
         }
     }
 

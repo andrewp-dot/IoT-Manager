@@ -18,6 +18,8 @@ class RegisterController implements BaseController
     {
         if ($requestedData['request'] === 'register') {
             $this->registerUser($requestedData);
+        } else {
+            ApiError::reportError(400, 'Unhandled type of request.');
         }
     }
 

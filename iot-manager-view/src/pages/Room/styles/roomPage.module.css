@@ -1,0 +1,21 @@
+.room-page {
+	margin-top: 2rem;
+	width: 70vw;
+	height: 70vh;
+	color: var(--color-dark-grey);
+}
+
+.room-content {
+	padding: 1rem;
+	width: 70vw;
+	height: 70vh;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.room-devices {
+	background-color: #ffaaaa;
+	height: 75%;
+	margin-bottom: 1rem;
+}

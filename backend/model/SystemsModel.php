@@ -1,6 +1,7 @@
 <?php
 
 include_once('IotDatabase.php');
+include_once('DeviceModel.php');
 
 class SystemsModel extends IotDatabase
 {
@@ -94,23 +95,8 @@ class SystemsModel extends IotDatabase
 
     public function getRoomDevices($roomid)
     {
-        $roomDevicesQuery = "SELECT * FROM devices NATURAL JOIN rooms WHERE roomid = ?";
-        $roomDevicesStmt = $this->db->prepare($roomDevicesQuery);
-        $roomDevicesStmt->execute([$roomid]);
-
-        $fetchedDevices = $roomDevicesStmt->fetchAll();
-
-        $devices = [];
-        foreach ($fetchedDevices as $device) {
-            $devices[] = [
-                "id" => $device['devid'],
-                "alias" => $device['alias'],
-                "status" => $device['status'],
-                "type" => $device['type'],
-                "description" => $device['description'],
-            ];
-        }
-        return $devices;
+        $deviceModel = new DeviceModel();
+        return $deviceModel->getRoomDevices($roomid);
     }
 
     /**

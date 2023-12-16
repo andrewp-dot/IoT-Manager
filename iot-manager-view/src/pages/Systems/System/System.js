@@ -12,7 +12,6 @@ const System = () => {
 	const { id } = useParams();
 
 	const userSystemRequest = useCallback(async () => {
-		console.log('load system');
 		try {
 			const response = await fetch(config.api.systems.url, {
 				...config.fetchOptions,
@@ -25,7 +24,6 @@ const System = () => {
 			if (response.ok) {
 				const systemData = await response.json();
 				setSystem(systemData);
-				console.log(systemData);
 			} else {
 				const errorMessage = await response.json();
 				console.log(errorMessage);
