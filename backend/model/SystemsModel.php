@@ -65,9 +65,6 @@ class SystemsModel extends IotDatabase
     {
         $this->db->beginTransaction();
 
-        // check if user is the owner 
-
-        // change name 
         $changeSystem = "UPDATE systems
         SET name = ':sysname'
         WHERE id = ':sysid';";
@@ -91,5 +88,41 @@ class SystemsModel extends IotDatabase
         $userSysQueryStmt->execute();
         $userSystem = $userSysQueryStmt->fetch();
         return $userSystem;
+    }
+
+    /**
+     * Retrieves rooms of the system
+     */
+    public function getSystemRooms($sysid)
+    {
+        // get rooms
+        $systemRoomsQuery = "SELECT * FROM rooms WHERE systemid = ?";
+        $systemRoomsStmt = $this->db->prepare($systemRoomsQuery);
+        $systemRoomsStmt->execute([$sysid]);
+        $fetchedRooms = $systemRoomsStmt->fetchAll();
+
+        $rooms = [];
+        foreach ($fetchedRooms as $room) {
+            $rooms[] = [
+                "id" => $room['id'],
+                "sysname" => $room['name'],
+                // get devices list of the room
+                "devices" => 'not yet',
+            ];
+        }
+        return $rooms;
+    }
+
+    public function createRoomInSystem($sysid, $roomName)
+    {
+        $this->db->beginTransaction();
+        // insert system into systems
+        $createRoom = "INSERT INTO rooms (`name`,`systemid`) VALUES (:name, :systemid)";
+        $createRoomStmt = $this->db->prepare($createRoom);
+        $createRoomStmt->bindParam(':name', $roomName, PDO::PARAM_STR);
+        $createRoomStmt->bindParam(':systemid', $sysid, PDO::PARAM_INT);
+        $createRoomStmt->execute();
+
+        $this->db->commit();
     }
 }

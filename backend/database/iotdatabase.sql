@@ -70,15 +70,12 @@ CREATE TABLE `usersys` (
 -- Table structure for table `rooms`
 --
 CREATE TABLE `rooms` (
-  `id` varchar(255) NOT NULL,
-  `systemid` int(10) UNSIGNED DEFAULT NULL,
+  `id` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
   `name` varchar(255) NOT NULL,
-  PRIMARY KEY(`id`)
---   CONSTRAINT `deviceuser` FOREIGN KEY (`userid`) REFERENCES `users` (`login`)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE,
-  CONSTRAINT `devicesystem` FOREIGN KEY (`systemid`) REFERENCES `systems` (`id`)
-    ON DELETE SET NULL
+  `systemid` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY(`id`),
+  CONSTRAINT `roomsys` FOREIGN KEY (`systemid`) REFERENCES `systems` (`id`)
+    ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -91,14 +88,10 @@ CREATE TABLE `device` (
   `status` ENUM('on', 'off', 'err') DEFAULT 'on' NOT NULL,
   `type` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
---   `userid` varchar(255) NOT NULL,
---   `systemid` int(10) UNSIGNED DEFAULT NULL,
-  PRIMARY KEY(`id`)
---   CONSTRAINT `deviceuser` FOREIGN KEY (`userid`) REFERENCES `users` (`login`)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE,
---   CONSTRAINT `devicesystem` FOREIGN KEY (`systemid`) REFERENCES `systems` (`id`)
---     ON DELETE SET NULL
+  `roomid` int(10) NOT NULL,
+  PRIMARY KEY(`id`),
+  CONSTRAINT `roomid` FOREIGN KEY (`roomid`) REFERENCES `roomid` (`id`)
+    ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -111,9 +104,6 @@ CREATE TABLE `parameters` (
   `value` float DEFAULT NULL,
   `deviceid` varchar(255) NOT NULL,
   PRIMARY KEY(`id` , `deviceid`)
---   CONSTRAINT `paramdevice` FOREIGN KEY (`deviceid`) REFERENCES `devices` (`id`)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -148,9 +138,9 @@ INSERT INTO `systems` ( `name`, `description`,`owner`) VALUES
 INSERT INTO `usersys` (`userid`, `systemid`) VALUES
 ('Ando', 2);
 -- -- --------------------------------------------------------
-INSERT INTO `device` (`id`, `alias`, `status`, `type`, `description`) VALUES
-('device1', 'smth1', 'on','air-conditioner', NULL),
-('device2', 'smth2', 'off', 'thermometer', NULL),
-('device3', 'smth3', 'on','CCTV', 'security devices in house'),
-('device4', 'smth4', 'on','thermostat','Thermostat in the first floor');
+-- INSERT INTO `device` (`id`, `alias`, `status`, `type`, `description`) VALUES
+-- ('device1', 'smth1', 'on','air-conditioner', NULL),
+-- ('device2', 'smth2', 'off', 'thermometer', NULL),
+-- ('device3', 'smth3', 'on','CCTV', 'security devices in house'),
+-- ('device4', 'smth4', 'on','thermostat','Thermostat in the first floor');
 -- -- --------------------------------------------------------

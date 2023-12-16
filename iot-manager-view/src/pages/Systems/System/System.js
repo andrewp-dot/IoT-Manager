@@ -52,7 +52,7 @@ const System = () => {
 						<em>Owner:</em> {system.owner}
 					</div>
 				</div>
-				<Rooms />
+				<Rooms sysid={id} />
 			</div>
 		);
 	}

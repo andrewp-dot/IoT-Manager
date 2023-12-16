@@ -21,6 +21,10 @@ class SystemsController implements BaseController
             $this->changeSystemName($requestedData['login'], $requestedData['sysid'], $requestedData['newName']);
         } else if ($requestedData['request'] === 'getSingleUserSystem') {
             $this->getSingleUserSystem($requestedData['login'], $requestedData['id']);
+        } else if ($requestedData['request'] === 'getSystemRooms') {
+            $this->getSystemRooms($requestedData['sysid']);
+        } else if ($requestedData['request'] === 'createRoom') {
+            $this->createRoom($requestedData['sysid'], $requestedData['roomName']);
         }
     }
 
@@ -49,5 +53,17 @@ class SystemsController implements BaseController
     {
         $userSys = $this->systemsModel->getUserSystem($login, $sysid);
         echo json_encode($userSys);
+    }
+
+    private function getSystemRooms($sysid)
+    {
+        $sysRooms = $this->systemsModel->getSystemRooms($sysid);
+        echo json_encode($sysRooms);
+    }
+
+    private function createRoom($sysid, $roomName)
+    {
+        $this->systemsModel->createRoomInSystem($sysid, $roomName);
+        $this->getSystemRooms($sysid);
     }
 }

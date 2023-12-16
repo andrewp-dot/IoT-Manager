@@ -45,22 +45,6 @@ const Room = () => {
 								onValueChange={toogleValueChangeHandler}
 							/>
 						</div>
-						<div className={cls['device-preview']}>
-							Device3
-							<Checkbox
-								id='3'
-								value={true}
-								onValueChange={toogleValueChangeHandler}
-							/>
-						</div>
-						<div className={cls['device-preview']}>
-							Device3
-							<Checkbox
-								id='3'
-								value={true}
-								onValueChange={toogleValueChangeHandler}
-							/>
-						</div>
 					</div>
 				</div>
 			</div>

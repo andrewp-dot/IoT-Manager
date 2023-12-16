@@ -25,7 +25,7 @@ const SystemsPage = () => {
 			if (response.ok) {
 				const systems = await response.json();
 				setUserSystems(systems);
-				// console.log(systems);
+				console.log(systems);
 			} else {
 				const errorMessage = await response.json();
 				console.log(errorMessage);
@@ -67,16 +67,17 @@ const SystemsPage = () => {
 
 	var content;
 	if (loading) {
-		content = 'Loading...';
+		content = <p>'Loading...'</p>;
 	} else {
+		content = [];
 		if (userSystems.length > 0) {
 			content = userSystems.map((sys) => {
 				return <SystemCard key={sys.id} system={sys} />;
 			});
-			content.push(
-				<AddSystemCard key='create' createSystem={createSystemRequest} />
-			);
 		}
+		content.push(
+			<AddSystemCard key='system-create' createSystem={createSystemRequest} />
+		);
 	}
 
 	return (
