@@ -19,3 +19,19 @@
 	height: 75%;
 	margin-bottom: 1rem;
 }
+
+.device {
+	width: 100%;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.device div {
+	max-width: 50%;
+}
+
+.device .controls {
+	width: 40%;
+}
