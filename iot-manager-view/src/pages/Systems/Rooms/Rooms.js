@@ -56,7 +56,13 @@ const Rooms = ({ sysid }) => {
 	}, [getRoomsRequest]);
 
 	const systemRooms = rooms.map((room) => (
-		<Room key={room.id} name={room.name} devices={room.devices} />
+		<Room
+			key={room.id}
+			roomid={room.id}
+			name={room.name}
+			devices={room.devices}
+			sysid={sysid}
+		/>
 	));
 
 	return (

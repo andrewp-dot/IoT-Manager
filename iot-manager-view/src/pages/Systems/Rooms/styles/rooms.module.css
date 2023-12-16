@@ -18,6 +18,7 @@
 	height: 50vh;
 	width: 90%;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .room .title {

@@ -2,9 +2,11 @@ import React from 'react';
 import Card from '../../../UI/Card';
 import Checkbox from '../../../UI/Checkbox';
 import config from '../../../config.json';
+import { useNavigate } from 'react-router-dom';
 import cls from './styles/rooms.module.css';
 
-const Room = ({ name, devices }) => {
+const Room = ({ roomid, name, devices, sysid }) => {
+	const navigate = useNavigate();
 	const toogleStatusHandler = async (status, devid) => {
 		const statusToStr = status ? 'off' : 'on';
 		try {
@@ -42,7 +44,10 @@ const Room = ({ name, devices }) => {
 	});
 	return (
 		<Card>
-			<div className={cls['room']}>
+			<div
+				className={cls['room']}
+				onClick={() => navigate('/systems/' + sysid + '/' + roomid)}
+			>
 				<h2 className={cls['title']}>{name}</h2>
 				<div className={cls['devices-preview-container']}>
 					<div className={cls['devices-preview']}>{currentDevices}</div>
