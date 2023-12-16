@@ -6,8 +6,6 @@ import cls from './styles/profile.module.css';
 import Button from '../../UI/Button';
 import ProtectedPage from '../ProtectedPage';
 
-import Checkbox from '../../UI/Checkbox';
-
 const ProfilePage = () => {
 	const userCtx = useContext(UserContext);
 	const navigate = useNavigate();

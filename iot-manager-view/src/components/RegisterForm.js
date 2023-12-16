@@ -5,7 +5,6 @@ import Card from '../UI/Card';
 import { useNavigate } from 'react-router-dom';
 import config from '../config.json';
 import cls from './styles/loginFormStyles.module.css';
-import { act } from 'react-dom/test-utils';
 
 const REGISTER_INITIAL_STATE = {
 	login: '',

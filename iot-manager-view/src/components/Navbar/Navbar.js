@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import GuestNavbar from './GuestNavbar';
 import UserContext from '../../context/UserContext';
 import LoggedUserNavbar from './LoggedUserNavbar';

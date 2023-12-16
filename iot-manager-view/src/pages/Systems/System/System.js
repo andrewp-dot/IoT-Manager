@@ -1,8 +1,7 @@
-import React, { useEffect, useContext, useState } from 'react';
-import BasicPage from '../../BasicPage';
+import React, { useEffect, useContext, useState, useCallback } from 'react';
 import Rooms from '../Rooms/Rooms';
 import UserContext from '../../../context/UserContext';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import config from '../../../config.json';
 import cls from '../styles/systemDetail.module.css';
 import ProtectedPage from '../../ProtectedPage';
@@ -12,7 +11,7 @@ const System = () => {
 	const userCtx = useContext(UserContext);
 	const { id } = useParams();
 
-	const userSystemRequest = async () => {
+	const userSystemRequest = useCallback(async () => {
 		console.log('load system');
 		try {
 			const response = await fetch(config.api.systems.url, {
@@ -33,10 +32,11 @@ const System = () => {
 		} catch (e) {
 			console.log(e);
 		}
-	};
+	}, [id, userCtx.user.login]);
+
 	useEffect(() => {
 		userSystemRequest();
-	}, []);
+	}, [userSystemRequest]);
 
 	var content = <p>No system found</p>;
 	if (system !== null) {

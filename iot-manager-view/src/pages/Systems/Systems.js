@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import BasicPage from '../BasicPage';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import UserContext from '../../context/UserContext';
 import SystemCard from './SystemCard';
 import AddSystemCard from './AddSystemCard';
@@ -17,7 +15,7 @@ const SystemsPage = () => {
 	const [loading, setLoading] = useState(true);
 	const [userSystems, setUserSystems] = useState([]);
 
-	const getUserSystems = async () => {
+	const getUserSystems = useCallback(async () => {
 		try {
 			const response = await fetch(config.api.systems.url, {
 				...config.fetchOptions,
@@ -37,7 +35,7 @@ const SystemsPage = () => {
 		}
 		// setTimeout(() => setLoading(false), 3000);
 		setLoading(false);
-	};
+	}, [userCtx.user]);
 
 	const createSystemRequest = async (systemName) => {
 		try {
@@ -65,7 +63,7 @@ const SystemsPage = () => {
 
 	useEffect(() => {
 		getUserSystems();
-	}, []);
+	}, [getUserSystems]);
 
 	var content;
 	if (loading) {
