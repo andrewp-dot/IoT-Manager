@@ -24,26 +24,16 @@ class Authenticator
     public function login($login, $pwd)
     {
         if (!isset($login) || !isset($pwd)) {
-            ApiError::reportError(403, "notSet");
+            ApiError::reportError(403, "Required values are not set.");
         }
 
         // fix login to prevent sql injection
         $user = $this->userModel->getUser($login);
 
-        if ($user) {
-            $userPwd = $user['password'];
-            if ($userPwd === $pwd) {
-                // set cookie for 10 min
-                // setcookie('user_token', $user['login'], time() + LOGIN_EXPIRATION, '/');
-                setcookie('user_token', $user['login'], 0, '/');
-                echo json_encode(["login" => $user['login'], "role" => $user['role']]);
-                exit;
-            } else {
-                ApiError::reportError(401, "Password is invalid.");
-                exit;
-            }
+        if ($this->userModel->validateUserByPassword($login, $pwd)) {
+            setcookie('user_token', $user['login'], 0, '/');
+            echo json_encode(["login" => $user['login'], "role" => $user['role']]);
         }
-        ApiError::reportError(401, "User unknown.");
         exit;
     }
 

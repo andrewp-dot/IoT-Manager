@@ -7,6 +7,11 @@ class ApiError
     public static function reportError($errCode, $message)
     {
         http_response_code($errCode);
-        echo json_encode(["errorCode" => 401, "message" => $message]);
+        echo json_encode(["errorCode" => $errCode, "message" => $message]);
+    }
+
+    public static function reportMessage($message)
+    {
+        echo json_encode(["errorCode" => 200, "message" => $message]);
     }
 }
