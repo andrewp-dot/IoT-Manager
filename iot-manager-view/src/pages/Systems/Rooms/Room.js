@@ -8,12 +8,12 @@ const Room = ({ name, devices }) => {
 		console.log(val);
 	};
 
-	const currentDevices = devices.map((device, index) => {
+	const currentDevices = devices.map((device) => {
 		return (
-			<div className={cls['device-preview']}>
+			<div key={device.id} className={cls['device-preview']}>
 				{device.alias}
 				<Checkbox
-					id={index}
+					id={device.id}
 					value={device.status}
 					onValueChange={toogleValueChangeHandler}
 				/>
