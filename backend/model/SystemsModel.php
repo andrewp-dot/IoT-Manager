@@ -105,9 +105,14 @@ class SystemsModel extends IotDatabase
         foreach ($fetchedRooms as $room) {
             $rooms[] = [
                 "id" => $room['id'],
-                "sysname" => $room['name'],
+                "name" => $room['name'],
                 // get devices list of the room
-                "devices" => 'not yet',
+                "devices" => [
+                    [
+                        "alias" => "al",
+                        "status" => "on"
+                    ]
+                ],
             ];
         }
         return $rooms;

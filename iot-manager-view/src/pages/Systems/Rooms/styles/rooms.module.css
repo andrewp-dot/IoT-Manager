@@ -20,6 +20,11 @@
 	overflow: hidden;
 }
 
+.room .title {
+	max-height: 2rem;
+	height: 2rem;
+}
+
 .devices-preview-container {
 	max-height: 200px;
 	overflow-y: auto;

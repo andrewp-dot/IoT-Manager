@@ -3,49 +3,29 @@ import Card from '../../../UI/Card';
 import Checkbox from '../../../UI/Checkbox';
 import cls from './styles/rooms.module.css';
 
-const Room = () => {
+const Room = ({ name, devices }) => {
 	const toogleValueChangeHandler = (val) => {
 		console.log(val);
 	};
+
+	const currentDevices = devices.map((device, index) => {
+		return (
+			<div className={cls['device-preview']}>
+				{device.alias}
+				<Checkbox
+					id={index}
+					value={device.status}
+					onValueChange={toogleValueChangeHandler}
+				/>
+			</div>
+		);
+	});
 	return (
 		<Card>
 			<div className={cls['room']}>
-				<h2>Room name</h2>
+				<h2 className={cls['title']}>{name}</h2>
 				<div className={cls['devices-preview-container']}>
-					<div className={cls['devices-preview']}>
-						<div className={cls['device-preview']}>
-							Device1
-							<Checkbox
-								id='1'
-								value={true}
-								onValueChange={toogleValueChangeHandler}
-							/>
-						</div>
-						<div className={cls['device-preview']}>
-							Device2
-							<Checkbox
-								id='2'
-								value={false}
-								onValueChange={toogleValueChangeHandler}
-							/>
-						</div>
-						<div className={cls['device-preview']}>
-							Device3
-							<Checkbox
-								id='3'
-								value={true}
-								onValueChange={toogleValueChangeHandler}
-							/>
-						</div>
-						<div className={cls['device-preview']}>
-							Device3
-							<Checkbox
-								id='4'
-								value={true}
-								onValueChange={toogleValueChangeHandler}
-							/>
-						</div>
-					</div>
+					<div className={cls['devices-preview']}>{currentDevices}</div>
 				</div>
 			</div>
 		</Card>

@@ -55,7 +55,9 @@ const Rooms = ({ sysid }) => {
 		getRoomsRequest();
 	}, [getRoomsRequest]);
 
-	const systemRooms = rooms.map((room) => <Room key={room.id} />);
+	const systemRooms = rooms.map((room) => (
+		<Room key={room.id} name={room.name} devices={room.devices} />
+	));
 
 	return (
 		<div className={cls['rooms']}>
