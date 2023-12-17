@@ -1,4 +1,6 @@
 import React from 'react';
+import LogoutButton from '../../UI/LogoutButton';
+import DeviceParams from './DeviceParams';
 import cls from './styles/roomPage.module.css';
 
 /**
@@ -11,12 +13,16 @@ import cls from './styles/roomPage.module.css';
 const RoomDevice = ({ device, onDelete }) => {
 	return (
 		<div className={cls['device']}>
-			<div className={cls['alias']}>{device.alias}</div>
+			<div className={cls['device-header']}>
+				<div className={cls['alias']}>{device.alias}</div>
+				<div className={cls['status']}>{device.status}</div>
+			</div>
 			<div className={cls['description']}>{device.descripton}</div>
-			<div className={cls['status']}>{device.status}</div>
+
+			<DeviceParams params={device.params} />
 			<div className={cls['controls']}>
 				<div className={cls['remove-device']} onClick={onDelete}>
-					&times;
+					<LogoutButton>Remove</LogoutButton>
 				</div>
 			</div>
 		</div>
