@@ -7,9 +7,7 @@ export const DEFAULT_USER = {
 };
 
 const DEFAULT_USER_CONTEXT = {
-	token: '',
 	user: DEFAULT_USER,
-	premissions: [],
 	login: () => {},
 	logout: () => {},
 };
@@ -17,7 +15,7 @@ const DEFAULT_USER_CONTEXT = {
 const UserContext = createContext(DEFAULT_USER_CONTEXT);
 
 export const UserContextProvider = ({ children }) => {
-	const [cookies, setCookie, removeCookie] = useCookies(['user_token']);
+	const [cookies, removeCookie] = useCookies(['user_token']);
 
 	const [user, setUser] = useState(DEFAULT_USER);
 

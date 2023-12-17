@@ -7,13 +7,15 @@ import cls from './styles/questionDialog.module.css';
 const QuestionDialog = ({ question, onYes, onNo, onClose }) => {
 	return (
 		<Dialog onClose={onClose}>
-			<Card width='200px' height='200px'>
-				<div className={cls['question']}>{question}</div>
-				<div className={cls['controls']}>
-					<Button inverseStyle={true} onClick={onYes}>
-						Yes
-					</Button>
-					<Button onClick={onNo}>No</Button>
+			<Card>
+				<div className={cls['dialog-body']}>
+					<div className={cls['question']}>{question}</div>
+					<div className={cls['controls']}>
+						<Button inverseStyle={true} onClick={onYes}>
+							Yes
+						</Button>
+						<Button onClick={onNo}>No</Button>
+					</div>
 				</div>
 			</Card>
 		</Dialog>

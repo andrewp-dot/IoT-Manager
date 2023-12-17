@@ -30,7 +30,7 @@ const Room = ({ roomid, name, devices, sysid }) => {
 	const currentDevices = devices.map((device) => {
 		const statusToBool = device.status === 'on';
 		return (
-			<div key={device.id} className={cls['device-preview']}>
+			<div key={device.id} className={cls['device-preview']} draggable>
 				{device.alias}
 				<Checkbox
 					id={device.id}

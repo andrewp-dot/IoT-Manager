@@ -1,8 +1,16 @@
+/**
+ * @author xponec01
+ * @brief Dialog warpping component
+ */
+
 import React from 'react';
 import { createPortal } from 'react-dom';
 import cls from './styles/dialog.module.css';
+
 /**
- * Create dialog with opening value
+ * @param onClose parent component function for closing dialog
+ * @param children content of the dialog
+ * @returns ChangePasswordDialog component
  */
 const Dialog = ({ children, onClose }) => {
 	const closeDialog = (e) => {

@@ -1,3 +1,8 @@
+/**
+ * @author xponec01
+ * @brief Component that returns profile page of the user
+ */
+
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
@@ -87,9 +92,7 @@ const ProfilePage = () => {
 					onYes={() => {
 						console.log('Yes');
 					}}
-					onNo={() => {
-						console.log('No');
-					}}
+					onNo={closeDialog}
 				/>
 			)}
 		</>

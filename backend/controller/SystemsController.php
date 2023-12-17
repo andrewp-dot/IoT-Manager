@@ -28,7 +28,8 @@ class SystemsController implements BaseController
             $sysRooms = $this->getSystemRooms($requestedData['sysid']);
             echo json_encode($sysRooms);
         } else if ($requestedData['request'] === 'createRoom') {
-            $this->createRoom($requestedData['sysid'], $requestedData['roomName']);
+            $roomsWithNew = $this->createRoom($requestedData['sysid'], $requestedData['roomName']);
+            echo json_encode($roomsWithNew);
         } else {
             ApiError::reportError(400, 'Unhandled type of request.');
         }
@@ -113,6 +114,6 @@ class SystemsController implements BaseController
     private function createRoom($sysid, $roomName)
     {
         $this->systemsModel->createRoomInSystem($sysid, $roomName);
-        $this->getSystemRooms($sysid);
+        return $this->getSystemRooms($sysid);
     }
 }
