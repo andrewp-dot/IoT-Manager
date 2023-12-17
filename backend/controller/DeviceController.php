@@ -25,7 +25,7 @@ class DeviceController implements BaseController
             $this->moveDeviceToRoom($requestedData['devid'], $requestedData['nextRoom']);
             ApiError::reportMessage('Device moved succesfuly');
         } else if ($requestedData['request'] === 'addDevice') {
-            $this->addDevice($requestedData['alias'], $requestedData['type'], $requestedData['description'], $requestedData['roomid']);
+            $this->addDevice($requestedData['alias'], $requestedData['type'], $requestedData['roomid']);
             ApiError::reportMessage('Device added succesfuly');
         } else if ($requestedData['request'] === 'deleteDevice') {
             $this->deleteDevice($requestedData['devid']);
@@ -81,9 +81,9 @@ class DeviceController implements BaseController
         $this->deviceModel->moveDeviceToRoom($deviceID, $nextRoom);
     }
 
-    private function addDevice($deviceAlias, $deviceType, $deviceDescription, $roomid)
+    private function addDevice($deviceAlias, $deviceType, $roomid)
     {
-        $this->deviceModel->addDevice($deviceAlias, $deviceType, $deviceDescription, $roomid);
+        $this->deviceModel->addDevice($deviceAlias, $deviceType, $roomid);
     }
 
     private function deleteDevice($deviceID)

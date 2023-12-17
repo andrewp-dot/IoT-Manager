@@ -18,9 +18,9 @@ const ProfilePage = () => {
 	const userCtx = useContext(UserContext);
 	const navigate = useNavigate();
 
-	const openDeleteAccDialog = () => {
-		setOpenDialog('deleteAcc');
-	};
+	// const openDeleteAccDialog = () => {
+	// 	setOpenDialog('deleteAcc');
+	// };
 
 	const closeDialog = () => {
 		setOpenDialog('');
