@@ -44,7 +44,11 @@ const RoomPage = () => {
 	let roomDevices = [];
 	if (room) {
 		roomDevices = room.devices.map((device) => (
-			<RoomDevice key={device.id} device={device} />
+			<RoomDevice
+				key={device.id}
+				device={device}
+				onDelete={() => console.log('delete' + device.id)}
+			/>
 		));
 	}
 
@@ -54,9 +58,11 @@ const RoomPage = () => {
 				<div className={cls['room-page']}>
 					<Card>
 						<div className={cls['room-content']}>
-							<h2>{room ? room.name : 'no'}</h2>
+							<h2 className={cls['room-title']}>
+								{room ? room.name : 'Not found'}
+							</h2>
 							<div className={cls['room-devices']}>{roomDevices}</div>
-							<div>
+							<div className={cls['add-device']}>
 								<Button onClick={() => setOpenDialog(true)}>Add</Button>
 							</div>
 						</div>

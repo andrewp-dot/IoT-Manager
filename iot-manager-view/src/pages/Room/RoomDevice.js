@@ -11,10 +11,13 @@ import cls from './styles/roomPage.module.css';
 const RoomDevice = ({ device, onDelete }) => {
 	return (
 		<div className={cls['device']}>
-			<div>{device.alias}</div>
+			<div className={cls['alias']}>{device.alias}</div>
+			<div className={cls['description']}>{device.descripton}</div>
+			<div className={cls['status']}>{device.status}</div>
 			<div className={cls['controls']}>
-				{device.type}
-				<a onClick={onDelete}>Remove</a>
+				<div className={cls['remove-device']} onClick={onDelete}>
+					&times;
+				</div>
 			</div>
 		</div>
 	);
