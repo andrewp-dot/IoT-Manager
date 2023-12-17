@@ -44,11 +44,7 @@ const RoomPage = () => {
 	let roomDevices = [];
 	if (room) {
 		roomDevices = room.devices.map((device) => (
-			<RoomDevice
-				key={device.id}
-				device={device}
-				onDelete={() => console.log('delete' + device.id)}
-			/>
+			<RoomDevice key={device.id} device={device} onDelete={getRoom} />
 		));
 	}
 

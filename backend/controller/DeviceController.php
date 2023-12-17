@@ -27,6 +27,9 @@ class DeviceController implements BaseController
         } else if ($requestedData['request'] === 'addDevice') {
             $this->addDevice($requestedData['alias'], $requestedData['type'], $requestedData['description'], $requestedData['roomid']);
             ApiError::reportMessage('Device added succesfuly');
+        } else if ($requestedData['request'] === 'deleteDevice') {
+            $this->deleteDevice($requestedData['devid']);
+            ApiError::reportMessage('Device has been deleted succesfuly');
         } else {
             ApiError::reportError(400, 'Unhandled type of request.');
         }
@@ -81,5 +84,10 @@ class DeviceController implements BaseController
     private function addDevice($deviceAlias, $deviceType, $deviceDescription, $roomid)
     {
         $this->deviceModel->addDevice($deviceAlias, $deviceType, $deviceDescription, $roomid);
+    }
+
+    private function deleteDevice($deviceID)
+    {
+        $this->deviceModel->deleteDevice($deviceID);
     }
 }

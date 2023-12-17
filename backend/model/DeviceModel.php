@@ -71,4 +71,14 @@ class DeviceModel extends IotDatabase
 
         $this->db->commit();
     }
+
+    public function deleteDevice($deviceID)
+    {
+        $this->db->beginTransaction();
+        $deleteQuery = "DELETE FROM devices WHERE devid = ?";
+        $deleteQueryStmt = $this->db->prepare($deleteQuery);
+        $deleteQueryStmt->execute([$deviceID]);
+
+        $this->db->commit();
+    }
 }
