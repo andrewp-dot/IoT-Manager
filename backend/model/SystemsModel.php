@@ -101,6 +101,9 @@ class SystemsModel extends IotDatabase
         return $fetchedRooms;
     }
 
+    /**
+     * Sreates room in system site
+     */
     public function createRoomInSystem($sysid, $roomName)
     {
         $this->db->beginTransaction();
@@ -111,6 +114,18 @@ class SystemsModel extends IotDatabase
         $createRoomStmt->bindParam(':systemid', $sysid, PDO::PARAM_INT);
         $createRoomStmt->execute();
 
+        $this->db->commit();
+    }
+
+    /**
+     * Deletes system
+     */
+    public function deleteSystem($sysid)
+    {
+        $this->db->beginTransaction();
+        $deleteSystemQuery = "DELETE FROM systems WHERE id = ?";
+        $deleteSystemStmt = $this->db->prepare($deleteSystemQuery);
+        $deleteSystemStmt->execute([$sysid]);
         $this->db->commit();
     }
 }

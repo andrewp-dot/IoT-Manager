@@ -31,6 +31,9 @@ class SystemsController implements BaseController
         } else if ($requestedData['request'] === 'createRoom') {
             $roomsWithNew = $this->createRoom($requestedData['sysid'], $requestedData['roomName']);
             echo json_encode($roomsWithNew);
+        } else if ($requestedData['request'] === 'deleteSystem') {
+            $this->deleteSystem($requestedData['sysid']);
+            ApiError::reportMessage('System has been deleted succesfuly');
         } else {
             ApiError::reportError(400, 'Unhandled type of request.');
         }
@@ -116,5 +119,10 @@ class SystemsController implements BaseController
     {
         $this->systemsModel->createRoomInSystem($sysid, $roomName);
         return $this->getSystemRooms($sysid);
+    }
+
+    private function deleteSystem($sysid)
+    {
+        $this->systemsModel->deleteSystem($sysid);
     }
 }
