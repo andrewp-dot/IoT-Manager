@@ -55,4 +55,20 @@ class DeviceModel extends IotDatabase
 
         $this->db->commit();
     }
+
+    public function addDevice($deviceAlias, $deviceType, $deviceDescription, $roomid)
+    {
+        $this->db->beginTransaction();
+
+        $addDeviceQuery = "INSERT INTO devices (`alias`,`type`,`description`,`roomid`) VALUES  (:alias , :type , :description , :roomid) ";
+
+        $addDeviceStmt = $this->db->prepare($addDeviceQuery);
+        $addDeviceStmt->bindParam(':alias', $deviceAlias, PDO::PARAM_STR);
+        $addDeviceStmt->bindParam(':type', $deviceType, PDO::PARAM_STR);
+        $addDeviceStmt->bindParam(':description', $deviceDescription, PDO::PARAM_STR);
+        $addDeviceStmt->bindParam(':roomid', $roomid, PDO::PARAM_INT);
+        $addDeviceStmt->execute();
+
+        $this->db->commit();
+    }
 }

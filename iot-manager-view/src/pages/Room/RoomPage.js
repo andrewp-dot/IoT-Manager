@@ -65,9 +65,13 @@ const RoomPage = () => {
 			</ProtectedPage>
 			{openDialog && (
 				<Dialog onClose={() => setOpenDialog(false)}>
-					<div style={{ width: '200px', height: '200px', background: 'white' }}>
-						<AddDeviceForm />
-					</div>
+					<Card>
+						<AddDeviceForm
+							roomID={roomID}
+							onClose={() => setOpenDialog(false)}
+							onRoomAdd={getRoom}
+						/>
+					</Card>
 				</Dialog>
 			)}
 		</>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import config from '../../config.json';
 import cls from './styles/addDeviceForm.module.css';
+import Button from '../../UI/Button';
 
 const INITIAL_FORM_DATA = {
 	alias: '',
@@ -8,8 +9,9 @@ const INITIAL_FORM_DATA = {
 	description: '',
 };
 
-const AddDeviceForm = ({ roomID }) => {
+const AddDeviceForm = ({ roomID, onClose, onRoomAdd }) => {
 	const [formData, setFormData] = useState(INITIAL_FORM_DATA);
+	const [error, setError] = useState(false);
 
 	const aliasInputHandler = (e) => {
 		setFormData({ ...formData, alias: e.target.value });
@@ -30,22 +32,44 @@ const AddDeviceForm = ({ roomID }) => {
 				body: JSON.stringify({
 					roomid: roomID,
 					...formData,
+					request: 'addDevice',
 				}),
 			});
+
+			if (response.ok) {
+				onRoomAdd();
+			}
+			const message = response.json();
+			console.log(message);
 		} catch (e) {
 			console.log(e);
 		}
 	};
 
+	const onSubmitHandler = (e) => {
+		e.preventDefault();
+
+		if (formData.alias.trim() === '' || formData.type.trim() === '') {
+			setError(true);
+			return;
+		}
+		setError(false);
+		addDeviceRequest();
+		onClose();
+	};
+
 	return (
-		<form>
+		<form className={cls['form']} onSubmit={onSubmitHandler}>
 			<div className={cls['form-field']}>
 				<label htmlFor='alias'>Alias</label>
 				<input
+					className={
+						error && formData.alias.trim() === '' ? cls['invalid'] : ''
+					}
 					id='alias'
 					name='alias'
 					type='text'
-					placeholder='alias'
+					placeholder='Alias'
 					value={formData.alias}
 					onChange={aliasInputHandler}
 				/>
@@ -53,10 +77,11 @@ const AddDeviceForm = ({ roomID }) => {
 			<div className={cls['form-field']}>
 				<label htmlFor='type'>Type</label>
 				<input
+					className={error && formData.type.trim() === '' ? cls['invalid'] : ''}
 					id='type'
 					name='type'
 					type='text'
-					placeholder='type'
+					placeholder='Type'
 					value={formData.type}
 					onChange={typeInputHandler}
 				/>
@@ -67,12 +92,17 @@ const AddDeviceForm = ({ roomID }) => {
 					id='description'
 					name='description'
 					type='text'
-					placeholder='description'
+					placeholder='Description'
 					value={formData.description}
 					onChange={descriptionInputHandler}
 				/>
 			</div>
-			<div className={cls['controls']}></div>
+			<div className={cls['controls']}>
+				<Button inverseStyle={true} type='click' onClick={onClose}>
+					Cancel
+				</Button>
+				<Button type='submit'>Add</Button>
+			</div>
 		</form>
 	);
 };
