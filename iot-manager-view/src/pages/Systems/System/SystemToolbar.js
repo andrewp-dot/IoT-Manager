@@ -1,3 +1,8 @@
+/**
+ * @author xponec01
+ * @brief System toolbar component
+ */
+
 import React from 'react';
 import Toolbar from '../../../components/ToolBar/Toolbar';
 import Tool from '../../../components/ToolBar/Tool';
@@ -8,31 +13,38 @@ import {
 	faX,
 } from '@fortawesome/free-solid-svg-icons';
 
-const SystemToolbar = ({ isOwner, onAddUser, onEdit, onRemove }) => {
+/**
+ *
+ * @param isOwner boolean; true if logged user is owner
+ * @param isEditable boolean; true if system is in editing state
+ * @param onAddUser function for adding user
+ * @param onEdit function to enter edit mode
+ * @param onRemove delete system function
+ * @returns
+ */
+const SystemToolbar = ({
+	isOwner,
+	isEditable,
+	onAddUser,
+	onEdit,
+	onDeleteSystem,
+}) => {
+	const editableColor = isEditable ? 'var(--color-secondary)' : '';
 	return (
 		<Toolbar>
-			<Tool
-				onClick={() => {
-					console.log('add user to system');
-				}}
-			>
+			<Tool onClick={onAddUser}>
 				<FontAwesomeIcon icon={faUserPlus} />
 			</Tool>
 
-			<Tool
-				onClick={() => {
-					console.log('removeSystem');
-				}}
-			>
+			<Tool onClick={onDeleteSystem}>
 				<FontAwesomeIcon icon={faX} />
 			</Tool>
 			{isOwner && (
-				<Tool
-					onClick={() => {
-						console.log('edit');
-					}}
-				>
-					<FontAwesomeIcon icon={faPenToSquare} />
+				<Tool onClick={onEdit}>
+					<FontAwesomeIcon
+						icon={faPenToSquare}
+						style={{ color: editableColor }}
+					/>
 				</Tool>
 			)}
 		</Toolbar>
