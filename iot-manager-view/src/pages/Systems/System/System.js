@@ -6,7 +6,7 @@
 import React, { useEffect, useContext, useState, useCallback } from 'react';
 import Rooms from '../Rooms/Rooms';
 import UserContext from '../../../context/UserContext';
-import { useParams } from 'react-router-dom';
+import { resolvePath, useParams } from 'react-router-dom';
 import config from '../../../config.json';
 import cls from '../styles/systemDetail.module.css';
 import ProtectedPage from '../../ProtectedPage';
@@ -65,6 +65,9 @@ const System = () => {
 		setEditSystemData({ ...editSystemData, description: e.target.value });
 	};
 
+	/**
+	 * Send request to edit system data
+	 */
 	const editSystemDataHandler = async () => {
 		if (enabledEdit) {
 			try {
@@ -88,6 +91,9 @@ const System = () => {
 		setEnabledEdit(!enabledEdit);
 	};
 
+	/**
+	 * Send request to delete system
+	 */
 	const deleteSystemHandler = async () => {
 		try {
 			const response = await fetch(config.api.systems.url, {
@@ -100,6 +106,50 @@ const System = () => {
 			if (response.ok) {
 				navigate('/systems');
 			}
+			const message = await response.json();
+			console.log(message);
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	/**
+	 * Send request to add user to system
+	 * @param login user where is about to be added
+	 */
+	const addUserToSystem = async (login) => {
+		try {
+			const response = await fetch(config.api.systems.url, {
+				...config.fetchOptions,
+				body: JSON.stringify({
+					login: login,
+					system: id,
+					request: 'addUserToSystem',
+				}),
+			});
+
+			const message = await response.json();
+			console.log(message);
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	/**
+	 * Send request to remove user from system
+	 * @param login user to be removed
+	 */
+	const removeUserFromSystem = async (login) => {
+		try {
+			const response = await fetch(config.api.systems.url, {
+				...config.fetchOptions,
+				body: JSON.stringify({
+					login: login,
+					system: id,
+					request: 'removeUserFromSystem',
+				}),
+			});
+
 			const message = await response.json();
 			console.log(message);
 		} catch (e) {
@@ -165,16 +215,27 @@ const System = () => {
 					</div>
 					<Rooms sysid={id} />
 				</div>
+			</>
+		);
+	}
 
+	let ownerToolbar = null;
+
+	if (system?.owner === userCtx.user.login) {
+		ownerToolbar = (
+			<>
 				{/* tools related components */}
 				<SystemToolbar
-					isOwner={system.owner === userCtx.user.login}
 					isEditable={enabledEdit}
 					onAddUser={() => setOpenDialog('addUser')}
+					onRemoveUser={() => setOpenDialog('deleteUser')}
 					onDeleteSystem={() => setOpenDialog('deleteSystem')}
 					onEdit={() => editSystemDataHandler()}
 				/>
 				{openDialog === 'addUser' && (
+					<Dialog onClose={() => setOpenDialog('')}>Add user dialog</Dialog>
+				)}
+				{openDialog === 'deleteUser' && (
 					<Dialog onClose={() => setOpenDialog('')}>Add user dialog</Dialog>
 				)}
 				{openDialog === 'deleteSystem' && (
@@ -188,7 +249,12 @@ const System = () => {
 			</>
 		);
 	}
-	return <ProtectedPage>{content}</ProtectedPage>;
+	return (
+		<ProtectedPage>
+			{content}
+			{ownerToolbar}
+		</ProtectedPage>
+	);
 };
 
 export default System;

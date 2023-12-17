@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faPenToSquare,
 	faUserPlus,
+	faUserMinus,
 	faX,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -23,30 +24,32 @@ import {
  * @returns
  */
 const SystemToolbar = ({
-	isOwner,
 	isEditable,
 	onAddUser,
+	onRemoveUser,
 	onEdit,
 	onDeleteSystem,
 }) => {
 	const editableColor = isEditable ? 'var(--color-secondary)' : '';
+
 	return (
 		<Toolbar>
 			<Tool onClick={onAddUser}>
 				<FontAwesomeIcon icon={faUserPlus} />
 			</Tool>
+			<Tool onClick={onRemoveUser}>
+				<FontAwesomeIcon icon={faUserMinus} />
+			</Tool>
 
 			<Tool onClick={onDeleteSystem}>
 				<FontAwesomeIcon icon={faX} />
 			</Tool>
-			{isOwner && (
-				<Tool onClick={onEdit}>
-					<FontAwesomeIcon
-						icon={faPenToSquare}
-						style={{ color: editableColor }}
-					/>
-				</Tool>
-			)}
+			<Tool onClick={onEdit}>
+				<FontAwesomeIcon
+					icon={faPenToSquare}
+					style={{ color: editableColor }}
+				/>
+			</Tool>
 		</Toolbar>
 	);
 };
