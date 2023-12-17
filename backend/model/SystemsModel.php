@@ -128,4 +128,20 @@ class SystemsModel extends IotDatabase
         $deleteSystemStmt->execute([$sysid]);
         $this->db->commit();
     }
+
+    /**
+     * Edits systems data
+     */
+    public function editSystem($sysid, $name, $description)
+    {
+        $this->db->beginTransaction();
+        $updateSystemQuery = "UPDATE systems SET name = :sysname, description = :description WHERE id = :sysid";
+        $updateSystemStmt = $this->db->prepare($updateSystemQuery);
+        $updateSystemStmt->bindParam(':sysname', $name, PDO::PARAM_STR);
+        $updateSystemStmt->bindParam(':description', $description, PDO::PARAM_STR);
+        $updateSystemStmt->bindParam(':sysid', $sysid, PDO::PARAM_STR);
+
+        $updateSystemStmt->execute();
+        $this->db->commit();
+    }
 }

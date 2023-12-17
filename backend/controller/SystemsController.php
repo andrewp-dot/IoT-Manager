@@ -34,6 +34,9 @@ class SystemsController implements BaseController
         } else if ($requestedData['request'] === 'deleteSystem') {
             $this->deleteSystem($requestedData['sysid']);
             ApiError::reportMessage('System has been deleted succesfuly');
+        } else if ($requestedData['request'] === 'editSystem') {
+            $this->editSystem($requestedData['sysid'], $requestedData['name'], $requestedData['description']);
+            ApiError::reportMessage('Data has been changed succefuly');
         } else {
             ApiError::reportError(400, 'Unhandled type of request.');
         }
@@ -124,5 +127,13 @@ class SystemsController implements BaseController
     private function deleteSystem($sysid)
     {
         $this->systemsModel->deleteSystem($sysid);
+    }
+
+    private function editSystem($sysid, $name, $description)
+    {
+        if (trim($name) === '') {
+            $name = 'Unnamed';
+        }
+        $this->systemsModel->editSystem($sysid, $name, $description);
     }
 }

@@ -6,7 +6,7 @@
 import React, { useEffect, useContext, useState, useCallback } from 'react';
 import Rooms from '../Rooms/Rooms';
 import UserContext from '../../../context/UserContext';
-import { resolvePath, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import config from '../../../config.json';
 import cls from '../styles/systemDetail.module.css';
 import ProtectedPage from '../../ProtectedPage';
@@ -42,7 +42,7 @@ const System = () => {
 				setSystem(systemData);
 				setEditSystemData({
 					name: systemData.name,
-					description: systemData.desc,
+					description: systemData.description,
 				});
 			} else {
 				const errorMessage = await response.json();
@@ -63,6 +63,29 @@ const System = () => {
 
 	const editDescriptionHandler = (e) => {
 		setEditSystemData({ ...editSystemData, description: e.target.value });
+	};
+
+	const editSystemDataHandler = async () => {
+		if (enabledEdit) {
+			try {
+				const response = await fetch(config.api.systems.url, {
+					...config.fetchOptions,
+					body: JSON.stringify({
+						sysid: id,
+						...editSystemData,
+						request: 'editSystem',
+					}),
+				});
+				if (response.ok) {
+					userSystemRequest();
+				}
+				const message = await response.json();
+				console.log(message);
+			} catch (e) {
+				console.log(e);
+			}
+		}
+		setEnabledEdit(!enabledEdit);
 	};
 
 	const deleteSystemHandler = async () => {
@@ -118,7 +141,7 @@ const System = () => {
 				/>
 			);
 		}
-		return system.desc || 'No description has been added yet.';
+		return system.description || 'No description has been added yet.';
 	};
 
 	/**
@@ -149,7 +172,7 @@ const System = () => {
 					isEditable={enabledEdit}
 					onAddUser={() => setOpenDialog('addUser')}
 					onDeleteSystem={() => setOpenDialog('deleteSystem')}
-					onEdit={() => setEnabledEdit(!enabledEdit)}
+					onEdit={() => editSystemDataHandler()}
 				/>
 				{openDialog === 'addUser' && (
 					<Dialog onClose={() => setOpenDialog('')}>Add user dialog</Dialog>
