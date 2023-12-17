@@ -3,7 +3,7 @@
  * @brief Component that tool button for toolbar.
  */
 
-import React from 'react';
+import React, { Children } from 'react';
 import cls from './styles/toolbar.module.css';
 
 /**
@@ -11,10 +11,10 @@ import cls from './styles/toolbar.module.css';
  * @param method functionality of the tool
  * @returns tool component
  */
-const Tool = ({ name, method }) => {
+const Tool = ({ onClick, children }) => {
 	return (
-		<div className={cls['tool']} onClick={method}>
-			{name}
+		<div className={cls['tool']} onClick={onClick}>
+			{children}
 		</div>
 	);
 };

@@ -1,6 +1,6 @@
 /**
  * @author xponec01
- * @brief Component that creates toolbar with given tools.
+ * @brief Component that creates toolbar wrapper.
  */
 
 import React from 'react';
@@ -9,19 +9,11 @@ import Tool from './Tool';
 
 /**
  * Creates toolbar of the site
- * @param tools array of tools; contains object with tool name and method
- * @returns toolbar component
+ * @param children should be tools placed in there
+ * @returns toolbar wrapping component
  */
-const Toolbar = ({ tools }) => {
-	const usedTools = tools || [];
-
-	return (
-		<div className={cls['toolbar']}>
-			{usedTools.map((tool) => {
-				return <Tool key={tool.name} name={tool.name} onClick={tool.method} />;
-			})}
-		</div>
-	);
+const Toolbar = ({ children }) => {
+	return <div className={cls['toolbar']}>{children}</div>;
 };
 
 export default Toolbar;

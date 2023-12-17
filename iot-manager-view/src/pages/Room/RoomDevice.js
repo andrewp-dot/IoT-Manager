@@ -1,3 +1,8 @@
+/**
+ * @author xponec
+ * @brief Component for display device on room page
+ */
+
 import React from 'react';
 import LogoutButton from '../../UI/LogoutButton';
 import DeviceParams from './Parameters/DeviceParams';
@@ -5,11 +10,10 @@ import config from '../../config.json';
 import cls from './styles/roomPage.module.css';
 
 /**
- * TODO:
- * add parameters here
- * display params of the device
- * add access on device detail
- * in device detail add option form add and remove parameter
+ *
+ * @param device device data to be desplayed
+ * @param onDelete function that updates devices in room
+ * @returns
  */
 const RoomDevice = ({ device, onDelete }) => {
 	const removeDevice = async () => {

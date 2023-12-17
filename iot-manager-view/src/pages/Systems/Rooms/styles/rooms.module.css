@@ -24,6 +24,7 @@
 .room .title {
 	max-height: 2rem;
 	height: 2rem;
+	text-transform: capitalize;
 }
 
 .add-room {

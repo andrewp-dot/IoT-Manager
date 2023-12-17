@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import config from '../../../config.json';
 import cls from '../styles/systemDetail.module.css';
 import ProtectedPage from '../../ProtectedPage';
+import Toolbar from '../../../components/ToolBar/Toolbar';
 
 const System = () => {
 	const [system, setSystem] = useState(null);
@@ -55,7 +56,12 @@ const System = () => {
 			</div>
 		);
 	}
-	return <ProtectedPage>{content}</ProtectedPage>;
+	return (
+		<ProtectedPage>
+			{content}
+			<Toolbar />
+		</ProtectedPage>
+	);
 };
 
 export default System;

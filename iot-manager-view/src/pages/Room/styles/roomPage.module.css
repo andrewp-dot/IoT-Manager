@@ -15,6 +15,7 @@
 
 .room-title {
 	text-align: center;
+	text-transform: capitalize;
 }
 
 .room-devices {
