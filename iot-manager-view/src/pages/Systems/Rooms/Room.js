@@ -57,7 +57,10 @@ const Room = ({ roomid, name, devices, sysid, updateRooms }) => {
 	});
 
 	const navigateToRoom = (e) => {
-		if (e.target.classList.contains(cls['room'])) {
+		if (
+			e.target.classList.contains(cls['room']) ||
+			e.target.classList.contains(cls['title'])
+		) {
 			navigate('/systems/' + sysid + '/' + roomid);
 		}
 	};

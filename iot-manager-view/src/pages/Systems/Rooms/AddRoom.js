@@ -29,14 +29,17 @@ const AddRoom = ({ createRoom }) => {
 				}}
 			>
 				{addRoom ? (
-					<input
-						ref={roomInputRef}
-						type='text'
-						onKeyDown={handleChangeRoomName}
-						onBlur={() => setAddRoom(false)}
-					/>
+					<div className={cls['add-room']}>
+						<h3>New Room Name</h3>
+						<input
+							ref={roomInputRef}
+							type='text'
+							onKeyDown={handleChangeRoomName}
+							onBlur={() => setAddRoom(false)}
+						/>
+					</div>
 				) : (
-					'+'
+					<div className={cls['add-room-preview']}>+</div>
 				)}
 			</div>
 		</Card>

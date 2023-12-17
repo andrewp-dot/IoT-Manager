@@ -33,3 +33,19 @@
 	word-break: break-word;
 	text-wrap: wrap;
 }
+
+.add-system {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.add-system-preview {
+	font-size: 3rem;
+	color: var(--color-ligth-grey);
+	height: inherit;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}

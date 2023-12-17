@@ -26,6 +26,22 @@
 	height: 2rem;
 }
 
+.add-room {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.add-room-preview {
+	font-size: 3rem;
+	color: var(--color-ligth-grey);
+	height: inherit;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
 .devices-preview-container {
 	max-height: 200px;
 	overflow-y: auto;

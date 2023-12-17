@@ -30,14 +30,17 @@ const AddSystemCard = ({ createSystem }) => {
 				}}
 			>
 				{addSystem ? (
-					<input
-						ref={sysnameInputRef}
-						type={'text'}
-						onKeyDown={handleChangeSysname}
-						onBlur={() => setAddSystem(false)}
-					/>
+					<div className={cls['add-system']}>
+						<h3>New System Name</h3>
+						<input
+							ref={sysnameInputRef}
+							type={'text'}
+							onKeyDown={handleChangeSysname}
+							onBlur={() => setAddSystem(false)}
+						/>
+					</div>
 				) : (
-					'+'
+					<div className={cls['add-system-preview']}>+</div>
 				)}
 			</div>
 		</Card>
