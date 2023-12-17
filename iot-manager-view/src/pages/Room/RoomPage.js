@@ -10,7 +10,7 @@ import cls from './styles/roomPage.module.css';
 import AddDeviceForm from './AddDeviceForm';
 
 const RoomPage = () => {
-	const { id: sysid, roomID } = useParams();
+	const { roomID } = useParams();
 	const [room, setRoom] = useState(null);
 	const [openDialog, setOpenDialog] = useState(false);
 
@@ -35,7 +35,7 @@ const RoomPage = () => {
 		} catch (e) {
 			console.log(e);
 		}
-	}, [sysid, roomID]);
+	}, [roomID]);
 
 	useEffect(() => {
 		getRoom();

@@ -1,4 +1,4 @@
-import React, { useDebugValue, useState } from 'react';
+import React from 'react';
 import Card from '../../../UI/Card';
 import Checkbox from '../../../UI/Checkbox';
 import config from '../../../config.json';

@@ -3,11 +3,10 @@
  * @brief Component that tool button for toolbar.
  */
 
-import React, { Children } from 'react';
+import React from 'react';
 import cls from './styles/toolbar.module.css';
 
 /**
- * @param name name of the tool
  * @param method functionality of the tool
  * @returns tool component
  */

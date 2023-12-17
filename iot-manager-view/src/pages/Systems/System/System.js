@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import config from '../../../config.json';
 import cls from '../styles/systemDetail.module.css';
 import ProtectedPage from '../../ProtectedPage';
-import Toolbar from '../../../components/ToolBar/Toolbar';
+import SystemToolbar from './SystemToolbar';
 
 const System = () => {
 	const [system, setSystem] = useState(null);
@@ -59,7 +59,7 @@ const System = () => {
 	return (
 		<ProtectedPage>
 			{content}
-			<Toolbar />
+			<SystemToolbar isOwner={system.owner === userCtx.user.login} />
 		</ProtectedPage>
 	);
 };

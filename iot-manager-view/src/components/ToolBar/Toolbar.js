@@ -5,7 +5,6 @@
 
 import React from 'react';
 import cls from './styles/toolbar.module.css';
-import Tool from './Tool';
 
 /**
  * Creates toolbar of the site

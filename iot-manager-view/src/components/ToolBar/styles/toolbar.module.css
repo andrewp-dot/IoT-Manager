@@ -12,11 +12,20 @@
 }
 
 .tool {
-	margin-top: 0.5rem;
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
+	margin-top: 1rem;
+	margin-left: 2rem;
+	margin-right: 2rem;
 	color: var(--color-ligth-grey);
 	fill: var(--color-ligth-grey);
+	cursor: pointer;
+	transition: all 0.2s;
+	font-size: 1.5rem;
+}
+
+.tool:hover,
+.tool:focus {
+	fill: var(--color-secondary);
+	color: var(--color-secondary);
 }
 
 @media only screen and (max-width: 768px) {
@@ -26,5 +35,9 @@
 		width: 100%;
 		height: 50px;
 		position: fixed;
+	}
+
+	.tool {
+		font-size: 1rem;
 	}
 }
