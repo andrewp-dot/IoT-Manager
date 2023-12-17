@@ -41,4 +41,18 @@ class DeviceModel extends IotDatabase
         $gotRoom = $getRoomStmt->fetch();
         return $gotRoom;
     }
+
+    public function moveDeviceToRoom($deviceID, $nextRoom)
+    {
+        $this->db->beginTransaction();
+
+        $moveDeviceQuery = "UPDATE devices SET roomid = :roomid WHERE devid = :devid";
+
+        $moveDeviceStmt = $this->db->prepare($moveDeviceQuery);
+        $moveDeviceStmt->bindParam(':devid', $deviceID, PDO::PARAM_INT);
+        $moveDeviceStmt->bindParam(':roomid', $nextRoom, PDO::PARAM_INT);
+        $moveDeviceStmt->execute();
+
+        $this->db->commit();
+    }
 }

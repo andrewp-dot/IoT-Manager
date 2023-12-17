@@ -18,7 +18,8 @@ class SystemsController implements BaseController
             $userSystems = $this->userSystems($requestedData['login']);
             echo json_encode($userSystems);
         } else if ($requestedData['request'] === 'createSystem') {
-            $this->createSystem($requestedData['login'], $requestedData['name'], NULL);
+            $newUserSystems = $this->createSystem($requestedData['login'], $requestedData['name'], NULL);
+            echo json_encode($newUserSystems);
         } else if ($requestedData['request'] === 'changeSystemName') {
             $this->changeSystemName($requestedData['login'], $requestedData['sysid'], $requestedData['newName']);
         } else if ($requestedData['request'] === 'getSingleUserSystem') {
@@ -59,7 +60,7 @@ class SystemsController implements BaseController
             "name" => $name,
             "description" => $desc,
         ]);
-        $this->userSystems($owner);
+        return $this->userSystems($owner);
     }
 
     private function changeSystemName($login, $sysid, $newName)
@@ -72,7 +73,7 @@ class SystemsController implements BaseController
         $fetchedSystem = $this->systemsModel->getUserSystem($login, $sysid);
         $userSys = [
             "id" => $fetchedSystem['id'],
-            "sysname" => $fetchedSystem['name'],
+            "name" => $fetchedSystem['name'],
             "description" => $fetchedSystem['description'],
             "owner" => $fetchedSystem['owner'],
         ];

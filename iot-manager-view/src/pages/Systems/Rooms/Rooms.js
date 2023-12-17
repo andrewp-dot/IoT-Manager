@@ -61,6 +61,7 @@ const Rooms = ({ sysid }) => {
 			name={room.name}
 			devices={room.devices}
 			sysid={sysid}
+			updateRooms={getRoomsRequest}
 		/>
 	));
 

@@ -21,6 +21,9 @@ class DeviceController implements BaseController
         } else if ($requestedData['request'] === 'getRoom') {
             $room = $this->getRoom($requestedData['roomid']);
             echo json_encode($room);
+        } else if ($requestedData['request'] === 'moveDeviceToRoom') {
+            $this->moveDeviceToRoom($requestedData['devid'], $requestedData['prevRoom'], $requestedData['nextRoom']);
+            ApiError::reportMessage('Device mooved succesfuly');
         } else {
             ApiError::reportError(400, 'Unhandled type of request.');
         }
@@ -65,5 +68,10 @@ class DeviceController implements BaseController
         ];
 
         return $room;
+    }
+
+    private function moveDeviceToRoom($deviceID, $prevRoom, $nextRoom)
+    {
+        $this->deviceModel->moveDeviceToRoom($deviceID, $nextRoom);
     }
 }

@@ -88,9 +88,9 @@ CREATE TABLE `devices` (
   `status` ENUM('on', 'off', 'err') DEFAULT 'on' NOT NULL,
   `type` varchar(255) NOT NULL,
   `description` text DEFAULT NULL,
-  `roomid` int(10) NOT NULL,
+  `roomid` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY(`devid`),
-  CONSTRAINT `roomid` FOREIGN KEY (`roomid`) REFERENCES `roomid` (`roomid`)
+  CONSTRAINT `roomid` FOREIGN KEY (`roomid`) REFERENCES `rooms` (`roomid`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
