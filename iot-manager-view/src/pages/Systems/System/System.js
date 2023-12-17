@@ -6,11 +6,12 @@
 import React, { useEffect, useContext, useState, useCallback } from 'react';
 import Rooms from '../Rooms/Rooms';
 import UserContext from '../../../context/UserContext';
-import { resolvePath, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import config from '../../../config.json';
 import cls from '../styles/systemDetail.module.css';
 import ProtectedPage from '../../ProtectedPage';
 import SystemToolbar from './SystemToolbar';
+import SystemUserHandleForm from './SystemUserHandleForm';
 import Dialog from '../../../modals/Dialog';
 import QuestionDialog from '../../../modals/QuestionDialog';
 import { useNavigate } from 'react-router-dom';
@@ -123,7 +124,7 @@ const System = () => {
 				...config.fetchOptions,
 				body: JSON.stringify({
 					login: login,
-					system: id,
+					sysid: id,
 					request: 'addUserToSystem',
 				}),
 			});
@@ -145,7 +146,7 @@ const System = () => {
 				...config.fetchOptions,
 				body: JSON.stringify({
 					login: login,
-					system: id,
+					sysid: id,
 					request: 'removeUserFromSystem',
 				}),
 			});
@@ -233,10 +234,22 @@ const System = () => {
 					onEdit={() => editSystemDataHandler()}
 				/>
 				{openDialog === 'addUser' && (
-					<Dialog onClose={() => setOpenDialog('')}>Add user dialog</Dialog>
+					<Dialog onClose={() => setOpenDialog('')}>
+						<SystemUserHandleForm
+							action='add'
+							onClose={() => setOpenDialog('')}
+							userHandler={addUserToSystem}
+						/>
+					</Dialog>
 				)}
 				{openDialog === 'deleteUser' && (
-					<Dialog onClose={() => setOpenDialog('')}>Add user dialog</Dialog>
+					<Dialog onClose={() => setOpenDialog('')}>
+						<SystemUserHandleForm
+							action='delete'
+							onClose={() => setOpenDialog('')}
+							userHandler={removeUserFromSystem}
+						/>
+					</Dialog>
 				)}
 				{openDialog === 'deleteSystem' && (
 					<QuestionDialog

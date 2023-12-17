@@ -37,6 +37,12 @@ class SystemsController implements BaseController
         } else if ($requestedData['request'] === 'editSystem') {
             $this->editSystem($requestedData['sysid'], $requestedData['name'], $requestedData['description']);
             ApiError::reportMessage('Data has been changed succefuly');
+        } else if ($requestedData['request'] === 'addUserToSystem') {
+            $this->addUserToSystem($requestedData['sysid'], $requestedData['login']);
+            ApiError::reportMessage('User has been added succesfuly');
+        } else if ($requestedData['request'] === 'removeUserFromSystem') {
+            $this->removeUserFromSystem($requestedData['sysid'], $requestedData['login']);
+            ApiError::reportMessage('User has been removed succesfuly');
         } else {
             ApiError::reportError(400, 'Unhandled type of request.');
         }
@@ -135,5 +141,15 @@ class SystemsController implements BaseController
             $name = 'Unnamed';
         }
         $this->systemsModel->editSystem($sysid, $name, $description);
+    }
+
+    private function addUserToSystem($sysid, $login)
+    {
+        $this->systemsModel->addUserToSystem($sysid, $login);
+    }
+
+    private function removeUserFromSystem($sysid, $login)
+    {
+        $this->systemsModel->removeUserFromSystem($sysid, $login);
     }
 }

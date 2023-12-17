@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 import config from '../../config.json';
 import LogoutButton from '../../UI/LogoutButton';
-import Button from '../../UI/Button';
 import ProtectedPage from '../ProtectedPage';
 import QuestionDialog from '../../modals/QuestionDialog';
 import ChangePasswordDialog from './ChangePasswordDialog';
@@ -21,10 +20,6 @@ const ProfilePage = () => {
 
 	const openDeleteAccDialog = () => {
 		setOpenDialog('deleteAcc');
-	};
-
-	const openChangePasswordDialog = () => {
-		setOpenDialog('changePassword');
 	};
 
 	const closeDialog = () => {
@@ -40,6 +35,8 @@ const ProfilePage = () => {
 
 			if (response.ok) {
 				const message = response.json();
+				userCtx.logout();
+				navigate('/');
 				console.log(message);
 			} else {
 				const errorMessage = response.json();
@@ -55,22 +52,16 @@ const ProfilePage = () => {
 			<ProtectedPage>
 				<div className={cls['profile']}>
 					<div className={cls['user-info']}>
-						<div>Email: example.user@gmail.com</div>
-						<div>Role: user</div>
+						<div>Role: {userCtx.user.role}</div>
 					</div>
 					<div className={cls['account-options']}>
-						<Button inverseStyle={true} onClick={openChangePasswordDialog}>
-							Change password
-						</Button>
-						<LogoutButton
+						{/* <LogoutButton
 							onClick={() => {
-								// userCtx.logout();
-								// navigate('/');
 								openDeleteAccDialog();
 							}}
 						>
 							Delete account
-						</LogoutButton>
+						</LogoutButton> */}
 						<LogoutButton
 							onClick={() => {
 								userCtx.logout();
@@ -90,7 +81,7 @@ const ProfilePage = () => {
 					question={'Are you sure you want to delete account?'}
 					onClose={closeDialog}
 					onYes={() => {
-						console.log('Yes');
+						deleteAccountRequest();
 					}}
 					onNo={closeDialog}
 				/>

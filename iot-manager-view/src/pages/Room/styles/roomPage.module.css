@@ -74,9 +74,3 @@
 	display: flex;
 	justify-content: flex-end;
 }
-
-.description {
-	background-color: red;
-	height: 100px;
-	width: 100%;
-}

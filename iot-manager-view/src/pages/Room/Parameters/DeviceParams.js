@@ -1,3 +1,8 @@
+/**
+ * @author xponec01
+ * @brief Modules prepared for controling parameters of the device
+ */
+
 import React from 'react';
 import cls from './styles/deviceParams.module.css';
 

@@ -6,7 +6,6 @@ import Button from '../../UI/Button';
 const INITIAL_FORM_DATA = {
 	alias: '',
 	type: '',
-	description: '',
 };
 
 const AddDeviceForm = ({ roomID, onClose, onRoomAdd }) => {
@@ -19,10 +18,6 @@ const AddDeviceForm = ({ roomID, onClose, onRoomAdd }) => {
 
 	const typeInputHandler = (e) => {
 		setFormData({ ...formData, type: e.target.value });
-	};
-
-	const descriptionInputHandler = (e) => {
-		setFormData({ ...formData, description: e.target.value });
 	};
 
 	const addDeviceRequest = async () => {
@@ -84,17 +79,6 @@ const AddDeviceForm = ({ roomID, onClose, onRoomAdd }) => {
 					placeholder='Type'
 					value={formData.type}
 					onChange={typeInputHandler}
-				/>
-			</div>
-			<div className={cls['form-field']}>
-				<label htmlFor='description'>Description</label>
-				<textarea
-					id='description'
-					name='description'
-					type='text'
-					placeholder='Description'
-					value={formData.description}
-					onChange={descriptionInputHandler}
 				/>
 			</div>
 			<div className={cls['controls']}>

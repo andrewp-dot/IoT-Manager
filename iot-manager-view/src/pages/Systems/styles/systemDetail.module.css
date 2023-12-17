@@ -51,4 +51,16 @@
 .user-manipulation-form {
 	width: max(200px, 40%);
 	margin: 2rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.user-manipulation-form-controls {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.user-manipulation-form-controls button {
+	margin-left: 0.5rem;
 }

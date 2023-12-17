@@ -4,7 +4,17 @@ import BasicPage from '../BasicPage';
 const Home = () => {
 	return (
 		<BasicPage>
-			<div>Home</div>
+			<div
+				style={{
+					marginTop: '40vh',
+					fontSize: '4rem',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+				}}
+			>
+				Welcome to the world of IOT
+			</div>
 		</BasicPage>
 	);
 };

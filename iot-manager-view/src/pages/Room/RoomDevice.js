@@ -39,7 +39,6 @@ const RoomDevice = ({ device, onDelete }) => {
 				<div className={cls['alias']}>{device.alias}</div>
 				<div className={cls['status']}>{device.status}</div>
 			</div>
-			<div className={cls['description']}>{device.descripton}</div>
 
 			<DeviceParams params={device.params} />
 			<div className={cls['controls']}>

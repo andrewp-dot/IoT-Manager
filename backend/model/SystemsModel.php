@@ -144,4 +144,29 @@ class SystemsModel extends IotDatabase
         $updateSystemStmt->execute();
         $this->db->commit();
     }
+
+
+    public function removeUserFromSystem($sysid, $login)
+    {
+        $this->db->beginTransaction();
+        $removeUserQuery = "DELETE FROM usersys WHERE userid = :userid AND systemid = :sysid";
+        $removeUserStmt = $this->db->prepare($removeUserQuery);
+        $removeUserStmt->bindParam(':login', $login, PDO::PARAM_STR);
+        $removeUserStmt->bindParam(':sysid', $sysid, PDO::PARAM_STR);
+
+        $removeUserStmt->execute();
+        $this->db->commit();
+    }
+
+    public function addUserToSystem($sysid, $login)
+    {
+        $this->db->beginTransaction();
+        $addUserQuery = "INSERT INTO usersys (`userid`,`systemid`) VALUES (:login, :sysid)";
+        $addUserStmt = $this->db->prepare($addUserQuery);
+        $addUserStmt->bindParam(':login', $login, PDO::PARAM_STR);
+        $addUserStmt->bindParam(':sysid', $sysid, PDO::PARAM_STR);
+
+        $addUserStmt->execute();
+        $this->db->commit();
+    }
 }
