@@ -41,3 +41,13 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
+.setting-param {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.setting-param input {
+	width: 100%;
+}

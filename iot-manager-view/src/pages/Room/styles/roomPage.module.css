@@ -86,12 +86,17 @@
 	margin-top: 0.5rem;
 }
 
-.add-device,
 .add-parameter {
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
+}
+
+.add-device {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .remove-device {

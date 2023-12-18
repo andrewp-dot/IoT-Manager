@@ -40,7 +40,7 @@ export const FunctionParam = ({ paramid, name, value }) => {
 		<Card margin={'5px 0'}>
 			<div className={cls['param']}>
 				<div className={cls['func-param']}>
-					<p>{name} Teplota na záhrade a v kuchyni</p>
+					<p>{name}</p>
 					<Checkbox
 						id={paramid}
 						status={currentStatus}
@@ -64,7 +64,16 @@ export const FunctionParam = ({ paramid, name, value }) => {
 export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
 	return (
 		<Card margin={'5px 0'}>
-			<div className={cls['param']}></div>
+			<div className={cls['param']}>
+				<div className={cls['setting-param']}>
+					<input
+						className={cls['range-input']}
+						type='range'
+						min={0}
+						max={100}
+					/>
+				</div>
+			</div>
 		</Card>
 	);
 };
@@ -81,7 +90,8 @@ export const StateParam = ({ name, value }) => {
 	return (
 		<Card margin={'5px 0'}>
 			<div className={cls['param']}>
-				{name} {value}
+				<div>{name}</div>
+				<div>{value}</div>
 			</div>
 		</Card>
 	);
