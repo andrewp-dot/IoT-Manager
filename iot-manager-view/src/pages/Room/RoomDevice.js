@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import LogoutButton from '../../UI/LogoutButton';
 import DeviceParams from './Parameters/DeviceParams';
 import QuestionDialog from '../../modals/QuestionDialog';
+import DeviceSwitch from '../../components/DeviceSwitch/DeviceSwitch';
 import config from '../../config.json';
 import cls from './styles/roomPage.module.css';
 
@@ -16,7 +17,7 @@ import cls from './styles/roomPage.module.css';
  * @param onDelete function that updates devices in room
  * @returns
  */
-const RoomDevice = ({ device, onDelete }) => {
+const RoomDevice = ({ device, onDelete, onStatusChange }) => {
 	const [removeDialog, setRemoveDialog] = useState(false);
 
 	const removeDevice = async () => {
@@ -41,7 +42,14 @@ const RoomDevice = ({ device, onDelete }) => {
 			<div className={cls['device']}>
 				<div className={cls['device-header']}>
 					<div className={cls['alias']}>{device.alias}</div>
-					<div className={cls['status']}>{device.status}</div>
+					<div className={cls['status']}>
+						<DeviceSwitch
+							devid={device.id}
+							initialState={device.status}
+							onStatusChange={onStatusChange}
+						/>
+						{device.status}
+					</div>
 				</div>
 
 				<DeviceParams params={device.params} />

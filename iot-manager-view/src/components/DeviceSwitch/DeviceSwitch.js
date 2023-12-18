@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Checkbox from '../../UI/Checkbox';
 import config from '../../config.json';
 
-const DeviceSwitch = ({ devid, initialState }) => {
+const DeviceSwitch = ({ devid, initialState, onStatusChange }) => {
 	const [deviceState, setDeviceState] = useState(initialState);
 
 	const toogleStatusHandler = async (status, devid) => {
@@ -19,6 +19,9 @@ const DeviceSwitch = ({ devid, initialState }) => {
 				});
 				if (response.ok) {
 					setDeviceState(status);
+					if (onStatusChange) {
+						onStatusChange();
+					}
 				}
 				const errorMessage = await response.json();
 				console.log(errorMessage);

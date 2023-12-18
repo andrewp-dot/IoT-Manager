@@ -1,7 +1,17 @@
+/**
+ * @author xponec01
+ * @brief Component for room addition
+ */
+
 import React, { useEffect, useRef, useState } from 'react';
 import Card from '../../../UI/Card';
 import cls from './styles/rooms.module.css';
 
+/**
+ *
+ * @param createRoom function that creates room in parent component
+ * @returns
+ */
 const AddRoom = ({ createRoom }) => {
 	const [addRoom, setAddRoom] = useState(false);
 	const roomInputRef = useRef(null);
@@ -20,6 +30,7 @@ const AddRoom = ({ createRoom }) => {
 			roomInputRef.current.focus();
 		}
 	}, [addRoom]);
+
 	return (
 		<Card backgroundColor={'rgba(255,255,255,0.7'}>
 			<div

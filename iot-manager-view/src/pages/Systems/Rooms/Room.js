@@ -10,6 +10,15 @@ import config from '../../../config.json';
 import { useNavigate } from 'react-router-dom';
 import cls from './styles/rooms.module.css';
 
+/**
+ *
+ * @param roomid id of the displayed room
+ * @param name name of the displayed room
+ * @param devices devices of the displayed room
+ * @param sysid id of systems in which is the room
+ * @param updateRooms function for updating rooms
+ * @returns Room card component
+ */
 const Room = ({ roomid, name, devices, sysid, updateRooms }) => {
 	const navigate = useNavigate();
 

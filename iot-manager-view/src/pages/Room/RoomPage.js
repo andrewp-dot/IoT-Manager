@@ -1,3 +1,8 @@
+/**
+ * @author xponec01
+ * @brief Page displaying room details
+ */
+
 import React, { useEffect, useState, useCallback } from 'react';
 import ProtectedPage from '../ProtectedPage';
 import { useParams } from 'react-router-dom';
@@ -44,7 +49,12 @@ const RoomPage = () => {
 	let roomDevices = [];
 	if (room) {
 		roomDevices = room.devices.map((device) => (
-			<RoomDevice key={device.id} device={device} onDelete={getRoom} />
+			<RoomDevice
+				key={device.id}
+				device={device}
+				onDelete={getRoom}
+				onStatusChange={getRoom}
+			/>
 		));
 	}
 
