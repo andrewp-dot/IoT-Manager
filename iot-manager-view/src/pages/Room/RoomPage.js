@@ -67,7 +67,9 @@ const RoomPage = () => {
 							<h2 className={cls['room-title']}>
 								{room ? room.name : 'Not found'}
 							</h2>
-							<div className={cls['room-devices']}>{roomDevices}</div>
+							<div className={cls['room-devices-container']}>
+								<div className={cls['room-devices']}>{roomDevices}</div>
+							</div>
 							<div className={cls['add-device']}>
 								<Button onClick={() => setOpenDialog(true)}>Add</Button>
 							</div>

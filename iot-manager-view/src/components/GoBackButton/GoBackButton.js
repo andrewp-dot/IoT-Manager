@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import cls from './styles/goBackButton.module.css';
 
-const GoBackButton = ({ isInvisible }) => {
+const GoBackButton = () => {
 	const navigate = useNavigate();
 
 	return (

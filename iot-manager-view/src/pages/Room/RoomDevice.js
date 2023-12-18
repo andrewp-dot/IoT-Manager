@@ -3,7 +3,7 @@
  * @brief Component for display device on room page
  */
 
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import RemoveButton from '../../UI/RemoveButton';
 import DeviceParams from './Parameters/DeviceParams';
 import QuestionDialog from '../../modals/QuestionDialog';
@@ -15,7 +15,7 @@ import cls from './styles/roomPage.module.css';
  * @param device device data to be desplayed
  * @param onDelete function that updates devices in room
  * @param onStatusChange function that udpate devices in case of status change
- * @returns
+ * @returns Room device card component
  */
 const RoomDevice = ({ device, onDelete, onStatusChange }) => {
 	const [removeDialog, setRemoveDialog] = useState(false);
