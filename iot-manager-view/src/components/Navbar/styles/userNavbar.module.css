@@ -20,6 +20,10 @@
 	width: 20%;
 }
 
+.home-dir {
+	margin-left: 2rem;
+}
+
 .active {
 	cursor: pointer;
 	background-color: var(--color-dark-grey);
@@ -27,7 +31,12 @@
 
 @media only screen and (max-width: 768px) {
 	.user-navbar {
-		justify-content: center;
+		justify-content: space-around;
+	}
+	.user-nav {
+		width: 100%;
+		justify-content: flex-start;
+		gap: 20px;
 	}
 	.login-info {
 		display: none;

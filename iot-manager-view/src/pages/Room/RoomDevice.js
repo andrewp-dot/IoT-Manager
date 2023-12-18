@@ -8,7 +8,6 @@ import RemoveButton from '../../UI/RemoveButton';
 import DeviceParams from './Parameters/DeviceParams';
 import QuestionDialog from '../../modals/QuestionDialog';
 import DeviceSwitch from '../../components/DeviceSwitch/DeviceSwitch';
-import UserContext from '../../context/UserContext';
 import config from '../../config.json';
 import cls from './styles/roomPage.module.css';
 
@@ -19,7 +18,6 @@ import cls from './styles/roomPage.module.css';
  * @returns
  */
 const RoomDevice = ({ device, onDelete, onStatusChange }) => {
-	const userCtx = useContext(UserContext);
 	const [removeDialog, setRemoveDialog] = useState(false);
 
 	const removeDevice = async () => {

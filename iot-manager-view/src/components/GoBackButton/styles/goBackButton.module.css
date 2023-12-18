@@ -1,16 +1,23 @@
 .go-back {
 	text-align: center;
-	padding: 1rem;
-	color: var(--color-ligth-grey);
+	padding: 0.2rem;
+	color: var(--color-primary);
 	background-color: transparent;
 	margin-left: 2rem;
 	border-radius: 5px;
 	width: 50px;
 	border: none;
 	transition: all 0.2s;
+	font-size: 1.5rem;
 }
 
 .go-back:hover {
-	background-color: var(--color-primary);
-	color: var(--color-dark-grey);
+	background-color: var(--color-dark-grey);
+	color: var(--color-primary);
+}
+
+@media only screen and (max-width: 768px) {
+	.go-back {
+		margin: 0;
+	}
 }

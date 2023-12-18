@@ -1,14 +1,13 @@
 import React from 'react';
 import GoBackButton from '../../components/GoBackButton/GoBackButton';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import cls from './styles/userNavbar.module.css';
 
 const LoggedUserNavbar = ({ user }) => {
-	const location = useLocation();
 	return (
 		<div className={cls['user-navbar']}>
 			<nav className={cls['user-nav']}>
-				{location.pathname !== '/' && <GoBackButton />}
+				<GoBackButton />
 				<NavLink
 					to='/'
 					className={({ isActive }) => (isActive ? cls['active'] : '')}
