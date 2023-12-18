@@ -11,8 +11,7 @@ import DeviceSwitch from '../../components/DeviceSwitch/DeviceSwitch';
 import config from '../../config.json';
 import cls from './styles/roomPage.module.css';
 import Button from '../../UI/Button';
-import Dialog from '../../modals/Dialog';
-import { faL } from '@fortawesome/free-solid-svg-icons';
+import AddParamDialog from './AddParameterDialog';
 
 /**
  * @param device device data to be desplayed
@@ -85,9 +84,10 @@ const RoomDevice = ({ device, onDelete, onStatusChange, onAddParam }) => {
 				/>
 			)}
 			{addParamDialog && (
-				<Dialog onClose={() => setAddParamDialog(false)} onSucces={onAddParam}>
-					Add param
-				</Dialog>
+				<AddParamDialog
+					onClose={() => setAddParamDialog(false)}
+					onSucces={onAddParam}
+				/>
 			)}
 		</>
 	);
