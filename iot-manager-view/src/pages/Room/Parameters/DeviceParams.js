@@ -12,16 +12,17 @@ const DeviceParams = ({ params }) => {
 		{ id: 1, type: 'state' },
 		{ id: 2, type: 'setting' },
 		{ id: 3, type: 'function' },
+		{ id: 4, type: 'function' },
 	];
 
 	/* parse states */
-	const states = params.filter((item) => item.type === 'function');
+	const states = params.filter((item) => item.type === 'state');
 	const currentStates = states.map((param) => {
 		return <SingleParam key={param.id} type={param.type} />;
 	});
 
 	/* parse functions */
-	const functions = params.filter((item) => item.type === 'state');
+	const functions = params.filter((item) => item.type === 'function');
 	const currentFunctions = functions.map((param) => {
 		return <SingleParam key={param.id} type={param.type} />;
 	});
@@ -36,13 +37,13 @@ const DeviceParams = ({ params }) => {
 		<div className={cls['device-params']}>
 			<p className={cls['mini-header']}>Current State</p>
 			{currentStates}
-			<div>
+
+			{(currentSettings?.length > 0 || currentFunctions?.length > 0) && (
 				<p className={cls['mini-header']}>Settings</p>
-				<div>Sliders</div>
-				{currentSettings}
-				<p className={cls['mini-header']}></p>
-				{currentFunctions}
-			</div>
+			)}
+			{currentSettings}
+			<p className={cls['mini-header']}></p>
+			{currentFunctions}
 		</div>
 	);
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from '../../../UI/Card';
 import cls from './styles/deviceParams.module.css';
 
 /**
@@ -60,7 +61,11 @@ const SingleParam = ({ paramid, name, value, type, minVal, maxVal }) => {
 	};
 
 	const paramItem = getParamComponent(type);
-	return <div className={cls['param']}>{paramItem}</div>;
+	return (
+		<Card margin={'5px 0'}>
+			<div className={cls['param']}>{paramItem}</div>
+		</Card>
+	);
 };
 
 export default SingleParam;

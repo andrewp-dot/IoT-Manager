@@ -8,6 +8,8 @@
 	border: 2px solid var(--color-ligth-grey);
 	border-radius: 5px;
 	padding-bottom: 10px;
+	padding: 5px;
+	overflow: auto;
 }
 
 .mini-header {
@@ -19,7 +21,6 @@
 .param {
 	width: 100%;
 	min-height: 20px;
-	/* margin: 10px; */
-	background-color: red;
+	margin: 10px;
 	box-sizing: border-box;
 }
