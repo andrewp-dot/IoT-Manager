@@ -10,6 +10,7 @@ import QuestionDialog from '../../modals/QuestionDialog';
 import DeviceSwitch from '../../components/DeviceSwitch/DeviceSwitch';
 import config from '../../config.json';
 import cls from './styles/roomPage.module.css';
+import Button from '../../UI/Button';
 
 /**
  * @param device device data to be desplayed
@@ -54,6 +55,9 @@ const RoomDevice = ({ device, onDelete, onStatusChange }) => {
 
 				<DeviceParams params={device.params} />
 				<div className={cls['controls']}>
+					<div className={cls['add-parameter']}>
+						<Button>Add parameter</Button>
+					</div>
 					<div className={cls['remove-device']} onClick={onDelete}>
 						<RemoveButton
 							onClick={() => setRemoveDialog(true)}

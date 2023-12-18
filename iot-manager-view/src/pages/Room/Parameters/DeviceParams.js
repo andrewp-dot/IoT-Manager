@@ -34,17 +34,19 @@ const DeviceParams = ({ params }) => {
 	});
 
 	return (
-		<div className={cls['device-params']}>
-			<p className={cls['mini-header']}>Current State</p>
-			{currentStates}
+		<>
+			<div className={cls['device-params']}>
+				<p className={cls['mini-header']}>Current State</p>
+				{currentStates}
 
-			{(currentSettings?.length > 0 || currentFunctions?.length > 0) && (
-				<p className={cls['mini-header']}>Settings</p>
-			)}
-			{currentSettings}
-			<p className={cls['mini-header']}></p>
-			{currentFunctions}
-		</div>
+				{(currentSettings?.length > 0 || currentFunctions?.length > 0) && (
+					<p className={cls['mini-header']}>Settings</p>
+				)}
+				{currentSettings}
+				<p className={cls['mini-header']}></p>
+				{currentFunctions}
+			</div>
+		</>
 	);
 };
 
