@@ -31,13 +31,12 @@ class DeviceController implements BaseController
             $this->deleteDevice($requestedData['devid']);
             ApiError::reportMessage('Device has been deleted succesfuly');
 
-            // TODO:
-
+            /* parameter actions */
         } else if ($requestedData['request'] === 'changeParamValue') {
             $this->changeParameterValue($requestedData);
             ApiError::reportMessage('Param change was succesful');
         } else if ($requestedData['request'] === 'addParam') {
-            $this->changeParameterValue($requestedData);
+            $this->addParameterToDevice($requestedData);
         } else {
             ApiError::reportError(400, 'Unhandled type of request.');
         }
@@ -100,11 +99,35 @@ class DeviceController implements BaseController
         $this->deviceModel->deleteDevice($deviceID);
     }
 
-    private function addParameterToDevice($deviceData)
+    private function genereteValue($min, $max)
     {
+
+        return strval(rand($min, $max));
+    }
+
+    private function addParameterToDevice($paramData)
+    {
+        $value = '';
         // if parameter is stateful, generate random number from 0 35
-        // if parameter is type setting generate value from minVal to maxVal
-        // if parameter is function set the given value (on, off)
+        if (trim($paramData['type']) === 'state') {
+            $value = $this->genereteValue(0, 35);
+            // if parameter is type setting generate value from minVal to maxVal
+            if (isset($paramData['minVal']) && isset($paramData['maxVal'])) {
+                $value = $this->genereteValue($paramData['minVal'], $paramData['maxVal']);
+            } else {
+                ApiError::reportError(400, 'Missing min or max value');
+                return;
+            }
+        } else if (trim($paramData['type']) === 'setting') {
+            // if parameter is function set the function to off
+        } else if (trim($paramData['type']) === 'function') {
+            $value = 'off';
+        } else {
+            ApiError::reportError(400, 'Unsupported type of parameter.');
+            return;
+        }
+
+        $this->deviceModel->addParam($paramData['devid'], $paramData['name'], $value, $paramData['type'], $paramData['minVal'], $paramData['maxVal']);
     }
 
     private function getDeviceParameters($devid)

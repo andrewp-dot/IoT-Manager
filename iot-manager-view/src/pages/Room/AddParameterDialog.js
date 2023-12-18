@@ -70,7 +70,7 @@ const AddParamDialog = ({ devid, onClose, onAddParam }) => {
 	return (
 		<Dialog onClose={onClose}>
 			<Card>
-				<form className={cls['form']}>
+				<form className={cls['form']} onSubmit={onSubmitHandler}>
 					<div className={cls['form-section']}>
 						<label htmlFor='name'>Parameter name:</label>
 						<input
@@ -123,10 +123,12 @@ const AddParamDialog = ({ devid, onClose, onAddParam }) => {
 						</>
 					)}
 					<div className={cls['controls']}>
-						<Button inverseStyle={true} onClick={onClose}>
+						<Button type='click' inverseStyle={true} onClick={onClose}>
 							Cancel
 						</Button>
-						<Button>Add</Button>
+						<Button type={'submit'} onClick={onSubmitHandler}>
+							Add
+						</Button>
 					</div>
 				</form>
 			</Card>
