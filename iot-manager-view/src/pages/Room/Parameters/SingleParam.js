@@ -102,7 +102,7 @@ export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
 	}, [changedValue, paramid, updateParamValue]);
 
 	const onChangeHandler = (e) => {
-		setChangedValue((e.target.value / 100) * maxVal);
+		setChangedValue(e.target.value);
 	};
 
 	return (
@@ -110,7 +110,7 @@ export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
 			<div className={cls['param']}>
 				<p>{name}</p>
 				<div className={cls['setting-param']}>
-					<div className={cls['range-min']}>{minVal} 123</div>
+					<div className={cls['range-min']}>{minVal}</div>
 					<input
 						className={cls['range-input']}
 						type='range'
@@ -119,7 +119,7 @@ export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
 						max={maxVal}
 						onChange={onChangeHandler}
 					/>
-					<div className={cls['range-max']}>{maxVal} 2400</div>
+					<div className={cls['range-max']}>{maxVal}</div>
 				</div>
 				<div className={cls['range-value']}>{changedValue}</div>
 			</div>
