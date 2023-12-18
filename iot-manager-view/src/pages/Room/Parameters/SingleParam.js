@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '../../../UI/Card';
 import Checkbox from '../../../UI/Checkbox';
 import cls from './styles/deviceParams.module.css';
@@ -22,8 +22,9 @@ export const FunctionParam = ({ paramid, name, value }) => {
 				...config.fetchOptions,
 				body: JSON.stringify({
 					paramid: paramid,
-					status: status,
-					request: 'changeParam',
+					value: status,
+					type: 'function',
+					request: 'changeParamValue',
 				}),
 			});
 			if (response.ok) {
@@ -62,15 +63,53 @@ export const FunctionParam = ({ paramid, name, value }) => {
  * @returns parameter of type setting component
  */
 export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
+	const [changedValue, setChangedValue] = useState(value);
+
+	const updateParamValue = async (paramid) => {
+		try {
+			const response = await fetch(config.api.devices.url, {
+				...config.fetchOptions,
+				body: JSON.stringify({
+					paramid: paramid,
+					value: changedValue,
+					type: 'setting',
+					request: 'changeParamValue',
+				}),
+			});
+			if (response.ok) {
+			}
+			const message = await response.json();
+			console.log(message);
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			updateParamValue(paramid);
+		}, 1000);
+
+		return () => {
+			clearTimeout(timer);
+		};
+	}, [changedValue, paramid]);
+
+	const onChangeHandler = (e) => {
+		setChangedValue(e.target.value);
+	};
+
 	return (
 		<Card margin={'5px 0'}>
 			<div className={cls['param']}>
+				<p>{name} kooookakosddodasnjsadsadkjdsah</p>
 				<div className={cls['setting-param']}>
 					<input
 						className={cls['range-input']}
 						type='range'
-						min={0}
-						max={100}
+						min={minVal}
+						max={maxVal}
+						onChange={onChangeHandler}
 					/>
 				</div>
 			</div>
