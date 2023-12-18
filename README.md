@@ -9,9 +9,38 @@ Systémové požiadavky pre lokálne spustenie:
 
 ## Spustenie aplikácie:
 
-Pre spustenie aplikácie je nutné mať lokálne spustenú databázu mysql, v ktorej je vytvorená databáza iotdatabse a užívateľ 'localhost'@'iot-manager' s heslom 'pwd' a právami pre databázu iotdatabase.
+Pre lokálne spustenie aplikácie je nutné mať lokálne spustenú databázu mysql, v ktorej je vytvorená databáza iotdatabse a užívateľ 'iot-manager'@'localhost' s heslom 'pwd' a právami pre databázu iotdatabase. Pre vytovernie databázy z príkazovej riadky je potrebné sa príhlasiť do mysql ako root. Po prihlásení je potrebné zadať nasledujúce príkazy:
 
-Pre vytvorenie databázy je potom možné použiť script <code>iotdatabase.sql</code>
-Ďalej je databázový server nutné spustiť.
+<code>CREATE USER 'iot-manager'@'localhost' IDENTIFIED BY 'pwd';</code>
 
-Potom pre spustenie aplikácie je použiť priložený script <code>install.sh</code>
+A pridať práva na databázu iotdatabase:
+
+<code>GRANT ALL PRIVILEGES ON iotdatabse.\* TO 'iot-manager'@'localhost';</code>
+
+<code>FLUSH PRIVILEGES;</code>
+
+Vytvorenie databázy:
+
+<code>CREATE DATABSE iotdatabase;</code>
+
+Alebo použiť už vytvorený datábazový script
+<code>installIotdatabase.sql</code>.
+
+Pre vytvorenie obsahu databázy je potom možné použiť script <code>iotdatabase.sql</code>
+
+Ďalej je databázový server nutné spustiť. Všetky spomenuté databázové scripty sa nachádzajú v zložke <code>backend/database</code>.
+
+<code>mysql -u root -p < backend/database/installIotdatabase.sql</code>
+
+Manuálne spustenie z príkazovej riadky v systémoch typu UNIX (z root zložky projektu):
+
+Webová aplikácia:
+
+Inštalácia node modulov (iba pri prvom spustení)
+<code>npm --prefix ./iot-manager-view install ./iot-manager-view</code>
+
+<code>npm --prefix ./iot-manager-view start ./iot-manager-view</code>
+
+Backend api:
+
+<code>(cd backend && php -S 127.0.0.1:8000 api.php)</code>

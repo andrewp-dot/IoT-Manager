@@ -9,21 +9,23 @@ const Room = ({ roomid, name, devices, sysid, updateRooms }) => {
 	const navigate = useNavigate();
 	const toogleStatusHandler = async (status, devid) => {
 		const statusToStr = status ? 'off' : 'on';
-		try {
-			const response = await fetch(config.api.devices.url, {
-				...config.fetchOptions,
-				body: JSON.stringify({
-					devid: devid,
-					status: statusToStr,
-					request: 'setDeviceStatus',
-				}),
-			});
-			if (response.ok) {
-				const errorMessage = await response.json();
-				console.log(errorMessage);
+		if (status != 'err') {
+			try {
+				const response = await fetch(config.api.devices.url, {
+					...config.fetchOptions,
+					body: JSON.stringify({
+						devid: devid,
+						status: statusToStr,
+						request: 'setDeviceStatus',
+					}),
+				});
+				if (response.ok) {
+					const errorMessage = await response.json();
+					console.log(errorMessage);
+				}
+			} catch (e) {
+				console.log(e);
 			}
-		} catch (e) {
-			console.log(e);
 		}
 	};
 

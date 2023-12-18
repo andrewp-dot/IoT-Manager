@@ -16,14 +16,17 @@
 	text-wrap: wrap;
 	max-height: 400px;
 	height: 50vh;
-	width: 90%;
+	width: 200px;
 	overflow: hidden;
 	cursor: pointer;
 }
 
+.room:hover {
+	background-color: rgba(0, 0, 0, 10%);
+	border-radius: 25px;
+}
+
 .room .title {
-	max-height: 2rem;
-	height: 2rem;
 	text-transform: capitalize;
 }
 

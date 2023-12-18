@@ -65,6 +65,7 @@ class DeviceModel extends IotDatabase
         $addDeviceStmt = $this->db->prepare($addDeviceQuery);
         $addDeviceStmt->bindParam(':alias', $deviceAlias, PDO::PARAM_STR);
         $addDeviceStmt->bindParam(':type', $deviceType, PDO::PARAM_STR);
+        $addDeviceStmt->bindParam(':description', $description, PDO::PARAM_STR);
         $addDeviceStmt->bindParam(':roomid', $roomid, PDO::PARAM_INT);
         $addDeviceStmt->execute();
 

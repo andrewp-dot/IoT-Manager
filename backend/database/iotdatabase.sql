@@ -20,8 +20,6 @@ DROP TABLE IF EXISTS `rooms`;
 DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `usersys`;
 
--- TODO: modes 
-
 -- --------------------------------------------------------
 --
 -- Table structure for table `users`
@@ -136,7 +134,8 @@ INSERT INTO `systems` ( `name`, `description`,`owner`) VALUES
 ('system2', NULL, 'Bro');
 -- -- --------------------------------------------------------
 INSERT INTO `usersys` (`userid`, `systemid`) VALUES
-('Ando', 2);
+('Ando', 2),
+('Bro' , 1);
 -- -- --------------------------------------------------------
 -- INSERT INTO `device` (`id`, `alias`, `status`, `type`, `description`) VALUES
 -- ('device1', 'smth1', 'on','air-conditioner', NULL),
