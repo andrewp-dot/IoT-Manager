@@ -4,6 +4,7 @@
 	box-sizing: border-box;
 	border-radius: 5px;
 	cursor: pointer;
+	transition: all 0.3s;
 }
 
 .classic {
@@ -15,4 +16,12 @@
 	color: var(--color-secondary);
 	background-color: var(--color-primary);
 	border-color: var(--color-secondary);
+}
+
+.classic:hover {
+	background-color: #3a9bdc;
+}
+
+.inverse:hover {
+	background-color: #eee;
 }

@@ -7,7 +7,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 import config from '../../config.json';
-import LogoutButton from '../../UI/LogoutButton';
+import RemoveButton from '../../UI/RemoveButton';
 import ProtectedPage from '../ProtectedPage';
 import QuestionDialog from '../../modals/QuestionDialog';
 import ChangePasswordDialog from './ChangePasswordDialog';
@@ -55,21 +55,21 @@ const ProfilePage = () => {
 						<div>Role: {userCtx.user.role}</div>
 					</div>
 					<div className={cls['account-options']}>
-						{/* <LogoutButton
+						{/* <RemoveButton
 							onClick={() => {
 								openDeleteAccDialog();
 							}}
 						>
 							Delete account
-						</LogoutButton> */}
-						<LogoutButton
+						</RemoveButton> */}
+						<RemoveButton
 							onClick={() => {
 								userCtx.logout();
 								navigate('/');
 							}}
 						>
 							Logout
-						</LogoutButton>
+						</RemoveButton>
 					</div>
 				</div>
 			</ProtectedPage>

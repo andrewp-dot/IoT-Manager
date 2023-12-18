@@ -3,21 +3,23 @@
  * @brief Component for display device on room page
  */
 
-import React, { useState } from 'react';
-import LogoutButton from '../../UI/LogoutButton';
+import React, { useContext, useState } from 'react';
+import RemoveButton from '../../UI/RemoveButton';
 import DeviceParams from './Parameters/DeviceParams';
 import QuestionDialog from '../../modals/QuestionDialog';
 import DeviceSwitch from '../../components/DeviceSwitch/DeviceSwitch';
+import UserContext from '../../context/UserContext';
 import config from '../../config.json';
 import cls from './styles/roomPage.module.css';
 
 /**
- *
  * @param device device data to be desplayed
  * @param onDelete function that updates devices in room
+ * @param onStatusChange function that udpate devices in case of status change
  * @returns
  */
 const RoomDevice = ({ device, onDelete, onStatusChange }) => {
+	const userCtx = useContext(UserContext);
 	const [removeDialog, setRemoveDialog] = useState(false);
 
 	const removeDevice = async () => {
@@ -55,9 +57,13 @@ const RoomDevice = ({ device, onDelete, onStatusChange }) => {
 				<DeviceParams params={device.params} />
 				<div className={cls['controls']}>
 					<div className={cls['remove-device']} onClick={onDelete}>
-						<LogoutButton onClick={() => setRemoveDialog(true)}>
+						<RemoveButton
+							onClick={() => setRemoveDialog(true)}
+							// disabled={userCtx.user.login !== systemOwner}
+							disabled={false}
+						>
 							Remove
-						</LogoutButton>
+						</RemoveButton>
 					</div>
 				</div>
 			</div>

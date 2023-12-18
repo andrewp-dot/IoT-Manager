@@ -1,4 +1,4 @@
-.logout-button {
+.remove-button {
 	padding: 0.5rem;
 	box-sizing: border-box;
 	border: 2px solid transparent;
@@ -6,4 +6,13 @@
 	cursor: pointer;
 	color: var(--color-primary);
 	background-color: var(--color-warning);
+}
+
+.remove-button:hover {
+	background-color: red;
+}
+
+.disabled {
+	cursor: not-allowed;
+	background-color: var(--color-ligth-grey);
 }
