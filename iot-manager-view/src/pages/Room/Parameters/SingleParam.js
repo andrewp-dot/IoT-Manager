@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../../../UI/Card';
 import Checkbox from '../../../UI/Checkbox';
 import cls from './styles/deviceParams.module.css';
@@ -65,25 +65,28 @@ export const FunctionParam = ({ paramid, name, value }) => {
 export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
 	const [changedValue, setChangedValue] = useState(value);
 
-	const updateParamValue = async (paramid) => {
-		try {
-			const response = await fetch(config.api.devices.url, {
-				...config.fetchOptions,
-				body: JSON.stringify({
-					paramid: paramid,
-					value: changedValue,
-					type: 'setting',
-					request: 'changeParamValue',
-				}),
-			});
-			if (response.ok) {
+	const updateParamValue = useCallback(
+		async (paramid) => {
+			try {
+				const response = await fetch(config.api.devices.url, {
+					...config.fetchOptions,
+					body: JSON.stringify({
+						paramid: paramid,
+						value: (changedValue / 100) * maxVal,
+						type: 'setting',
+						request: 'changeParamValue',
+					}),
+				});
+				if (response.ok) {
+				}
+				const message = await response.json();
+				console.log(message);
+			} catch (e) {
+				console.log(e);
 			}
-			const message = await response.json();
-			console.log(message);
-		} catch (e) {
-			console.log(e);
-		}
-	};
+		},
+		[changedValue, maxVal]
+	);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -93,10 +96,10 @@ export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
 		return () => {
 			clearTimeout(timer);
 		};
-	}, [changedValue, paramid]);
+	}, [changedValue, paramid, updateParamValue]);
 
 	const onChangeHandler = (e) => {
-		setChangedValue(e.target.value);
+		setChangedValue((e.target.value / 100) * 25);
 	};
 
 	return (
@@ -104,14 +107,18 @@ export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
 			<div className={cls['param']}>
 				<p>{name} kooookakosddodasnjsadsadkjdsah</p>
 				<div className={cls['setting-param']}>
+					<div className={cls['range-min']}>{minVal} 123</div>
 					<input
 						className={cls['range-input']}
 						type='range'
+						value={changedValue}
 						min={minVal}
 						max={maxVal}
 						onChange={onChangeHandler}
 					/>
+					<div className={cls['range-max']}>{maxVal} 2400</div>
 				</div>
+				<div className={cls['range-value']}>{changedValue}</div>
 			</div>
 		</Card>
 	);

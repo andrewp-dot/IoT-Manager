@@ -30,10 +30,10 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-
 	justify-content: space-between;
 	align-items: center;
 }
+
 .param p,
 .func-param p {
 	width: 200px;
@@ -45,9 +45,19 @@
 .setting-param {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-around;
 }
 
 .setting-param input {
-	width: 100%;
+	width: 70%;
+}
+
+.range-min,
+.range-max {
+	min-width: 20px;
+}
+
+.range-value {
+	height: 20px;
+	text-align: center;
 }
