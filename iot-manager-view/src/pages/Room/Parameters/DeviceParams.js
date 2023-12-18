@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import SingleParam from './SingleParam';
+import { StateParam, FunctionParam, SettingParam } from './SingleParam';
 import cls from './styles/deviceParams.module.css';
 
 const DeviceParams = ({ params }) => {
@@ -18,19 +18,19 @@ const DeviceParams = ({ params }) => {
 	/* parse states */
 	const states = params.filter((item) => item.type === 'state');
 	const currentStates = states.map((param) => {
-		return <SingleParam key={param.id} type={param.type} />;
+		return <StateParam key={param.id} type={param.type} />;
 	});
 
 	/* parse functions */
 	const functions = params.filter((item) => item.type === 'function');
 	const currentFunctions = functions.map((param) => {
-		return <SingleParam key={param.id} type={param.type} />;
+		return <FunctionParam key={param.id} type={param.type} />;
 	});
 
 	/* parse settings */
 	const settings = params.filter((item) => item.type === 'setting');
 	const currentSettings = settings.map((param) => {
-		return <SingleParam key={param.id} type={param.type} />;
+		return <SettingParam key={param.id} type={param.type} />;
 	});
 
 	return (

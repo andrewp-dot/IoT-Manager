@@ -1,71 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '../../../UI/Card';
+import Checkbox from '../../../UI/Checkbox';
 import cls from './styles/deviceParams.module.css';
+import config from '../../../config.json';
 
 /**
  * Switchable functionality parameter component
  * @brief Turns on / off function of the device
  *
- * @param  devid
  * @param  paramid
  * @param  name
  * @param  value
  * @returns
  */
-const functionParam = (paramid, name, value) => {
-	return <div></div>;
+export const FunctionParam = ({ paramid, name, value }) => {
+	const [currentStatus, setStatus] = useState(value);
+
+	const updateParamValue = async (status, paramid) => {
+		try {
+			const response = await fetch(config.api.devices.url, {
+				...config.fetchOptions,
+				body: JSON.stringify({
+					paramid: paramid,
+					status: status,
+					request: 'changeParam',
+				}),
+			});
+			if (response.ok) {
+				setStatus(!status);
+			}
+			const message = await response.json();
+			console.log(message);
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	return (
+		<Card margin={'5px 0'}>
+			<div className={cls['param']}>
+				<div className={cls['func-param']}>
+					<p>{name} Teplota na záhrade a v kuchyni</p>
+					<Checkbox
+						id={paramid}
+						status={currentStatus}
+						onStatusChange={updateParamValue}
+					/>
+				</div>
+			</div>
+		</Card>
+	);
 };
 
 /**
  * Setting parameter component
  * @brief Set value of the parameter (for example, temperature of air condition)
  *
- * @param  devid
  * @param  paramid
  * @param  name
  * @param  value
- * @returns
+ * @returns parameter of type setting component
  */
-const settingParam = (paramid, name, value, minVal, maxVal) => {
-	return <div></div>;
+export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
+	return (
+		<Card margin={'5px 0'}>
+			<div className={cls['param']}></div>
+		</Card>
+	);
 };
 
 /**
  * State parameter component
  *
  * @brief Displays current value of parameter
- * @param  paramid parameter id
  * @param  name name of the parameter
  * @param  value current value
- * @param  minVal minimum value for setting
- * @param  maxVal maximum value for setting
- * @returns
+ * @returns parameter of type state component
  */
-const stateParam = (paramid, name, value) => {
-	return <div></div>;
-};
-
-const SingleParam = ({ paramid, name, value, type, minVal, maxVal }) => {
-	const getParamComponent = (type) => {
-		switch (type) {
-			case 'state':
-				return stateParam(paramid, name, value, type);
-			case 'function':
-				return functionParam(paramid, name, value, type);
-			case 'setting':
-				return settingParam(paramid, name, value, minVal, maxVal);
-			default:
-				break;
-		}
-		return null;
-	};
-
-	const paramItem = getParamComponent(type);
+export const StateParam = ({ name, value }) => {
 	return (
 		<Card margin={'5px 0'}>
-			<div className={cls['param']}>{paramItem}</div>
+			<div className={cls['param']}>
+				{name} {value}
+			</div>
 		</Card>
 	);
 };
-
-export default SingleParam;
