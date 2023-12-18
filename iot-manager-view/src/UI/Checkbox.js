@@ -3,6 +3,7 @@ import cls from './styles/checkbox.module.css';
 
 const Checkbox = ({ id, status, onStatusChange }) => {
 	const [checked, setChecked] = useState(status);
+
 	return (
 		<label htmlFor={'toogle' + id} className={cls['toogle']}>
 			<input

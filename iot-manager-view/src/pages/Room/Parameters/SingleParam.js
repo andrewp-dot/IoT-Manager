@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Card from '../../../UI/Card';
-import Checkbox from '../../../UI/Checkbox';
 import cls from './styles/deviceParams.module.css';
 import config from '../../../config.json';
+import Checkbox from '../../../UI/Checkbox';
 
 /**
  * Switchable functionality parameter component
@@ -14,15 +14,18 @@ import config from '../../../config.json';
  * @returns
  */
 export const FunctionParam = ({ paramid, name, value }) => {
-	const [currentStatus, setStatus] = useState(value === 'on');
+	const [currentStatus, setStatus] = useState(value);
 
 	const updateParamValue = async (status, paramid) => {
+		const statusToStr = !status ? 'on' : 'off';
+		console.log(status);
+		console.log(statusToStr);
 		try {
 			const response = await fetch(config.api.devices.url, {
 				...config.fetchOptions,
 				body: JSON.stringify({
 					paramid: paramid,
-					value: status,
+					value: statusToStr,
 					type: 'function',
 					request: 'changeParamValue',
 				}),
@@ -44,7 +47,7 @@ export const FunctionParam = ({ paramid, name, value }) => {
 					<p>{name}</p>
 					<Checkbox
 						id={paramid}
-						initialState={value}
+						status={currentStatus === 'on'}
 						onStatusChange={updateParamValue}
 					/>
 				</div>
