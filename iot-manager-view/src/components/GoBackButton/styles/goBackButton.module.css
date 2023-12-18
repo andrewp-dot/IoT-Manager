@@ -1,0 +1,16 @@
+.go-back {
+	text-align: center;
+	padding: 1rem;
+	color: var(--color-ligth-grey);
+	background-color: transparent;
+	margin-left: 2rem;
+	border-radius: 5px;
+	width: 50px;
+	border: none;
+	transition: all 0.2s;
+}
+
+.go-back:hover {
+	background-color: var(--color-primary);
+	color: var(--color-dark-grey);
+}

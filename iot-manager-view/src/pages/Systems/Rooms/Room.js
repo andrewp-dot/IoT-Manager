@@ -9,7 +9,7 @@ const Room = ({ roomid, name, devices, sysid, updateRooms }) => {
 	const navigate = useNavigate();
 	const toogleStatusHandler = async (status, devid) => {
 		const statusToStr = status ? 'off' : 'on';
-		if (status != 'err') {
+		if (status !== 'err') {
 			try {
 				const response = await fetch(config.api.devices.url, {
 					...config.fetchOptions,
