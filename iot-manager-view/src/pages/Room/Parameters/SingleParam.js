@@ -105,7 +105,7 @@ export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
 	return (
 		<Card margin={'5px 0'}>
 			<div className={cls['param']}>
-				<p>{name} kooookakosddodasnjsadsadkjdsah</p>
+				<p>{name}</p>
 				<div className={cls['setting-param']}>
 					<div className={cls['range-min']}>{minVal} 123</div>
 					<input

@@ -9,10 +9,10 @@ import cls from './styles/deviceParams.module.css';
 
 const DeviceParams = ({ params }) => {
 	params = [
-		{ id: 1, type: 'state' },
-		{ id: 2, type: 'setting' },
-		{ id: 3, type: 'function' },
-		{ id: 4, type: 'function' },
+		// { id: 1, type: 'state' },
+		// { id: 2, type: 'setting' },
+		// { id: 3, type: 'function' },
+		// { id: 4, type: 'function' },
 	];
 
 	/* parse states */
@@ -36,7 +36,9 @@ const DeviceParams = ({ params }) => {
 	return (
 		<>
 			<div className={cls['device-params']}>
-				<p className={cls['mini-header']}>Current State</p>
+				{currentStates?.length > 0 && (
+					<p className={cls['mini-header']}>Current State</p>
+				)}
 				{currentStates}
 
 				{(currentSettings?.length > 0 || currentFunctions?.length > 0) && (
