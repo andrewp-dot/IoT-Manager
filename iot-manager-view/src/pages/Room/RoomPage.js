@@ -54,6 +54,7 @@ const RoomPage = () => {
 				device={device}
 				onDelete={getRoom}
 				onStatusChange={getRoom}
+				onAddParam={getRoom}
 			/>
 		));
 	}

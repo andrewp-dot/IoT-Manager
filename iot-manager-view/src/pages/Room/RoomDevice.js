@@ -11,6 +11,8 @@ import DeviceSwitch from '../../components/DeviceSwitch/DeviceSwitch';
 import config from '../../config.json';
 import cls from './styles/roomPage.module.css';
 import Button from '../../UI/Button';
+import Dialog from '../../modals/Dialog';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * @param device device data to be desplayed
@@ -18,8 +20,9 @@ import Button from '../../UI/Button';
  * @param onStatusChange function that udpate devices in case of status change
  * @returns Room device card component
  */
-const RoomDevice = ({ device, onDelete, onStatusChange }) => {
+const RoomDevice = ({ device, onDelete, onStatusChange, onAddParam }) => {
 	const [removeDialog, setRemoveDialog] = useState(false);
+	const [addParamDialog, setAddParamDialog] = useState(false);
 
 	const removeDevice = async () => {
 		try {
@@ -53,10 +56,15 @@ const RoomDevice = ({ device, onDelete, onStatusChange }) => {
 					</div>
 				</div>
 
-				<DeviceParams params={device.parameters} />
+				<DeviceParams
+					params={device.parameters}
+					onValueChange={onStatusChange}
+				/>
 				<div className={cls['controls']}>
 					<div className={cls['add-parameter']}>
-						<Button>Add parameter</Button>
+						<Button onClick={() => setAddParamDialog(true)}>
+							Add parameter
+						</Button>
 					</div>
 					<div className={cls['remove-device']} onClick={onDelete}>
 						<RemoveButton
@@ -75,6 +83,11 @@ const RoomDevice = ({ device, onDelete, onStatusChange }) => {
 					onNo={() => setRemoveDialog(false)}
 					onYes={removeDevice}
 				/>
+			)}
+			{addParamDialog && (
+				<Dialog onClose={() => setAddParamDialog(false)} onSucces={onAddParam}>
+					Add param
+				</Dialog>
 			)}
 		</>
 	);

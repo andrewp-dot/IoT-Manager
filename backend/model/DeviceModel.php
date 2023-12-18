@@ -85,18 +85,31 @@ class DeviceModel extends IotDatabase
     public function changeParamValue($paramid, $value)
     {
         $this->db->beginTransaction();
+
         $changeParamValueQuery = "UPDATE parameters SET value = :value WHERE paramid = :paramid";
         $changeParamValueStmt = $this->db->prepare($changeParamValueQuery);
         $changeParamValueStmt->bindParam(':paramid', $paramid, PDO::PARAM_STR);
         $changeParamValueStmt->bindParam(':value', $value, PDO::PARAM_STR);
         $changeParamValueStmt->execute();
+
         $this->db->commit();
     }
 
-    public function addParam()
+    public function addParam($devid, $name, $value, $type, $minVal, $maxVal)
     {
         $this->db->beginTransaction();
-        $addParamQuery = "INSERT INTO parameters";
+
+        $addParamQuery = "INSERT INTO parameters (`name`, `value`, `type`, `minVal`, `maxVal`, `devid`) VALUES
+        (:name , :value , :type , :minVal , :maxVal , :devid )";
+        $addParamStmt = $this->db->prepare($addParamQuery);
+        $addParamStmt->bindParam(":name", $name, PDO::PARAM_STR);
+        $addParamStmt->bindParam(":value", $value, PDO::PARAM_STR);
+        $addParamStmt->bindParam(":type", $type, PDO::PARAM_STR);
+        $addParamStmt->bindParam(":minVal", $minVal, PDO::PARAM_INT);
+        $addParamStmt->bindParam(":maxVal", $maxVal, PDO::PARAM_INT);
+        $addParamStmt->bindParam(":devid", $devid, PDO::PARAM_STR);
+        $addParamStmt->execute();
+
         $this->db->commit();
     }
 

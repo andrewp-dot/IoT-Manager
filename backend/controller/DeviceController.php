@@ -102,6 +102,9 @@ class DeviceController implements BaseController
 
     private function addParameterToDevice($deviceData)
     {
+        // if parameter is stateful, generate random number from 0 35
+        // if parameter is type setting generate value from minVal to maxVal
+        // if parameter is function set the given value (on, off)
     }
 
     private function getDeviceParameters($devid)

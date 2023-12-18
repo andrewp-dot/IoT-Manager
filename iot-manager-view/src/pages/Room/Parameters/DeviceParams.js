@@ -7,7 +7,7 @@ import React from 'react';
 import { StateParam, FunctionParam, SettingParam } from './SingleParam';
 import cls from './styles/deviceParams.module.css';
 
-const DeviceParams = ({ params }) => {
+const DeviceParams = ({ params, onValueChange }) => {
 	/* parse states */
 	const states = params.filter((item) => item.type === 'state');
 	const currentStates = states.map((param) => {
@@ -17,7 +17,13 @@ const DeviceParams = ({ params }) => {
 	/* parse functions */
 	const functions = params.filter((item) => item.type === 'function');
 	const currentFunctions = functions.map((param) => {
-		return <FunctionParam key={param.id} type={param.type} />;
+		return (
+			<FunctionParam
+				key={param.id}
+				type={param.type}
+				onValueChange={onValueChange}
+			/>
+		);
 	});
 
 	/* parse settings */
