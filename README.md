@@ -44,3 +44,17 @@ Inštalácia node modulov (iba pri prvom spustení)
 Backend api:
 
 <code>(cd backend && php -S 127.0.0.1:8000 api.php)</code>
+
+### Použité knižnice:
+
+React js:
+https://react.dev/
+
+Ikony:
+https://fontawesome.com/icons
+
+### Licencie:
+React js:
+https://github.com/facebook/react/blob/main/LICENSE
+
+FontAwesome: https://fontawesome.com/v4/license/
