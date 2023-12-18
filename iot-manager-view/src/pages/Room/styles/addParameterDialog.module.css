@@ -3,9 +3,35 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	margin: 2rem;
+	width: max(300px, 40vw);
+	color: var(--color-secondary);
 }
 
 .form-section {
 	margin-top: 1rem;
-	width: max(300px, 40vw);
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.form-section input,
+.form-section select {
+	width: 100%;
+	border: 1px solid var(--color-secondary);
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+.controls {
+	margin-top: 1rem;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.controls button {
+	margin-left: 1rem;
 }

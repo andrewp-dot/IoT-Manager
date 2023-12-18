@@ -88,7 +88,7 @@ export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
 				console.log(e);
 			}
 		},
-		[changedValue, maxVal]
+		[changedValue]
 	);
 
 	useEffect(() => {

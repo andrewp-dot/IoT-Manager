@@ -19,7 +19,6 @@ const INITIAL_PARAM = {
 
 const AddParamDialog = ({ devid, onClose, onAddParam }) => {
 	const [addParamFormData, setAddParamFormData] = useState(INITIAL_PARAM);
-	// const [error, setError] = useState(false);
 
 	const onSubmitHandler = async (e) => {
 		e.preventDefault();
@@ -29,8 +28,6 @@ const AddParamDialog = ({ devid, onClose, onAddParam }) => {
 			(addParamFormData.minVal >= addParamFormData.maxVal &&
 				addParamFormData.type === 'setting')
 		) {
-			// setError(true);
-			console.log(addParamFormData.type);
 			return;
 		}
 
@@ -52,6 +49,7 @@ const AddParamDialog = ({ devid, onClose, onAddParam }) => {
 		} catch (e) {
 			console.log(e);
 		}
+		onClose();
 	};
 
 	const changeTypeHandler = (e) => {
