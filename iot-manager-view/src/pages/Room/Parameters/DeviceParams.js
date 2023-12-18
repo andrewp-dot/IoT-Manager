@@ -11,7 +11,14 @@ const DeviceParams = ({ params, onValueChange }) => {
 	/* parse states */
 	const states = params.filter((item) => item.type === 'state');
 	const currentStates = states.map((param) => {
-		return <StateParam key={param.id} type={param.type} />;
+		return (
+			<StateParam
+				key={param.id}
+				type={param.type}
+				name={param.name}
+				value={param.value}
+			/>
+		);
 	});
 
 	/* parse functions */
@@ -20,7 +27,9 @@ const DeviceParams = ({ params, onValueChange }) => {
 		return (
 			<FunctionParam
 				key={param.id}
-				type={param.type}
+				paramid={param.id}
+				value={param.value}
+				name={param.name}
 				onValueChange={onValueChange}
 			/>
 		);
@@ -29,7 +38,16 @@ const DeviceParams = ({ params, onValueChange }) => {
 	/* parse settings */
 	const settings = params.filter((item) => item.type === 'setting');
 	const currentSettings = settings.map((param) => {
-		return <SettingParam key={param.id} type={param.type} />;
+		return (
+			<SettingParam
+				key={param.id}
+				paramid={param.id}
+				value={param.value}
+				name={param.name}
+				minVal={param.minVal}
+				maxVal={param.maxVal}
+			/>
+		);
 	});
 
 	return (

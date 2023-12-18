@@ -85,8 +85,9 @@ const RoomDevice = ({ device, onDelete, onStatusChange, onAddParam }) => {
 			)}
 			{addParamDialog && (
 				<AddParamDialog
+					devid={device.id}
 					onClose={() => setAddParamDialog(false)}
-					onSucces={onAddParam}
+					onAddParam={onAddParam}
 				/>
 			)}
 		</>

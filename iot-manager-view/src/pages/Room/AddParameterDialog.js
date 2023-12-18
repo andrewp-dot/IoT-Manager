@@ -12,23 +12,25 @@ import config from '../../config.json';
 
 const INITIAL_PARAM = {
 	name: '',
-	type: '',
-	minVal: null,
-	maxVal: null,
+	type: 'state',
+	minVal: 0,
+	maxVal: 0,
 };
 
 const AddParamDialog = ({ devid, onClose, onAddParam }) => {
 	const [addParamFormData, setAddParamFormData] = useState(INITIAL_PARAM);
-	const [error, setError] = useState(false);
+	// const [error, setError] = useState(false);
 
 	const onSubmitHandler = async (e) => {
 		e.preventDefault();
 		if (
 			addParamFormData.name.trim() === '' ||
 			addParamFormData.type.trim() === '' ||
-			addParamFormData.minVal > addParamFormData.maxVal
+			(addParamFormData.minVal >= addParamFormData.maxVal &&
+				addParamFormData.type === 'setting')
 		) {
-			setError(true);
+			// setError(true);
+			console.log(addParamFormData.type);
 			return;
 		}
 
@@ -86,12 +88,10 @@ const AddParamDialog = ({ devid, onClose, onAddParam }) => {
 						<select
 							name='type'
 							id='type'
-							value={addParamFormData.type}
+							defaultValue={'state'}
 							onChange={changeTypeHandler}
 						>
-							<option value='state' selected>
-								State
-							</option>
+							<option value='state'>State</option>
 							<option value='function'>Function</option>
 							<option value='setting'>Setting</option>
 						</select>
@@ -126,7 +126,7 @@ const AddParamDialog = ({ devid, onClose, onAddParam }) => {
 						<Button type='click' inverseStyle={true} onClick={onClose}>
 							Cancel
 						</Button>
-						<Button type={'submit'} onClick={onSubmitHandler}>
+						<Button type={'click'} onClick={onSubmitHandler}>
 							Add
 						</Button>
 					</div>

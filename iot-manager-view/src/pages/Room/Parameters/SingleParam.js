@@ -14,7 +14,7 @@ import config from '../../../config.json';
  * @returns
  */
 export const FunctionParam = ({ paramid, name, value }) => {
-	const [currentStatus, setStatus] = useState(value);
+	const [currentStatus, setStatus] = useState(value === 'on');
 
 	const updateParamValue = async (status, paramid) => {
 		try {
@@ -28,7 +28,7 @@ export const FunctionParam = ({ paramid, name, value }) => {
 				}),
 			});
 			if (response.ok) {
-				setStatus(!status);
+				setStatus(!currentStatus);
 			}
 			const message = await response.json();
 			console.log(message);
@@ -44,7 +44,7 @@ export const FunctionParam = ({ paramid, name, value }) => {
 					<p>{name}</p>
 					<Checkbox
 						id={paramid}
-						status={currentStatus}
+						initialState={value}
 						onStatusChange={updateParamValue}
 					/>
 				</div>
@@ -63,7 +63,7 @@ export const FunctionParam = ({ paramid, name, value }) => {
  * @returns parameter of type setting component
  */
 export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
-	const [changedValue, setChangedValue] = useState(value);
+	const [changedValue, setChangedValue] = useState(parseFloat(value));
 
 	const updateParamValue = useCallback(
 		async (paramid) => {
@@ -72,7 +72,7 @@ export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
 					...config.fetchOptions,
 					body: JSON.stringify({
 						paramid: paramid,
-						value: (changedValue / 100) * maxVal,
+						value: changedValue,
 						type: 'setting',
 						request: 'changeParamValue',
 					}),
@@ -99,7 +99,7 @@ export const SettingParam = ({ paramid, name, value, minVal, maxVal }) => {
 	}, [changedValue, paramid, updateParamValue]);
 
 	const onChangeHandler = (e) => {
-		setChangedValue((e.target.value / 100) * 25);
+		setChangedValue((e.target.value / 100) * maxVal);
 	};
 
 	return (

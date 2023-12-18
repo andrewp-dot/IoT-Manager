@@ -37,6 +37,7 @@ class DeviceController implements BaseController
             ApiError::reportMessage('Param change was succesful');
         } else if ($requestedData['request'] === 'addParam') {
             $this->addParameterToDevice($requestedData);
+            ApiError::reportMessage('Param has been added succesfuly');
         } else {
             ApiError::reportError(400, 'Unhandled type of request.');
         }
@@ -101,7 +102,6 @@ class DeviceController implements BaseController
 
     private function genereteValue($min, $max)
     {
-
         return strval(rand($min, $max));
     }
 
@@ -112,13 +112,13 @@ class DeviceController implements BaseController
         if (trim($paramData['type']) === 'state') {
             $value = $this->genereteValue(0, 35);
             // if parameter is type setting generate value from minVal to maxVal
+        } else if (trim($paramData['type']) === 'setting') {
             if (isset($paramData['minVal']) && isset($paramData['maxVal'])) {
                 $value = $this->genereteValue($paramData['minVal'], $paramData['maxVal']);
             } else {
                 ApiError::reportError(400, 'Missing min or max value');
                 return;
             }
-        } else if (trim($paramData['type']) === 'setting') {
             // if parameter is function set the function to off
         } else if (trim($paramData['type']) === 'function') {
             $value = 'off';
@@ -137,7 +137,7 @@ class DeviceController implements BaseController
         $params = [];
         foreach ($fetchedParams as $param) {
             $params[] = [
-                "paramid" => $param['paramid'],
+                "id" => $param['paramid'],
                 "name" => $param['name'],
                 "value" => $param['value'],
                 "type" => $param['type'],
@@ -153,6 +153,7 @@ class DeviceController implements BaseController
     {
         if (!isset($paramData['value'])) {
             ApiError::reportError(400, 'Missing value.');
+            return;
         }
 
         switch ($paramData['type']) {

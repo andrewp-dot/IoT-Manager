@@ -115,7 +115,7 @@ class DeviceModel extends IotDatabase
 
     public function getDeviceParameters($devid)
     {
-        $getDeviceParamsQuery = "SELECT * FROM parameters JOIN devices ON parameters.devid = devices.devid WHERE devices.devid = ?";
+        $getDeviceParamsQuery = "SELECT parameters.paramid, parameters.name, parameters.value, parameters.type, parameters.minVal, parameters.maxVal FROM parameters JOIN devices ON parameters.devid = devices.devid WHERE devices.devid = ?";
         $getDeviceParamsStmt = $this->db->prepare($getDeviceParamsQuery);
         $getDeviceParamsStmt->execute([$devid]);
         return $getDeviceParamsStmt->fetchAll();

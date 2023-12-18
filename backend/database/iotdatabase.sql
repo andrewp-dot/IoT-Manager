@@ -100,10 +100,10 @@ CREATE TABLE `parameters` (
   `paramid` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
   `name` varchar(255) NOT NULL,
   `value` varchar(255) DEFAULT NULL,
-  `type` NUM('state', 'function', 'setting') DEFAULT 'state' NOT NULL,
+  `type` ENUM('state', 'function', 'setting') DEFAULT 'state' NOT NULL,
   `minVal` INT,
   `maxVal` INT,
-  `devid` varchar(255) NOT NULL,
+  `devid` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY(`paramid` , `devid`),
   CONSTRAINT `devid` FOREIGN KEY (`devid`) REFERENCES `devices` (`devid`)
     ON DELETE CASCADE
