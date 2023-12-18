@@ -35,6 +35,11 @@
 	text-wrap: wrap;
 }
 
+.system:hover {
+	background-color: rgba(0, 0, 0, 10%);
+	border-radius: 25px;
+}
+
 .add-system {
 	display: flex;
 	flex-direction: column;

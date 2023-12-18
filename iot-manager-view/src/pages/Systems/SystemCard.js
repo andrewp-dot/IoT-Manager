@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '../../UI/Card';
-import cls from './styles/systems.module.css';
 import { Link } from 'react-router-dom';
+import cls from './styles/systems.module.css';
 
 const SystemCard = ({ system }) => {
 	const systemUrl = '/systems/' + system.id;

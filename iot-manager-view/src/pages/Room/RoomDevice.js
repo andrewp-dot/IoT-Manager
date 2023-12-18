@@ -1,11 +1,12 @@
 /**
- * @author xponec
+ * @author xponec01
  * @brief Component for display device on room page
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import LogoutButton from '../../UI/LogoutButton';
 import DeviceParams from './Parameters/DeviceParams';
+import QuestionDialog from '../../modals/QuestionDialog';
 import config from '../../config.json';
 import cls from './styles/roomPage.module.css';
 
@@ -16,6 +17,8 @@ import cls from './styles/roomPage.module.css';
  * @returns
  */
 const RoomDevice = ({ device, onDelete }) => {
+	const [removeDialog, setRemoveDialog] = useState(false);
+
 	const removeDevice = async () => {
 		try {
 			const response = await fetch(config.api.devices.url, {
@@ -34,19 +37,31 @@ const RoomDevice = ({ device, onDelete }) => {
 	};
 
 	return (
-		<div className={cls['device']}>
-			<div className={cls['device-header']}>
-				<div className={cls['alias']}>{device.alias}</div>
-				<div className={cls['status']}>{device.status}</div>
-			</div>
+		<>
+			<div className={cls['device']}>
+				<div className={cls['device-header']}>
+					<div className={cls['alias']}>{device.alias}</div>
+					<div className={cls['status']}>{device.status}</div>
+				</div>
 
-			<DeviceParams params={device.params} />
-			<div className={cls['controls']}>
-				<div className={cls['remove-device']} onClick={onDelete}>
-					<LogoutButton onClick={removeDevice}>Remove</LogoutButton>
+				<DeviceParams params={device.params} />
+				<div className={cls['controls']}>
+					<div className={cls['remove-device']} onClick={onDelete}>
+						<LogoutButton onClick={() => setRemoveDialog(true)}>
+							Remove
+						</LogoutButton>
+					</div>
 				</div>
 			</div>
-		</div>
+			{removeDialog && (
+				<QuestionDialog
+					question={`Are you sure you want to delete ${device.alias}?`}
+					onClose={() => setRemoveDialog(false)}
+					onNo={() => setRemoveDialog(false)}
+					onYes={removeDevice}
+				/>
+			)}
+		</>
 	);
 };
 
