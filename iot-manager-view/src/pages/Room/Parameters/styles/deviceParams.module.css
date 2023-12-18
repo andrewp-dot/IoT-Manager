@@ -36,10 +36,12 @@
 
 .param p,
 .func-param p {
+	margin-left: 4%;
 	width: 200px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	display: flex;
 }
 
 .setting-param {
@@ -60,4 +62,13 @@
 .range-value {
 	height: 20px;
 	text-align: center;
+}
+
+.state-param {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }

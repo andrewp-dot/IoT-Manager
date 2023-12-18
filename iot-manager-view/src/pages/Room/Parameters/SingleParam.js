@@ -139,8 +139,10 @@ export const StateParam = ({ name, value }) => {
 	return (
 		<Card margin={'5px 0'}>
 			<div className={cls['param']}>
-				<div>{name}</div>
-				<div>{value}</div>
+				<div className={cls['state-param']}>
+					<div>{name}</div>
+					<div>{value}</div>
+				</div>
 			</div>
 		</Card>
 	);
