@@ -27,7 +27,12 @@
 }
 
 .room .title {
+	width: 100%;
 	text-transform: capitalize;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 1.2rem;
 }
 
 .add-room {
@@ -47,7 +52,7 @@
 }
 
 .devices-preview-container {
-	max-height: 200px;
+	max-height: 300px;
 	overflow-y: auto;
 }
 

@@ -57,7 +57,6 @@ const RoomDevice = ({ device, onDelete, onStatusChange }) => {
 					<div className={cls['remove-device']} onClick={onDelete}>
 						<RemoveButton
 							onClick={() => setRemoveDialog(true)}
-							// disabled={userCtx.user.login !== systemOwner}
 							disabled={false}
 						>
 							Remove
