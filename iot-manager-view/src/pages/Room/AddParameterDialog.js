@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import Dialog from '../../modals/Dialog';
 import cls from './styles/addParameterDialog.module.css';
 import Card from '../../UI/Card';
+import Button from '../../UI/Button';
 import config from '../../config.json';
 
 const INITIAL_PARAM = {
@@ -20,7 +21,8 @@ const AddParamDialog = ({ devid, onClose, onAddParam }) => {
 	const [addParamFormData, setAddParamFormData] = useState(INITIAL_PARAM);
 	const [error, setError] = useState(false);
 
-	const onSubmitHandler = async () => {
+	const onSubmitHandler = async (e) => {
+		e.preventDefault();
 		if (
 			addParamFormData.name.trim() === '' ||
 			addParamFormData.type.trim() === '' ||
@@ -120,6 +122,12 @@ const AddParamDialog = ({ devid, onClose, onAddParam }) => {
 							</div>
 						</>
 					)}
+					<div className={cls['controls']}>
+						<Button inverseStyle={true} onClick={onClose}>
+							Cancel
+						</Button>
+						<Button>Add</Button>
+					</div>
 				</form>
 			</Card>
 		</Dialog>
