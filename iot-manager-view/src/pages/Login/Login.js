@@ -1,3 +1,8 @@
+/**
+ * @author xponec01
+ * @brief Page for login
+ */
+
 import React from 'react';
 import LoginForm from '../../components/LoginForm';
 import cls from '../styles/formPage.module.css';

@@ -1,3 +1,8 @@
+/**
+ * @author xponec01
+ * @brief Register page
+ */
+
 import React from 'react';
 import RegisterForm from '../../components/RegisterForm';
 import cls from '../styles/formPage.module.css';

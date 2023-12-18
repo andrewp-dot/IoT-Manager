@@ -1,3 +1,8 @@
+/**
+ * @author xponec01
+ * @brief homepage
+ */
+
 import React from 'react';
 import BasicPage from '../BasicPage';
 
@@ -6,14 +11,15 @@ const Home = () => {
 		<BasicPage>
 			<div
 				style={{
-					marginTop: '40vh',
+					width: '100vw',
+					height: '90vh',
 					fontSize: '4rem',
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
 				}}
 			>
-				Welcome to the world of IOT
+				Welcome to IoT Manager
 			</div>
 		</BasicPage>
 	);
