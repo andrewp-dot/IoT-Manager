@@ -81,4 +81,30 @@ class DeviceModel extends IotDatabase
 
         $this->db->commit();
     }
+
+    public function changeParamValue($paramid, $value)
+    {
+        $this->db->beginTransaction();
+        $changeParamValueQuery = "UPDATE parameters SET value = :value WHERE paramid = :paramid";
+        $changeParamValueStmt = $this->db->prepare($changeParamValueQuery);
+        $changeParamValueStmt->bindParam(':paramid', $paramid, PDO::PARAM_STR);
+        $changeParamValueStmt->bindParam(':value', $value, PDO::PARAM_STR);
+        $changeParamValueStmt->execute();
+        $this->db->commit();
+    }
+
+    public function addParam()
+    {
+        $this->db->beginTransaction();
+        $addParamQuery = "INSERT INTO parameters";
+        $this->db->commit();
+    }
+
+    public function getDeviceParameters($devid)
+    {
+        $getDeviceParamsQuery = "SELECT * FROM parameters JOIN devices ON parameters.devid = devices.devid WHERE devices.devid = ?";
+        $getDeviceParamsStmt = $this->db->prepare($getDeviceParamsQuery);
+        $getDeviceParamsStmt->execute([$devid]);
+        return $getDeviceParamsStmt->fetchAll();
+    }
 }

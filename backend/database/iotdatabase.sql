@@ -99,27 +99,15 @@ CREATE TABLE `devices` (
 CREATE TABLE `parameters` (
   `paramid` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
   `name` varchar(255) NOT NULL,
-  `value` float DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  `type` NUM('state', 'function', 'setting') DEFAULT 'state' NOT NULL,
+  `minVal` INT,
+  `maxVal` INT,
   `devid` varchar(255) NOT NULL,
-  PRIMARY KEY(`paramid` , `devid`)
+  PRIMARY KEY(`paramid` , `devid`),
+  CONSTRAINT `devid` FOREIGN KEY (`devid`) REFERENCES `devices` (`devid`)
+    ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
---
--- Table structure for table `kpis`
---
--- CREATE TABLE `kpis` (
---   `id` int(10) UNSIGNED AUTO_INCREMENT NOT NULL,
---   `max` float DEFAULT NULL,
---   `min` float DEFAULT NULL,
---   `equals` int(10) DEFAULT NULL,
---   `nequals` int(10) DEFAULT NULL,
---   `paramid` int(10) UNSIGNED NOT NULL,
---   `devid` varchar(255) NOT NULL,
---   PRIMARY KEY(`id`, `paramid`, `devid`),
---   CONSTRAINT `devid_fk` FOREIGN KEY (`devid`) REFERENCES `devices` (`id`),
---   CONSTRAINT `kpiparam` FOREIGN KEY (`paramid`) REFERENCES `parameters` (`id`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- -- Mock data dumps
 -- -- --------------------------------------------------------

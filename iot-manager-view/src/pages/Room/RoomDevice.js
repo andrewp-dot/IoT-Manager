@@ -53,7 +53,7 @@ const RoomDevice = ({ device, onDelete, onStatusChange }) => {
 					</div>
 				</div>
 
-				<DeviceParams params={device.params} />
+				<DeviceParams params={device.parameters} />
 				<div className={cls['controls']}>
 					<div className={cls['add-parameter']}>
 						<Button>Add parameter</Button>

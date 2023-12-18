@@ -30,6 +30,14 @@ class DeviceController implements BaseController
         } else if ($requestedData['request'] === 'deleteDevice') {
             $this->deleteDevice($requestedData['devid']);
             ApiError::reportMessage('Device has been deleted succesfuly');
+
+            // TODO:
+
+        } else if ($requestedData['request'] === 'changeParamValue') {
+            $this->changeParameterValue($requestedData);
+            ApiError::reportMessage('Param change was succesful');
+        } else if ($requestedData['request'] === 'addParam') {
+            $this->changeParameterValue($requestedData);
         } else {
             ApiError::reportError(400, 'Unhandled type of request.');
         }
@@ -58,6 +66,7 @@ class DeviceController implements BaseController
                 "status" => $device['status'],
                 "type" => $device['type'],
                 "description" => $device['description'],
+                "parameters" => $this->getDeviceParameters($device['devid']),
             ];
         }
         return $devices;
@@ -89,5 +98,47 @@ class DeviceController implements BaseController
     private function deleteDevice($deviceID)
     {
         $this->deviceModel->deleteDevice($deviceID);
+    }
+
+    private function addParameterToDevice($deviceData)
+    {
+    }
+
+    private function getDeviceParameters($devid)
+    {
+        $fetchedParams = $this->deviceModel->getDeviceParameters($devid);
+
+        $params = [];
+        foreach ($fetchedParams as $param) {
+            $params[] = [
+                "paramid" => $param['paramid'],
+                "name" => $param['name'],
+                "value" => $param['value'],
+                "type" => $param['type'],
+                "minVal" => $param['minVal'],
+                "maxVal" => $param['maxVal'],
+            ];
+        }
+
+        return $params;
+    }
+
+    private function changeParameterValue($paramData)
+    {
+        if (!isset($paramData['value'])) {
+            ApiError::reportError(400, 'Missing value.');
+        }
+
+        switch ($paramData['type']) {
+            case 'function':
+                $this->deviceModel->changeParamValue($paramData['paramid'], $paramData['value']);
+                break;
+            case 'setting':
+                $this->deviceModel->changeParamValue($paramData['paramid'], strval($paramData['value']));
+                break;
+            default:
+                ApiError::reportError(400, 'Unsuported parameter type to change.');
+                return;
+        }
     }
 }
